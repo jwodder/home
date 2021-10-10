@@ -45,3 +45,11 @@ mkdir -p ~/work
 if command -V make &> /dev/null
 then make -C ~/share/spell
 fi
+
+mkdir -p ~/.vim/pack/plugins/start
+cd ~/.vim/pack/plugins/start
+for repo in https://github.com/cespare/vim-toml \
+            https://github.com/knatsakis/deb.vim \
+            https://github.com/ntpeters/vim-better-whitespace
+do [ -e "$(basename "$repo")" ] || git clone "$repo"
+done
