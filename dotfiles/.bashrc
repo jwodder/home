@@ -2,14 +2,12 @@
 
 export GPG_TTY="$(tty)"
 
-alias ls='LC_ALL=C.UTF-8 ls'
 {%@@ if profile == "macOS" @@%}
 alias toc='ls -ACFG'
 {%@@ else @@%}
 alias toc='ls -ACF --color'
 {%@@ endif @@%}
-alias sort='LC_ALL=C.UTF-8 sort'
-alias tree="{%@@ if profile != "macOS" @@%}LC_ALL=C.UTF-8 {%@@ endif @@%}tree -aF -I '__pycache__|.git|venv|.nox|.tox|*.egg-info|.cache' --matchdirs --noreport"
+alias tree="tree -aF -I '__pycache__|.git|venv|.nox|.tox|*.egg-info|.cache' --matchdirs --noreport"
 
 {%@@ if profile == "macOS" @@%}
 PS1='\d \w\$ '
@@ -17,8 +15,8 @@ PS1='\d \w\$ '
 PS1='\u@\h:\w\$ '
 {%@@ endif @@%}
 
-shopt -s checkwinsize globstar histappend no_empty_cmd_completion progcomp
-#shopt -s failglob  # Not supported by bash-completion
+shopt -s checkwinsize direxpand globstar histappend no_empty_cmd_completion
+shopt -s progcomp
 set -o ignoreeof -o pipefail
 
 HISTCONTROL=ignoredups
@@ -35,6 +33,7 @@ elif _have_command lesspipe.sh  # Homebrew
 then eval "$(lesspipe.sh)"
 fi
 
+{%@@ if profile != "macOS" @@%}
 if _have_command dircolors
 then if [ -r ~/.dircolors ]
      then eval "$(dircolors -b ~/.dircolors)"
@@ -42,16 +41,31 @@ then if [ -r ~/.dircolors ]
      fi
 fi
 
+{%@@ endif @@%}
 function show_exit_status {
     CHILD_ERROR="${?:-0}"
     [ "$CHILD_ERROR" = 0 ] || printf '\033[1;31m[%d]\033[0m\n' "$CHILD_ERROR"
 }
 
+{%@@ if profile == "macOS" @@%}
 PROMPT_COMMAND=show_exit_status
-if [ -e "$HOME/share/ps1.py" ]
-then PS1_GIT=on
-     PROMPT_COMMAND="$PROMPT_COMMAND"'; PS1="$(python3 ~/share/ps1.py "$PS1_GIT")"'
-fi
+
+function show_my_ps1 {
+    PS1="$(python3 ~/share/ps1.py "$PS1_GIT")"
+}
+
+function ps1_on {
+    PROMPT_COMMAND="$PROMPT_COMMAND; show_my_ps1"
+}
+
+function ps1_off {
+    PROMPT_COMMAND="${PROMPT_COMMAND/; show_my_ps1/}"
+    PS1='\d \w\$ '
+}
+{%@@ else @@%}
+PS1_GIT=on
+PROMPT_COMMAND=show_exit_status'; PS1="$(python3 ~/share/ps1.py "$PS1_GIT")"'
+{%@@ endif @@%}
 
 {%@@ if profile != "macOS" @@%}
 # TODO: Is it even necessary to set this?
