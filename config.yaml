@@ -11,6 +11,11 @@ config:
   link_on_import: nolink
   longkey: true
   showdiff: true
+  template_dotfile_default: false
+
+actions:
+  post:
+    private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
 
 dotfiles:
   f_bash_completion:
@@ -31,14 +36,12 @@ dotfiles:
   f_gitconfig:
     src: .gitconfig
     dst: ~/.gitconfig
-  d_gnupg:
-    src: .gnupg
-    dst: ~/.gnupg
-    chmod: '700'
   f_gnupg_gpg.conf:
     src: .gnupg/gpg.conf
     dst: ~/.gnupg/gpg.conf
     chmod: '600'
+    actions:
+      - private-dir
   f_inputc:
     src: .inputrc
     dst: ~/.inputrc
