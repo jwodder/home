@@ -3,19 +3,19 @@
 export GPG_TTY="$(tty)"
 
 alias ls='LC_ALL=C.UTF-8 ls'
+{%@@ if profile == "macOS" @@%}
+alias toc='ls -ACFG'
+{%@@ else @@%}
+alias toc='ls -ACF --color'
+{%@@ endif @@%}
 alias sort='LC_ALL=C.UTF-8 sort'
-alias tree="LC_ALL=C.UTF-8 tree -aF -I '__pycache__|.git|venv|.nox|.tox|*.egg-info|.cache' --matchdirs --noreport"
+alias tree="{%@@ if profile != "macOS" @@%}LC_ALL=C.UTF-8 {%@@ endif @@%}tree -aF -I '__pycache__|.git|venv|.nox|.tox|*.egg-info|.cache' --matchdirs --noreport"
 
-case "$(uname)" in
-    Darwin) alias toc='ls -ACFG'
-            PS1='\d \w\$ '
-            ;;
-         *) alias toc='ls -ACF --color'
-            PS1='\u@\h:\w\$ '
-            # TODO: Is it even necessary to set this?
-            BASH_COMPLETION_COMPAT_DIR=/etc/bash_completion.d
-            ;;
-esac
+{%@@ if profile == "macOS" @@%}
+PS1='\d \w\$ '
+{%@@ else @@%}
+PS1='\u@\h:\w\$ '
+{%@@ endif @@%}
 
 shopt -s checkwinsize globstar histappend no_empty_cmd_completion progcomp
 #shopt -s failglob  # Not supported by bash-completion
@@ -53,6 +53,10 @@ then PS1_GIT=on
      PROMPT_COMMAND="$PROMPT_COMMAND"'; PS1="$(python3 ~/share/ps1.py "$PS1_GIT")"'
 fi
 
+{%@@ if profile != "macOS" @@%}
+# TODO: Is it even necessary to set this?
+BASH_COMPLETION_COMPAT_DIR=/etc/bash_completion.d
+{%@@ endif @@%}
 for compfile in /usr/local/share/bash-completion/bash_completion \
                 /usr/share/bash-completion/bash_completion \
                 /etc/bash_completion

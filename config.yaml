@@ -16,7 +16,6 @@ config:
 actions:
   post:
     private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
-  post:
     work: 'mkdir -p ~/work'
     Mail: 'mkdir -p ~/Mail'
     make-spell: 'make -C ~/share/spell'
@@ -28,6 +27,7 @@ dotfiles:
   f_bashrc:
     src: .bashrc
     dst: ~/.bashrc
+    template: true
   f_config_flake8:
     src: .config/flake8
     dst: ~/.config/flake8
@@ -70,6 +70,7 @@ dotfiles:
   f_profile:
     src: .profile
     dst: ~/.profile
+    template: true
   f_screenrc:
     src: .screenrc
     dst: ~/.screenrc
@@ -79,6 +80,7 @@ dotfiles:
   f_vimrc:
     src: .vimrc
     dst: ~/.vimrc
+    template: true
   f_bin_apt-check:
     src: bin/apt-check
     dst: ~/bin/apt-check
@@ -151,7 +153,6 @@ profiles:
       - f_config_flake8
       - f_config_pip_pip.conf
       - f_gitconfig
-      - d_gnupg
       - f_gnupg_gpg.conf
       - f_inputc
       - f_profile

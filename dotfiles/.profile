@@ -1,8 +1,11 @@
+{%@@ if profile == "macOS" @@%}
+cd ~/work
+{%@@ endif @@%}
 [ -t 0 ] && mesg n
 umask 0022
 
 export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
+export PATH="{%@@ if profile == "macOS" @@%}/usr/local/sbin:{%@@ endif @@%}$PATH:$HOME/bin:$HOME/.local/bin"
 export MANPATH="$MANPATH:$HOME/man"
 
 pyuserbase="$(python3 -msite --user-base)"

@@ -1,14 +1,12 @@
-set spl=en sps=best,13 spc=
-set spf=~/share/spell/words.utf-8.add
-set spf+=~/share/spell/poke.utf-8.add
-set spf+=~/share/spell/mtg.utf-8.add
-set spf+=~/share/spell/personal.utf-8.add
-
 set flp=\\v^\\s*[[(]?(\\d+\|\\a\|[IiVvXxLlCcDdMm]+)[]:.)]\\s+
 set com^=s1:#\|,mb:\|,ex:\|#,b:--,b:#:,n:# com+=b:!,b:\",b:;,bf:..,b:\\
+set spl=en sps=best,13 spc= spf=~/share/spell/words.utf-8.add
 set ai bs=2 cm=blowfish2 cpo+=M enc=utf-8 et fcl=all fo+=n ic
 set lcs+=tab:‣‧,trail:‧ ml mls=1 mps+=<:> ru ruf=%l:%c sc scs sts=4 sw=1
 set ww=h,l,[,]
+{%@@ if profile != "macOS" @@%}
+set bg=dark
+{%@@ endif @@%}
 
 au BufNewFile,BufRead *.{bh,tsv,txt} setl noet sts=0
 au BufNewFile,BufRead *.{yml,yaml}   setl sts=2
@@ -27,7 +25,6 @@ dig NE 8708 ~= 8773 ~~ 8776 T^ 8868 \|- 8866 v\| 8595 ^\| 8593 \\ 8726 dx 10799
 dig _. 8228 .. 8230 )< 8828
 
 map s 24j|map S 24k
-"map s <C-F>zz|map S <C-B>zz
 map W <C-W>w
 map \- :exe "normal " . (81-col("$")) . "A-\e"<CR>
 map \= :exe "normal " . (81-col("$")) . "A=\e"<CR>
