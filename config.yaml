@@ -47,6 +47,9 @@ dotfiles:
   f_inputc:
     src: .inputrc
     dst: ~/.inputrc
+  f_jq:
+    src: .jq
+    dst: ~/.jq
   f_lessfilter:
     src: .lessfilter
     dst: ~/.lessfilter
@@ -154,6 +157,7 @@ profiles:
       - f_gitconfig
       - f_gnupg_gpg.conf
       - f_inputc
+      - f_jq
       - f_profile
       - f_screenrc
       - f_share_ps1.py
