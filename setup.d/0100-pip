@@ -1,0 +1,29 @@
+#!/bin/bash
+set -ex -o pipefail
+
+pybinpath="$(python3 -msite --user-base)"/bin
+if [[ ":$PATH:" != *":$pybinpath:"* ]]
+then PATH="$pybinpath:$PATH"
+fi
+
+if ! command -V pip3 > /dev/null 2>&1
+then wget -O- https://bootstrap.pypa.io/get-pip.py | python3 - --user
+fi
+
+python3 -m pip install --user --upgrade pip setuptools wheel
+python3 -m pip install --user --upgrade \
+    black \
+    build \
+    click \
+    flake8 \
+    flake8-bugbear \
+    flake8-builtins \
+    flake8-unused-arguments \
+    nox \
+    pip-run \
+    pipx \
+    pre-commit \
+    requests \
+    tox \
+    virtualenv \
+    virtualenvwrapper
