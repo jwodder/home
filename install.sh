@@ -40,7 +40,7 @@ esac
 dotdrop install
 
 mkdir -p ~/work
-#mkdir -p ~/Mail
+[ -z "$MAIL_HOSTNAME" ] || mkdir -p ~/Mail
 
 if command -V make &> /dev/null
 then make -C ~/share/spell
