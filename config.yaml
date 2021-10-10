@@ -16,6 +16,10 @@ config:
 actions:
   post:
     private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
+  post:
+    work: 'mkdir -p ~/work'
+    Mail: 'mkdir -p ~/Mail'
+    make-spell: 'make -C ~/share/spell'
 
 dotfiles:
   f_bash_completion:
@@ -158,6 +162,9 @@ profiles:
       - f_share_util.gbc
       - f_vim_filetype.vim
       - f_vimrc
+    actions:
+      - work
+      - make-spell
 
   macOS:
     include:
@@ -183,3 +190,5 @@ profiles:
       - f_mutt_keys
       - f_mutt_local
       - f_mutt_muttrc
+    actions:
+      - Mail
