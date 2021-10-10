@@ -3,6 +3,8 @@ config:
   banner: false
   create: true
   dotpath: dotfiles
+  filter_file:
+    - lib/filters.py
   force_chmod: true
   ignore_missing_in_dotdrop: true
   ignoreempty: true
@@ -17,6 +19,10 @@ actions:
   post:
     private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
     #make-spell: 'make -C ~/share/spell'
+
+dynvariables:
+  lesspath: type -p less
+  vimpath: type -p vim
 
 dotfiles:
   f_bash_completion:
@@ -68,6 +74,7 @@ dotfiles:
   f_mutt_muttrc:
     src: .mutt/muttrc
     dst: ~/.mutt/muttrc
+    template: true
   f_profile:
     src: .profile
     dst: ~/.profile

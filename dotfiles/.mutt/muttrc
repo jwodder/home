@@ -8,7 +8,7 @@ unset confirmappend
 set date_format="!%Y-%m-%d %H:%M:%S %Z"
 set delete=yes
 set edit_headers
-set editor="/usr/bin/vim"
+set editor="{{@@ vimpath @@}}"
 set fast_reply
 #unset followup_to
 set forward_format="Fwd: %s"
@@ -35,7 +35,7 @@ set status_format="%v -%r- %f -- %m msgs%?u?, %u unread?%?d?, %d del?%?t?, %t ta
 set strict_threads
 set tilde
 set timeout=180
-set visual="/usr/bin/vim"
+set visual="{{@@ vimpath @@}}"
 set wrap=80
 
 ignore Authentication-Results Delivered-To DKIM-Signature DomainKey-Signature

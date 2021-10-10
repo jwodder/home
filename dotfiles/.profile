@@ -13,10 +13,10 @@ if [ "x$pyuserbase" != "x$HOME/.local" -a -d "$pyuserbase/bin" ]
 then PATH="$PATH:$pyuserbase/bin"
 fi
 
-export PAGER=/usr/bin/less
+export PAGER={{@@ lesspath|shlex_quote @@}}
 export MANPAGER="$PAGER -is"
 export LESS=-iRS
-export EDITOR=/usr/bin/vim
+export EDITOR={{@@ vimpath|shlex_quote @@}}
 export VISUAL="$EDITOR"
 export BC_ENV_ARGS="-lq $HOME/share/util.gbc"
 export SYSTEMD_LESS=-iRS
