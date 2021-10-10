@@ -1,4 +1,15 @@
 #!/bin/bash
+export MAIL_HOSTNAME=
+while getopts :m: opt
+do
+    case "$opt" in
+        m) MAIL_HOSTNAME="$OPTARG"
+           ;;
+        *) echo "Usage: $0 [-m <mail hostname>]" 1>&2
+           exit 2
+    esac
+done
+
 set -ex
 
 cd "$(dirname "$0")"
@@ -11,7 +22,18 @@ fi
 case "$(uname)" in
     Darwin) export DOTDROP_PROFILE=macOS
             ;;
-     Linux) export DOTDROP_PROFILE=debian
+     Linux) source /etc/os-release
+            if [ "x$ID" = xdebian ] || [ "x$ID_LIKE" = xdebian ]
+            then if [ -n "$MAIL_HOSTNAME" ]
+                 then export DOTDROP_PROFILE=debian-mail
+                 else export DOTDROP_PROFILE=debian
+                 fi
+            else echo "[WARNING] Unsupported distribution" >&2
+                 export DOTDROP_PROFILE=base
+            fi
+            ;;
+         *) echo "Unknown OS: $(uname)" >&2
+            exit 1
             ;;
 esac
 
