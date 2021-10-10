@@ -1,0 +1,55 @@
+#!/usr/bin/perl -w
+# Options:
+#  -a - Find all matching files, not just one per argument
+#  -f - As long as at least one file is found, open all found files in Vim
+#  -l - List the paths to the found files rather than opening them
+#  -q - Suppress warnings about unfound files
+# TODO: Add support for globbing.
+use strict;
+use Getopt::Std;
+
+my @descend = ($ENV{HOME});  # Directories to search completely
+my @skim = ();               # Directories to search no levels down
+
+sub find($);
+
+my %opts;
+getopts('aflq', \%opts) || exit 2;
+die "$0: no arguments given\n" if !@ARGV;
+my @findings;
+my $ok = !$opts{l};
+for (@ARGV) {
+ my @found = find($_);
+ if (@found) {
+  if ($opts{l}) { print "$_\n" for @found }
+  push @findings, @found;
+ } else {print STDERR "$0: $_: no such file found\n" if !$opts{q}; $ok = 0; }
+}
+exec {'vim'} 'vim', @findings if $ok || ($opts{f} && @findings);
+
+sub subdirs($) {
+ opendir my $dir, $_[0] or return ();
+ grep -d, map { "$_[0]/$_" }
+          grep !/^(?:\.(?:\.|svn|git|cache|local|nox|tox)?|venv|Downloads)$/, sort readdir $dir;
+  # Should symbolic links be weeded out?
+}
+
+sub find($) {
+ my $name = shift;
+ my @found;
+ foreach (@descend) {
+  my @dirs = ($_);
+  while (@dirs) {
+   my $dir = shift @dirs;
+   push @found, "$dir/$name" and $opts{a} || return @found if -e "$dir/$name";
+   #$opts{a} ? push(@found, "$dir/$name") : return "$dir/$name"
+   # if -e "$dir/$name";
+   push @dirs, subdirs $dir;
+  }
+ }
+ foreach (@skim) {
+  push @found, "$_/$name" and $opts{a} || return @found if -e "$_/$name"
+  #$opts{a} ? push(@found, "$_/$name") : return "$_/$name" if -e "$_/$name"
+ }
+ return @found;
+}

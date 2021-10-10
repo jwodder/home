@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+if git remote | grep -qxF upstream
+then git pull upstream "$BRANCH"
+     git push origin "$BRANCH"
+else git pull origin
+fi

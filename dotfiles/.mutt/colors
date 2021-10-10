@@ -1,0 +1,19 @@
+# Assumes white-on-black defaults:
+color attachment green         default
+color bold       brightdefault default
+color error      brightred     default
+color hdrdefault yellow        default
+color indicator  black         color15
+color markers    brightred     default
+color normal     default       default
+color signature  cyan          default
+color status     black         color15
+color tilde      brightblue    default
+color tree       red           default
+
+color index default       default ~A
+color index green         default ~l
+
+color quoted  blue  default
+color quoted1 green default
+color quoted2 red   default

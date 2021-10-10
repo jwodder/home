@@ -1,0 +1,3 @@
+#!/bin/bash
+# Set the working tree to match the index
+git restore --worktree --no-overlay "${@:-.}"

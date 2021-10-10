@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+opt=-d
+
+args=`getopt D $*` || { echo "Usage: $0 [-D] <branch>"; exit 2; }
+set -- $args
+for i
+do case "$1" in
+    -D) opt=-D; shift;;
+    --) shift; break;;
+   esac
+done
+
+git branch "$opt" "$1"
+git push origin :refs/heads/"$1"

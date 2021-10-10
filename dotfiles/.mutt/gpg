@@ -1,0 +1,26 @@
+# Derived from mutt's sample gpg.rc with very few (meaningful) modifications.
+
+set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose -q --batch -o - %f"
+set pgp_verify_command="gpg --no-verbose -q --batch -o - --verify %s %f"
+set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose -q --batch -o - %f"
+set pgp_sign_command="gpg --no-verbose -q --batch -o - --passphrase-fd 0 -a --detach-sign -t %?a?-u %a? %f"
+set pgp_clearsign_command="gpg --no-verbose -q --batch -o - --passphrase-fd 0 -at --clearsign %?a?-u %a? %f"
+
+set pgp_encrypt_only_command="pgpewrap gpg --batch -q --no-verbose -o - --encrypt -ta --always-trust -- -R %r -- %f"
+
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch -q --no-verbose -t -o - --encrypt --sign %?a?-u %a? -a --always-trust -- -R %r -- %f"
+
+set pgp_import_command="gpg --no-verbose --import -v %f"
+set pgp_export_command="gpg --no-verbose --export -a %r"
+
+# Strangely, the sample gpg.rc uses the --verbose flag in this command instead
+# of --no-verbose; I suspect it to be a typo.
+set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
+
+set pgp_list_pubring_command="gpg --no-verbose -q --batch --with-colons --list-keys %r"
+set pgp_list_secring_command="gpg --no-verbose -q --batch --with-colons --list-secret-keys %r"
+
+set pgp_sign_as=0x793721A3
+set pgp_timeout=10
+set pgp_good_sign="^gpg: Good signature from"
+set pgp_verify_sig=ask-yes

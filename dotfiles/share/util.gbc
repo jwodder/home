@@ -1,0 +1,68 @@
+# A set of useful functions (and a constant) for use in GNU bc 1.06+
+# When BC_ENV_ARGS is set appropriately, this file will be loaded automatically
+# when bc is invoked.
+
+pi = 4 * a(1)
+
+define sin(x)  { return (s(x)) }
+define cos(x)  { return (c(x)) }
+define atan(x) { return (a(x)) }
+define exp(x)  { return (e(x)) }
+define ln(x)   { return (l(x)) }
+
+define tan(x)   { return (s(x) / c(x)) }
+define acos(x)  { return (atan2(sqrt(1 - x ^ 2), x)) }
+define asin(x)  { return (atan2(x, sqrt(1 - x ^ 2))) }
+define pow(b,x) { return (e(l(b) * x)) }
+define log(x)   { return (l(x) / l(10)) }
+
+define deg2rad(x) { return (x / 180 * pi) }
+define rad2deg(x) { return (x / pi * 180) }
+
+define atan2(y, x) {
+    auto z
+    if (x == 0) { if (y >= 0) return (pi/2) else return (-pi/2) }
+    z = a(y/x)
+    if (x < 0) { if (z < 0) z += pi else z -= pi }
+    return z
+}
+
+define quadratic(a, b, c) {
+    # "Support" for arrays in bc (both POSIX and GNU) is incredibly crippled,
+    # so pairs of solutions to quadratic equations cannot be returned directly.
+    auto d
+    d = sqrt(b^2 - 4*a*c)
+    q1 = (-b + d)/(2*a)
+    q2 = (-b - d)/(2*a)
+    print "  q1 = ", q1, "\n  q2 = ", q2, "\n"
+}
+
+define idiv(a, b) {
+    auto s, r
+    s = scale
+    scale = 0
+    r = a / b
+    scale = s
+    return r
+}
+
+define mod(a, b) {
+    auto s, q
+    if (b < 0) b *= -1
+    s = scale
+    scale = 0
+    q = a % b
+    scale = s
+    if (q < 0) q += b
+    return q
+}
+
+define factorial(n) {
+    auto i, x
+    x = 1
+    for (i = 2; i <= n; i++) x *= i
+    return x
+}
+
+define npr(n, r) { return (idiv(factorial(n), factorial(n-r))) }
+define ncr(n, r) { return (idiv(npr(n, r), factorial(r))) }

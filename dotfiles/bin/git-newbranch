@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+defbranch="$(git default-branch)"
+git checkout -b "$1" "$defbranch"

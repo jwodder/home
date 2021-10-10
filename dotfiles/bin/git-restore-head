@@ -1,0 +1,3 @@
+#!/bin/bash
+# Set the index & working tree to match HEAD
+git restore --source HEAD --staged --worktree --no-overlay "${@:-.}"

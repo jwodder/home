@@ -1,0 +1,19 @@
+#!/bin/bash
+case "$1" in
+    *.egg)
+        unzip -p "$1" EGG-INFO/PKG-INFO | \
+            sed '/^Description:/,/^\S/{/^Description:/d; /^\S/b; d}'
+        echo
+        unzip -v "$1"
+        ;;
+
+    *.whl)
+        unzip -p "$1" '*.dist-info/METADATA' | sed '/^$/q'
+        unzip -v "$1"
+        ;;
+
+    *)
+        exit 1
+        ;;
+esac
+exit 0

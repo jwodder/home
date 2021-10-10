@@ -1,0 +1,72 @@
+[advice]
+detachedHead = false
+statusHints = false
+
+[alias]
+co       = checkout
+cdiff    = diff --cached
+cat      = !git --no-pager show
+hash     = !git --no-pager show -s --format=%h
+loggraph = log --graph --pretty=oneline --abbrev-commit
+numstat  = !git --no-pager diff --cached --numstat
+purge    = clean -dX
+pushme   = !git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
+revno    = rev-list --count HEAD
+svnstat  = !git --no-pager diff --name-status --cached
+toadd    = !git --no-pager diff --name-status
+unadd    = reset
+uncommit = reset --soft HEAD^
+vreji    = log --pretty=vreji
+
+[clean]
+requireForce = false
+
+[core]
+ignorecase = false
+logallrefupdates = false
+
+[diff]
+renames = true
+
+[fetch]
+prune = true
+
+[gc]
+pruneExpire = 7.days.ago
+reflogexpire = 7
+reflogexpireunreachable = 7
+
+[log]
+follow = true
+
+[merge]
+tool = vimdiff
+
+[pager]
+branch = false
+tag = false
+
+[pretty]
+vreji = format:%H  %ai%d%n%s%n
+
+[pull]
+rebase = true
+
+[push]
+default = simple
+
+[rebase]
+autoStash = true
+
+[stash]
+showPatch = true
+showStat = false
+
+[url "ssh://jwodder@meta.freeshell.org/arpa/gm/j/jwodder/"]
+# Yes, the trailing slash is very necessary.
+insteadOf = sdf:
+
+[user]
+name = John T. Wodder II
+email = git@varonathe.org
+signingkey = 793721A3

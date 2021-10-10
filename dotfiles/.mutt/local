@@ -1,0 +1,15 @@
+set spoolfile=$MAIL
+set folder="~/Mail"
+set record="+sent"
+set mbox="+mbox"
+set postponed="+drafts"
+set mbox_type="mbox"
+set realname="John T. Wodder II"
+#set from="John T. Wodder II <jwodder@...>"
+set move=yes
+set trash="+trash"
+set confirmcreate=no
+
+#unalternates *
+#unlists *
+#unhook send-hook

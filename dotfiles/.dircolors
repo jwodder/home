@@ -1,0 +1,138 @@
+TERM Eterm
+TERM ansi
+TERM color-xterm
+TERM con132x25
+TERM con132x30
+TERM con132x43
+TERM con132x60
+TERM con80x25
+TERM con80x28
+TERM con80x30
+TERM con80x43
+TERM con80x50
+TERM con80x60
+TERM cons25
+TERM console
+TERM cygwin
+TERM dtterm
+TERM eterm-color
+TERM gnome
+TERM gnome-256color
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mach-color
+TERM mlterm
+TERM putty
+TERM rxvt
+TERM rxvt-256color
+TERM rxvt-cygwin
+TERM rxvt-cygwin-native
+TERM rxvt-unicode
+TERM rxvt-unicode-256color
+TERM rxvt-unicode256
+TERM screen
+TERM screen-256color
+TERM screen-256color-bce
+TERM screen-bce
+TERM screen-w
+TERM screen.Eterm
+TERM screen.rxvt
+TERM screen.linux
+TERM st
+TERM st-256color
+TERM terminator
+TERM vt100
+TERM xterm
+TERM xterm-16color
+TERM xterm-256color
+TERM xterm-88color
+TERM xterm-color
+TERM xterm-debian
+
+# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+
+RESET                 0         # reset to "normal" color
+DIR                      34     # directory
+EXEC                     31     # executable
+LINK                     35     # symbolic link
+MULTIHARDLINK         01        # regular file with more than one link
+FIFO                     33     # pipe
+SOCK                     32     # socket
+
+DOOR                  01;35     # door
+BLK                      34;46  # block device driver
+CHR                      34;43  # character device driver
+ORPHAN                01;31;40  # symlink to nonexistent file
+SETUID                   30;41  # file that is setuid (u+s)
+SETGID                   30;46  # file that is setgid (g+s)
+CAPABILITY            01;33;41  # file with capability
+OTHER_WRITABLE           30;43  # dir that is other-writable (o+w)
+STICKY_OTHER_WRITABLE    30;42  # dir that is sticky and other-writable (+t,o+w)
+STICKY                   37;44  # dir that is sticky (+t) and not other-writable
+
+# Ignored/ignorable/cruft files:
+# (Cruft directories apparently can't be re-highlighted)
+.class                01;35;40
+.hi                   01;35;40
+*history              01;35;40
+.lesshst              01;35;40
+.o                    01;35;40
+.pyc                  01;35;40
+.retry                01;35;40
+.swp                  01;35;40
+.wget-hsts            01;35;40
+
+# LaTeX cruft:
+.aux                  01;35;40
+.bbl                  01;35;40
+.blg                  01;35;40
+.idn                  01;35;40
+.idx                  01;35;40
+.ilg                  01;35;40
+.ind                  01;35;40
+.log                  01;35;40
+.nav                  01;35;40
+.out                  01;35;40
+.snm                  01;35;40
+.toc                  01;35;40
+
+# Archives and compressed files:
+.tar                  04;33
+.tgz                  04;33
+.arj                  04;33
+.taz                  04;33
+.lzh                  04;33
+.lzma                 04;33
+.tlz                  04;33
+.txz                  04;33
+.zip                  04;33
+.z                    04;33
+.Z                    04;33
+.dz                   04;33
+.gz                   04;33
+.lz                   04;33
+.xz                   04;33
+.bz2                  04;33
+.bz                   04;33
+.tbz                  04;33
+.tbz2                 04;33
+.tz                   04;33
+.deb                  04;33
+.rpm                  04;33
+.jar                  04;33
+.war                  04;33
+.ear                  04;33
+.sar                  04;33
+.rar                  04;33
+.ace                  04;33
+.zoo                  04;33
+.cpio                 04;33
+.7z                   04;33
+.rz                   04;33
+.egg                  04;33
+.whl                  04;33

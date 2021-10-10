@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e -o pipefail
+for guess in main master trunk draft
+do if git branch '--format=%(refname:short)' | grep -qxF "$guess"
+   then echo "$guess"
+        exit
+   fi
+done
+echo "Could not determine default branch" >&2
+exit 1

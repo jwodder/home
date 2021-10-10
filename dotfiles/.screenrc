@@ -1,0 +1,61 @@
+activity '^GActivity in window %n'
+allpartial off
+altscreen on
+bell_msg '^GBell in window %n'
+defencoding UTF-8
+defscrollback 1024
+defutf8 on
+defwrap on
+escape ^Ff
+hardcopy_append on
+idle off
+markkeys ^B=S:^F=s:\040=v
+msgwait 1
+nethack on
+password ESGw7iOdpZs82
+#shell /bin/bash
+shelltitle Shell
+startup_message off
+term screen-256color
+vbell off
+
+bind ^[
+bind ^D
+bind d
+bind k
+bind ^X
+bind x
+bind ^C copy
+bind D detach
+bind ^F meta
+bind G windowlist -b
+bind ^G windowlist -b
+bind K kill
+bind L log
+bind ^P lastmsg
+bind ^R command -c regions
+bind S screen -t SDF ssh jwodder@meta.freeshell.org
+bind T title
+bind ^V paste .
+bind b other
+bind g select
+bind m monitor
+
+bind -c regions - resize -1
+bind -c regions + resize +1
+bind -c regions = resize =
+bind -c regions m resize min
+bind -c regions M resize max
+bind -c regions | split
+bind -c regions s split
+bind -c regions x remove
+bind -c regions O only
+bind -c regions j focus down
+bind -c regions k focus up
+bind -c regions \^ focus top
+bind -c regions 0 focus top
+bind -c regions $ focus bottom
+bind -c regions ^[
+bind -c regions ^R stuff ^R
+bind -c regions ^I focus
+bind -c regions w fit

@@ -1,0 +1,62 @@
+# Global settings:
+set abort_nosubject
+set allow_ansi
+set beep_new
+set certificate_file="~/.mutt/certs"
+set charset="utf-8"
+unset confirmappend
+set date_format="!%Y-%m-%d %H:%M:%S %Z"
+set delete=yes
+set edit_headers
+set editor="/usr/bin/vim"
+set fast_reply
+#unset followup_to
+set forward_format="Fwd: %s"
+set forward_quote
+unset help
+set include
+set index_format="%Z %-16.16F  %-40.40s %> %[%Y-%m-%d] %4c"
+set mail_check=60
+unset markers
+set mime_forward=ask-no
+set pager_context=2
+set postpone
+set read_inc=50
+#unset recall
+set reply_to
+unset resolve
+unset save_empty
+unset score
+set send_charset="us-ascii:utf-8"
+set sendmail_wait=30
+#set sort=reverse-date
+set sort_aux=last-date
+set status_format="%v -%r- %f -- %m msgs%?u?, %u unread?%?d?, %d del?%?t?, %t tagged? %?V?-- %V : %M -- ?%> %P"
+set strict_threads
+set tilde
+set timeout=180
+set visual="/usr/bin/vim"
+set wrap=80
+
+ignore Authentication-Results Delivered-To DKIM-Signature DomainKey-Signature
+ignore In-Reply-To List-Help List-Post List-Subscribe List-Unsubscribe
+ignore Mail-From Message-ID MIME-Version Received References Resent-Message-ID
+ignore Return-Path Status Via X-Accept-Language X-Authority-Analysis
+ignore X-BeenThere X-CM-Score X-detected-operating-system X-ecartis
+ignore X-Google-Sender-Auth X-hashcash X-Junkmail X-Mailman X-Message-URL
+ignore X-MIME X-Old-Spam-Status X-Original X-Planation X-Spam X-Thread-URL
+ignore X-Virus X-VR-Score X-YMail
+
+hdr_order Subject: Date: From: To: Cc: Reply-to: Organization: X-Face:
+
+auto_view text/html message/rfc822 application/x-tar-gz
+alternative_order text/plain text/html application/html text/*
+
+macro index + '<change-folder>+' "Change to folder in mailbox"
+macro index = '<change-folder>=' "Change to folder in mailbox"
+macro index \cR '<change-folder>^^<enter>' "Refresh the current mailbox"
+
+source ~/.mutt/gpg
+source ~/.mutt/keys
+source ~/.mutt/colors
+source ~/.mutt/local

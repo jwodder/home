@@ -1,0 +1,182 @@
+config:
+  backup: true
+  banner: false
+  create: true
+  dotpath: dotfiles
+  force_chmod: true
+  ignore_missing_in_dotdrop: true
+  ignoreempty: true
+  keepdot: true
+  link_dotfile_default: nolink
+  link_on_import: nolink
+  longkey: true
+  showdiff: true
+
+dotfiles:
+  f_bash_completion:
+    src: .bash_completion
+    dst: ~/.bash_completion
+  f_bashrc:
+    src: .bashrc
+    dst: ~/.bashrc
+  f_config_flake8:
+    src: .config/flake8
+    dst: ~/.config/flake8
+  f_config_pip_pip.conf:
+    src: .config/pip/pip.conf
+    dst: ~/.config/pip/pip.conf
+  f_dircolors:
+    src: .dircolors
+    dst: ~/.dircolors
+  f_gitconfig:
+    src: .gitconfig
+    dst: ~/.gitconfig
+  d_gnupg:
+    src: .gnupg
+    dst: ~/.gnupg
+    chmod: '700'
+  f_gnupg_gpg.conf:
+    src: .gnupg/gpg.conf
+    dst: ~/.gnupg/gpg.conf
+    chmod: '600'
+  f_inputc:
+    src: .inputrc
+    dst: ~/.inputrc
+  f_lessfilter:
+    src: .lessfilter
+    dst: ~/.lessfilter
+  f_mutt_colors:
+    src: .mutt/colors
+    dst: ~/.mutt/colors
+  f_mutt_gpg:
+    src: .mutt/gpg
+    dst: ~/.mutt/gpg
+  f_mutt_keys:
+    src: .mutt/keys
+    dst: ~/.mutt/keys
+  f_mutt_local:
+    src: .mutt/local
+    dst: ~/.mutt/local
+  f_mutt_muttrc:
+    src: .mutt/muttrc
+    dst: ~/.mutt/muttrc
+  f_profile:
+    src: .profile
+    dst: ~/.profile
+  f_screenrc:
+    src: .screenrc
+    dst: ~/.screenrc
+  f_vim_filetype.vim:
+    src: .vim/filetype.vim
+    dst: ~/.vim/filetype.vim
+  f_vimrc:
+    src: .vimrc
+    dst: ~/.vimrc
+  f_bin_apt-check:
+    src: bin/apt-check
+    dst: ~/bin/apt-check
+    chmod: '0755'
+  f_bin_apt-purge:
+    src: bin/apt-purge
+    dst: ~/bin/apt-purge
+    chmod: '0755'
+  f_bin_apt-upgrade:
+    src: bin/apt-upgrade
+    dst: ~/bin/apt-upgrade
+    chmod: '0755'
+  f_bin_email:
+    src: bin/email
+    dst: ~/bin/email
+    chmod: '0755'
+  f_bin_git-default-branch:
+    src: bin/git-default-branch
+    dst: ~/bin/git-default-branch
+    chmod: '0755'
+  f_bin_git-newbranch:
+    src: bin/git-newbranch
+    dst: ~/bin/git-newbranch
+    chmod: '0755'
+  f_bin_git-restore-head:
+    src: bin/git-restore-head
+    dst: ~/bin/git-restore-head
+    chmod: '0755'
+  f_bin_git-restore-index:
+    src: bin/git-restore-index
+    dst: ~/bin/git-restore-index
+    chmod: '0755'
+  f_bin_git-rmbranch:
+    src: bin/git-rmbranch
+    dst: ~/bin/git-rmbranch
+    chmod: '0755'
+  f_bin_git-update:
+    src: bin/git-update
+    dst: ~/bin/git-update
+    chmod: '0755'
+  f_bin_pim:
+    src: bin/pim
+    dst: ~/bin/pim
+    chmod: '0755'
+  f_share_ps1.py:
+    src: share/ps1.py
+    dst: ~/share/ps1.py
+  f_share_util.gbc:
+    src: share/util.gbc
+    dst: ~/share/util.gbc
+  f_share_spell_Makefile:
+    src: share/spell/Makefile
+    dst: ~/share/spell/Makefile
+  f_share_spell_words:
+    src: share/spell/words.utf-8.add
+    dst: ~/share/spell/words.utf-8.add
+
+profiles:
+  base:
+    dotfiles:
+      - f_bash_completion
+      - f_bashrc
+      - f_bin_git-default-branch
+      - f_bin_git-newbranch
+      - f_bin_git-restore-head
+      - f_bin_git-restore-index
+      - f_bin_git-rmbranch
+      - f_bin_git-update
+      - f_bin_pim
+      - f_config_flake8
+      - f_config_pip_pip.conf
+      - f_gitconfig
+      - d_gnupg
+      - f_gnupg_gpg.conf
+      - f_inputc
+      - f_profile
+      - f_screenrc
+      - f_share_ps1.py
+      - f_share_spell_Makefile
+      - f_share_spell_words
+      - f_share_util.gbc
+      - f_vim_filetype.vim
+      - f_vimrc
+
+  macOS:
+    include:
+      - base
+
+  debian:
+    include:
+      - base
+    dotfiles:
+      - f_bin_apt-check
+      - f_bin_apt-purge
+      - f_bin_apt-upgrade
+      - f_dircolors
+      - f_lessfilter
+
+  debian-mail:
+    include:
+      - debian
+    dotfiles:
+      - f_bin_email
+      - f_mutt_colors
+      - f_mutt_gpg
+      - f_mutt_keys
+      - f_mutt_local
+      - f_mutt_muttrc
