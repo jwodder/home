@@ -283,13 +283,25 @@ def show_prompt_string(style, show_git=True):
     #PS1 += style('@')
 
     # Show the current hostname:
+    {%@@ if profile == "macOS" @@%}
+    #PS1 += style(socket.gethostname(), fg=Color.LIGHT_RED)
+    {%@@ else @@%}
     PS1 += style(socket.gethostname(), fg=Color.LIGHT_RED)
+    {%@@ endif @@%}
 
     # Separator:
+    {%@@ if profile == "macOS" @@%}
+    #PS1 += style(':')
+    {%@@ else @@%}
     PS1 += style(':')
+    {%@@ endif @@%}
 
     # Show the path to the current working directory:
+    {%@@ if profile == "macOS" @@%}
+    PS1 += style(cwdstr(), fg=Color.BLUE)
+    {%@@ else @@%}
     PS1 += style(cwdstr(), fg=Color.LIGHT_CYAN)
+    {%@@ endif @@%}
 
     # If we're in a Git repository, show its status.  This can be disabled
     # (e.g., in case of breakage or slowness) by passing "off" as the script's
@@ -323,7 +335,11 @@ def show_git_status(style):
         # We have stashed changes:
         p += style('+', fg=Color.LIGHT_YELLOW, bold=True)
     # Show HEAD; color changes depending on whether it's detached:
+    {%@@ if profile == "macOS" @@%}
+    head_color = Color.BLUE if gs.detached else Color.GREEN
+    {%@@ else @@%}
     head_color = Color.LIGHT_BLUE if gs.detached else Color.LIGHT_GREEN
+    {%@@ endif @@%}
     p += style(gs.head, fg=head_color)
     if gs.ahead:
         # Show commits ahead of upstream:
