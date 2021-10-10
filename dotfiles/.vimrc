@@ -1,6 +1,10 @@
+set spl=en sps=best,13 spc= spf=~/share/spell/words.utf-8.add
+{%@@ for spf in extra_spellfiles() @@%}
+set spf+=~/share/spell/{{@@ spf @@}}
+{%@@ endfor @@%}
+
 set flp=\\v^\\s*[[(]?(\\d+\|\\a\|[IiVvXxLlCcDdMm]+)[]:.)]\\s+
 set com^=s1:#\|,mb:\|,ex:\|#,b:--,b:#:,n:# com+=b:!,b:\",b:;,bf:..,b:\\
-set spl=en sps=best,13 spc= spf=~/share/spell/words.utf-8.add
 set ai bs=2 cm=blowfish2 cpo+=M enc=utf-8 et fcl=all fo+=n ic
 set lcs+=tab:‣‧,trail:‧ ml mls=1 mps+=<:> ru ruf=%l:%c sc scs sts=4 sw=1
 set ww=h,l,[,]

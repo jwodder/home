@@ -6,6 +6,8 @@ config:
   filter_file:
     - lib/filters.py
   force_chmod: true
+  func_file:
+    - lib/functions.py
   ignore_missing_in_dotdrop: true
   ignoreempty: true
   keepdot: true
