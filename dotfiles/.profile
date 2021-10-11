@@ -10,9 +10,6 @@ export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 export LANG=C.UTF-8 LC_ALL=C.UTF-8
 {%@@ endif @@%}
 export PATH="{%@@ if profile == "macOS" @@%}/usr/local/sbin:{%@@ endif @@%}$PATH:$HOME/bin:$HOME/.local/bin"
-{%@@ if profile == "macOS" @@%}
-export MANPATH="$MANPATH:$HOME/man"
-{%@@ endif @@%}
 
 {%@@ if profile == "macOS" @@%}
 pyuserbase="$(python3 -msite --user-base)"
