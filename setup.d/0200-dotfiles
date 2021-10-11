@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex -o pipefail
 
-#if ! pipx list --json | jq -r '.venvs | has("datalad")' > /dev/null
+#if ! pipx list --json | jq -e '.venvs | has("datalad")' > /dev/null
 if ! pipx list | grep -q dotdrop
 then pipx install dotdrop
 fi
