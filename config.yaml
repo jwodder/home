@@ -23,8 +23,8 @@ actions:
     #make-spell: 'make -C ~/share/spell'
 
 dynvariables:
-  lesspath: type -p less
-  vimpath: type -p vim
+  lesspath: command -v less
+  vimpath: command -v vim
 
 dotfiles:
   f_bash_completion:
