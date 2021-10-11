@@ -24,7 +24,7 @@ case "$(uname)" in
             ;;
 esac
 
-dotdrop install
+dotdrop install --nodiff --force
 
 mkdir -p ~/work
 [ -z "$MAIL_HOSTNAME" ] || mkdir -p ~/Mail
