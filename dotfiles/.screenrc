@@ -3,6 +3,7 @@ allpartial off
 altscreen on
 bell_msg '^GBell in window %n'
 defencoding UTF-8
+deflogin off
 defscrollback 1024
 defutf8 on
 defwrap on
