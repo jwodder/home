@@ -27,8 +27,4 @@ esac
 dotdrop install --nodiff --force
 
 mkdir -p ~/work
-[ -z "$MAIL_HOSTNAME" ] || mkdir -p ~/Mail
-
-if command -V make &> /dev/null
-then make -C ~/share/spell
-fi
+[ ! -d ~/.mutt ] || mkdir -p ~/Mail

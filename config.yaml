@@ -20,7 +20,7 @@ config:
 actions:
   post:
     private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
-    #make-spell: 'make -C ~/share/spell'
+    make: '! command -V make || make -C {{@@ _dotfile_abs_dst @@}}'
 
 dynvariables:
   lesspath: command -v less
@@ -143,12 +143,15 @@ dotfiles:
   f_share_util.gbc:
     src: share/util.gbc
     dst: ~/share/util.gbc
-  f_share_spell_Makefile:
-    src: share/spell/Makefile
-    dst: ~/share/spell/Makefile
-  f_share_spell_words:
-    src: share/spell/words.utf-8.add
-    dst: ~/share/spell/words.utf-8.add
+  d_share_spell:
+    src: share/spell
+    dst: ~/share/spell
+    cmpignore:
+      - '!Makefile'
+      - '!words.utf-8.add'
+      - '[a-zA-Z0-9]*'
+    actions:
+      - make
 
 profiles:
   base:
@@ -171,13 +174,10 @@ profiles:
       - f_profile
       - f_screenrc
       - f_share_ps1.py
-      - f_share_spell_Makefile
-      - f_share_spell_words
+      - d_share_spell
       - f_share_util.gbc
       - f_vim_filetype.vim
       - f_vimrc
-    actions:
-      #- make-spell
 
   macOS:
     include:
