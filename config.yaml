@@ -73,6 +73,7 @@ dotfiles:
   f_mutt_local:
     src: .mutt/local
     dst: ~/.mutt/local
+    template: true
   f_mutt_muttrc:
     src: .mutt/muttrc
     dst: ~/.mutt/muttrc
