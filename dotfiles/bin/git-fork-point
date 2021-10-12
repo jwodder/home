@@ -1,0 +1,7 @@
+#!/bin/bash
+# `git fork-point $A $B` outputs the commit after which $A and $B forked apart,
+# even if they've merged back together since then.
+# Taken from <https://stackoverflow.com/a/4991675/744178>
+diff --old-line-format='' --new-line-format='' \
+    <(git rev-list --first-parent "$1") \
+    <(git rev-list --first-parent "${2:-HEAD}") | head -1

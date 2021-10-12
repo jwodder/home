@@ -1,0 +1,8 @@
+#!/bin/bash
+# Show the logs for all commits on the given branch but not on the default
+# branch
+set -e
+branch="$1"
+base="$(git default-branch)"
+fork_point="$(git fork-point "$branch" "$base")"
+git log "$fork_point".."$branch"
