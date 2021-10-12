@@ -62,6 +62,9 @@ autoStash = true
 showPatch = true
 showStat = false
 
+[tag]
+sort = creatordate
+
 [url "ssh://jwodder@meta.freeshell.org/arpa/gm/j/jwodder/"]
 # Yes, the trailing slash is very necessary.
 insteadOf = sdf:
