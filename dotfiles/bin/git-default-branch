@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
-for guess in main master trunk draft
+
+guesses=(main master trunk draft)
+
+if default="$(git config init.defaultBranch)"
+then guesses=("$default" "${guesses[@]}")
+fi
+
+for guess in "${guesses[@]}"
 do if git show-ref --verify --quiet refs/heads/"$guess"
    then echo "$guess"
         exit
