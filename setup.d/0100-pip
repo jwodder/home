@@ -10,6 +10,7 @@ python3 -m pip install --user --upgrade \
     black \
     build \
     click \
+    coverage \
     flake8 \
     flake8-bugbear \
     flake8-builtins \
@@ -22,3 +23,5 @@ python3 -m pip install --user --upgrade \
     tox \
     virtualenv \
     virtualenvwrapper
+
+# Coverage is needed for the google/vim-coverage plugin.
