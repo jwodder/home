@@ -11,13 +11,6 @@ export LANG=C.UTF-8 LC_ALL=C.UTF-8
 {%@@ endif @@%}
 export PATH="{%@@ if profile == "macOS" @@%}/usr/local/sbin:{%@@ endif @@%}$PATH:$HOME/bin:$HOME/.local/bin"
 
-{%@@ if profile == "macOS" @@%}
-pyuserbase="$(python3 -msite --user-base)"
-if [ -d "$pyuserbase/bin" ]
-then PATH="$PATH:$pyuserbase/bin"
-fi
-
-{%@@ endif @@%}
 export PAGER={{@@ lesspath|shlex_quote @@}}
 export MANPAGER="$PAGER -is"
 export LESS=-iRS
