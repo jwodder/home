@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex -o pipefail
 
-REPO_WORDS="$(dirname "$0")"/../dotfiles/share/spell/words.utf-8.add
+REPO_WORDS="$(dirname "$0")"/../files/share/spell/words.utf-8.add
 HOME_WORDS="$HOME/share/spell/words.utf-8.add"
 TMP_WORDS="$(mktemp)"
 

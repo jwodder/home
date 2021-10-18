@@ -2,7 +2,7 @@ config:
   backup: true
   banner: false
   create: true
-  dotpath: dotfiles
+  dotpath: files
   filter_file:
     - lib/filters.py
   force_chmod: true

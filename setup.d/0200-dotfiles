@@ -6,25 +6,7 @@ if ! pipx list | grep -q dotdrop
 then pipx install dotdrop
 fi
 
-case "$(uname)" in
-    Darwin) export DOTDROP_PROFILE=macOS
-            ;;
-     Linux) source /etc/os-release
-            if [ "x$ID" = xdebian ] || [ "x$ID_LIKE" = xdebian ]
-            then if [ -n "$MAIL_HOSTNAME" ]
-                 then export DOTDROP_PROFILE=debian-mail
-                 else export DOTDROP_PROFILE=debian
-                 fi
-            else echo "[WARNING] Unsupported distribution" >&2
-                 export DOTDROP_PROFILE=base
-            fi
-            ;;
-         *) echo "Unknown OS: $(uname)" >&2
-            exit 1
-            ;;
-esac
-
-dotdrop install --nodiff --force
+"$(dirname "$0")"/../dotdrop.sh install --nodiff --force
 
 mkdir -p ~/work
 [ ! -d ~/.mutt ] || mkdir -p ~/Mail
