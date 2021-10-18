@@ -66,3 +66,21 @@ hi Constant ctermfg=DarkGreen
 hi markdownCode ctermfg=DarkGreen
 
 command -nargs=1 Sp :sp `=system("pim -l " . shellescape(<q-args>))`
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'cespare/vim-toml', { 'branch': 'main' }
+Plug 'google/vim-coverage'
+Plug 'google/vim-glaive'
+Plug 'google/vim-maktaba'
+Plug 'junegunn/vim-plug'
+Plug 'knatsakis/deb.vim'
+Plug 'ntpeters/vim-better-whitespace'
+call plug#end()
+filetype indent off
+
+map ^^ :CoverageToggle<CR>
