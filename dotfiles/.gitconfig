@@ -13,6 +13,7 @@ purge    = clean -dX
 pushme   = !git push --set-upstream origin "$(git rev-parse --abbrev-ref HEAD)"
 revno    = rev-list --count HEAD
 svnstat  = !git --no-pager diff --name-status --cached
+timeline = log --graph --pretty=timeline
 toadd    = !git --no-pager diff --name-status
 unadd    = reset
 uncommit = reset --soft HEAD^
@@ -48,7 +49,8 @@ show-branch = true
 tag = false
 
 [pretty]
-vreji = format:%H  %ai%d%n%s%n
+timeline = format:%C(auto)%h [%as]%d %s
+vreji = format:%C(auto)%H  %ai%d%n%s%n
 
 [pull]
 rebase = true
