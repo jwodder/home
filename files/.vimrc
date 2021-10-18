@@ -33,6 +33,7 @@ map W <C-W>w
 map \- :exe "normal " . (81-col("$")) . "A-\e"<CR>
 map \= :exe "normal " . (81-col("$")) . "A=\e"<CR>
 cmap <C-A> <C-B>
+map %% :%!black -q -<CR>
 
 let loaded_matchparen=1
 syntax on
