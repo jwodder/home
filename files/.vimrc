@@ -28,12 +28,14 @@ dig && 8743 \|\| 8744 !! 172 ^^ 8853 (< 10216 >) 10217 (/ 8713 x\| 8906
 dig NE 8708 ~= 8773 ~~ 8776 T^ 8868 \|- 8866 v\| 8595 ^\| 8593 \\ 8726 dx 10799
 dig _. 8228 .. 8230 )< 8828
 
-map s 24j|map S 24k
+map S 24k
+map s 24j
 map W <C-W>w
 map \- :exe "normal " . (81-col("$")) . "A-\e"<CR>
 map \= :exe "normal " . (81-col("$")) . "A=\e"<CR>
 cmap <C-A> <C-B>
-map %% :%!black -q -<CR>
+map gB :%!black -q -<CR>
+map gI :%!isort -q -<CR>
 
 let loaded_matchparen=1
 syntax on
@@ -83,4 +85,4 @@ Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 filetype indent off
 
-map ^^ :CoverageToggle<CR>
+map gc :CoverageToggle<CR>

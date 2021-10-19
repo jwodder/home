@@ -20,6 +20,7 @@ python3 -m pip install $opts --upgrade \
     flake8-bugbear \
     flake8-builtins \
     flake8-unused-arguments \
+    isort \
     nox \
     pip-run \
     pipx \
