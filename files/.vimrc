@@ -5,9 +5,9 @@ set spf+=~/share/spell/{{@@ spf @@}}
 
 set flp=\\v^\\s*[[(]?(\\d+\|\\a\|[IiVvXxLlCcDdMm]+)[]:.)]\\s+
 set com^=s1:#\|,mb:\|,ex:\|#,b:--,b:#:,n:# com+=b:!,b:\",b:;,bf:..,b:\\
-set ai bs=2 cm=blowfish2 cpo+=M enc=utf-8 et fcl=all fo+=n ic
-set lcs+=tab:‣‧,trail:‧ ml mls=1 mps+=<:> ru ruf=%l:%c sc scs sts=4 sw=1
-set ww=h,l,[,]
+set ai bs=2 cm=blowfish2 cpo+=M enc=utf-8 et fcl=all fo+=jn ic
+set lcs+=nbsp:~,tab:‣‧,trail:‧ ml mls=1 mps+=<:> nf-=octal ru ruf=%l:%c sc scs
+set sts=4 sw=1 ttm=100 ttimeout ww=h,l,[,]
 {%@@ if profile != "macOS" @@%}
 set bg=dark
 {%@@ endif @@%}
@@ -36,6 +36,8 @@ map \= :exe "normal " . (81-col("$")) . "A=\e"<CR>
 cmap <C-A> <C-B>
 map gB :%!black -q -<CR>
 map gI :%!isort -q -<CR>
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
 
 let loaded_matchparen=1
 syntax on
@@ -43,28 +45,21 @@ syntax on
 " Printing options:
 set penc=utf-8 pheader=%<%t%=[Page\ %N]
 set popt=syntax:n,formfeed:y,wrap:y,duplex:off,bottom:10pc
-" Also useful: popt+=number:y
-
-" Note that 'popt' should contain "paper:letter", but my HP printer's problems
-" with the top margin cause the results to be pushed down unattractively on the
-" page.  Using the default of "paper:A4" somehow actually produces a small,
-" good-looking top margin, but "bottom:10pc" is then necessary to prevent the
-" bottom line from being cut in two.
-
-hi! link Character String
-hi! link Float Number
-hi! link Structure Label
 
 if &bg == "light"
     hi String ctermfg=DarkBlue
+else
+    hi Identifier cterm=bold ctermfg=NONE
 endif
-
-hi Number ctermfg=DarkRed
-hi Special ctermfg=DarkRed
-hi Operator ctermfg=DarkRed
-hi Function ctermfg=DarkRed
+hi link Structure Label
+hi link pythonBuiltin Identifier
+hi link jsonNull Identifier
 hi Boolean ctermfg=DarkGreen
 hi Constant ctermfg=DarkGreen
+hi Function ctermfg=DarkRed
+hi Number ctermfg=DarkRed
+hi Operator ctermfg=DarkRed
+hi Special ctermfg=DarkRed
 hi markdownCode ctermfg=DarkGreen
 
 command -nargs=1 Sp :sp `=system("pim -l " . shellescape(<q-args>))`
@@ -83,6 +78,16 @@ Plug 'junegunn/vim-plug'
 Plug 'knatsakis/deb.vim'
 Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
-filetype indent off
+filetype plugin indent off
 
 map gc :CoverageToggle<CR>
+
+" Show syntax highlighting groups for word under cursor
+" <https://stackoverflow.com/a/7893500/744178>
+nmap gs :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
