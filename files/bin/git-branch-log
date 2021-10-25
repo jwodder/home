@@ -2,7 +2,12 @@
 # Show the logs for all commits on the given branch but not on the default
 # branch
 set -e
+
 branch="$1"
+if [ -z "$branch" ]
+then branch="$(git branch --show-current)"
+fi
+
 base="$(git default-branch)"
 fork_point="$(git fork-point "$branch" "$base")"
 git log "$fork_point".."$branch"
