@@ -27,6 +27,9 @@ dynvariables:
   vimpath: command -v vim
 
 dotfiles:
+  f_ackrc:
+    src: .ackrc
+    dst: ~/.ackrc
   f_bash_completion:
     src: .bash_completion
     dst: ~/.bash_completion
@@ -156,6 +159,7 @@ dotfiles:
 profiles:
   base:
     dotfiles:
+      - f_ackrc
       - f_bash_completion
       - f_bashrc
       - f_bin_git-default-branch
