@@ -147,6 +147,10 @@ dotfiles:
     src: bin/pim
     dst: ~/bin/pim
     chmod: '0755'
+  f_bin_pygrep:
+    src: bin/pygrep
+    dst: ~/bin/pygrep
+    chmod: '0755'
   f_share_ps1.py:
     src: share/ps1.py
     dst: ~/share/ps1.py
@@ -179,6 +183,7 @@ profiles:
       - f_bin_git-rmbranch
       - f_bin_git-update
       - f_bin_pim
+      - f_bin_pygrep
       - f_config_flake8
       - f_config_pip_pip.conf
       - f_gitconfig
