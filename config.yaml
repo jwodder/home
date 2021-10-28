@@ -111,9 +111,17 @@ dotfiles:
     src: bin/email
     dst: ~/bin/email
     chmod: '0755'
+  f_bin_git-branch-log:
+    src: bin/git-branch-log
+    dst: ~/bin/git-branch-log
+    chmod: '0755'
   f_bin_git-default-branch:
     src: bin/git-default-branch
     dst: ~/bin/git-default-branch
+    chmod: '0755'
+  f_bin_git-fork-point:
+    src: bin/git-fork-point
+    dst: ~/bin/git-fork-point
     chmod: '0755'
   f_bin_git-newbranch:
     src: bin/git-newbranch
@@ -162,7 +170,9 @@ profiles:
       - f_ackrc
       - f_bash_completion
       - f_bashrc
+      - f_bin_git-branch-log
       - f_bin_git-default-branch
+      - f_bin_git-fork-point
       - f_bin_git-newbranch
       - f_bin_git-restore-head
       - f_bin_git-restore-index
