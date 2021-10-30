@@ -37,9 +37,6 @@ dotfiles:
     src: .bashrc
     dst: ~/.bashrc
     template: true
-  f_config_flake8:
-    src: .config/flake8
-    dst: ~/.config/flake8
   f_config_pip_pip.conf:
     src: .config/pip/pip.conf
     dst: ~/.config/pip/pip.conf
@@ -184,7 +181,6 @@ profiles:
       - f_bin_git-update
       - f_bin_pim
       - f_bin_pygrep
-      - f_config_flake8
       - f_config_pip_pip.conf
       - f_gitconfig
       - f_gnupg_gpg.conf
