@@ -52,15 +52,20 @@ else
     hi Identifier cterm=bold ctermfg=NONE
 endif
 hi link Structure Label
-hi link pythonBuiltin Identifier
+hi link diffAdded Type
+hi link diffNewFile diffAdded
+hi link diffOldFile diffRemoved
 hi link jsonNull Identifier
+hi link pythonBuiltin Identifier
 hi Boolean ctermfg=DarkGreen
 hi Constant ctermfg=DarkGreen
 hi Function ctermfg=DarkRed
 hi Number ctermfg=DarkRed
 hi Operator ctermfg=DarkRed
 hi Special ctermfg=DarkRed
+hi htmlItalic cterm=underline
 hi markdownCode ctermfg=DarkGreen
+hi rstEmphasis cterm=underline
 
 command -nargs=1 Sp :sp `=system("pim -l " . shellescape(<q-args>))`
 
