@@ -50,7 +50,7 @@ if &bg == "light"
     hi Identifier ctermfg=DarkGreen
     hi String ctermfg=DarkBlue
 else
-    hi Identifier ctermfg=121
+    hi Identifier cterm=NONE ctermfg=121
 endif
 hi link Structure Label
 hi link diffAdded Type
