@@ -47,9 +47,10 @@ set penc=utf-8 pheader=%<%t%=[Page\ %N]
 set popt=syntax:n,formfeed:y,wrap:y,duplex:off,bottom:10pc
 
 if &bg == "light"
+    hi Identifier ctermfg=DarkGreen
     hi String ctermfg=DarkBlue
 else
-    hi Identifier cterm=bold ctermfg=NONE
+    hi Identifier ctermfg=121
 endif
 hi link Structure Label
 hi link diffAdded Type
