@@ -77,16 +77,17 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'cespare/vim-toml', { 'branch': 'main' }
-Plug 'google/vim-coverage'
-Plug 'google/vim-glaive'
-Plug 'google/vim-maktaba'
 Plug 'junegunn/vim-plug'
 Plug 'knatsakis/deb.vim'
 Plug 'ntpeters/vim-better-whitespace'
+"Plug 'mgedmin/coverage-highlight.vim'
+Plug 'jwodder/coverage-highlight.vim', { 'branch': 'wraparound', 'as': 'jwodder-coverage-highlight' }
 call plug#end()
 filetype plugin indent off
 
-map gc :CoverageToggle<CR>
+map gc :ToggleCoverage<CR>
+map gp :PrevUncovered<CR>
+map gn :NextUncovered<CR>
 
 " Show syntax highlighting groups for word under cursor
 " <https://stackoverflow.com/a/7893500/744178>

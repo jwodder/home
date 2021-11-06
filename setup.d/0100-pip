@@ -30,4 +30,4 @@ python3 -m pip install $opts --upgrade \
     virtualenv \
     virtualenvwrapper
 
-# Coverage is needed for the google/vim-coverage plugin.
+# Coverage is needed for the Vim coverage plugin.
