@@ -79,9 +79,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'cespare/vim-toml', { 'branch': 'main' }
 Plug 'junegunn/vim-plug'
 Plug 'knatsakis/deb.vim'
+Plug 'mgedmin/coverage-highlight.vim'
 Plug 'ntpeters/vim-better-whitespace'
-"Plug 'mgedmin/coverage-highlight.vim'
-Plug 'jwodder/coverage-highlight.vim', { 'branch': 'wraparound', 'as': 'jwodder-coverage-highlight' }
 call plug#end()
 filetype plugin indent off
 
