@@ -112,6 +112,10 @@ dotfiles:
     src: bin/git-branch-log
     dst: ~/bin/git-branch-log
     chmod: '0755'
+  f_bin_git-branch-range:
+    src: bin/git-branch-range
+    dst: ~/bin/git-branch-range
+    chmod: '0755'
   f_bin_git-default-branch:
     src: bin/git-default-branch
     dst: ~/bin/git-default-branch
@@ -172,6 +176,7 @@ profiles:
       - f_bash_completion
       - f_bashrc
       - f_bin_git-branch-log
+      - f_bin_git-branch-range
       - f_bin_git-default-branch
       - f_bin_git-fork-point
       - f_bin_git-newbranch
