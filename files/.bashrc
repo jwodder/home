@@ -7,7 +7,7 @@ alias toc='ls -ACFG'
 {%@@ else @@%}
 alias toc='ls -ACF --color'
 {%@@ endif @@%}
-alias tree="tree -aF -I '__pycache__|.git|venv|.nox|.tox|*.egg-info|.cache' --matchdirs --noreport"
+alias tree="tree -aF -I '__pycache__|.git|venv|.nox|.tox|*.egg-info|.cache|.mypy_cache' --matchdirs --noreport"
 
 {%@@ if profile == "macOS" @@%}
 PS1='\d \w\$ '
