@@ -86,4 +86,5 @@ then WORKON_HOME="$HOME/.local/virtualenvwrapper/venvs"
      VIRTUALENVWRAPPER_PYTHON="$(type -p python3)"
      VIRTUALENVWRAPPER_WORKON_CD=0
      . "$venvwrappath"
+     alias mktmpenv='mktmpenv --prompt TMP'
 fi
