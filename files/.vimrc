@@ -6,8 +6,8 @@ set spf+=~/share/spell/{{@@ spf @@}}
 set flp=\\v^\\s*[[(]?(\\d+\|\\a\|[IiVvXxLlCcDdMm]+)[]:.)]\\s+
 set com^=s1:#\|,mb:\|,ex:\|#,b:--,b:#:,n:# com+=b:!,b:\",b:;,bf:..,b:\\
 set ai bs=2 cm=blowfish2 cpo+=M enc=utf-8 et fcl=all fo+=jn ic
-set lcs+=nbsp:~,tab:‣‧,trail:‧ ml mls=1 mps+=<:> nf-=octal ru ruf=%l:%c sc scs
-set scl=no sts=4 sw=1 ttm=100 ttimeout ww=h,l,[,]
+set lcs+=nbsp:~,tab:‣‧,trail:‧ ml mls=1 mps+=<:> nf-=octal rdt=750 ru ruf=%l:%c
+set sc scs scl=no sts=4 sw=1 ttm=100 ttimeout ww=h,l,[,]
 {%@@ if profile != "macOS" @@%}
 set bg=dark
 {%@@ endif @@%}
