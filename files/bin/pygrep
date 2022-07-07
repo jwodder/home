@@ -5,5 +5,6 @@ grep --colour -R --include '*.py' \
     --exclude-dir build \
     --exclude-dir debian \
     --exclude-dir forks \
+    --exclude-dir target \
     --exclude-dir venv \
     "$@" ~/[a-z]*

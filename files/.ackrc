@@ -10,6 +10,7 @@
 --ignore-directory=is:.tox
 --ignore-directory=is:build
 --ignore-directory=is:dist
+--ignore-directory=is:target
 --ignore-directory=is:venv
 --ignore-file=match:/^\.coverage/
 --nobreak
