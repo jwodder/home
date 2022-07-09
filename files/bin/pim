@@ -30,8 +30,7 @@ exec {'vim'} 'vim', @findings if $ok || ($opts{f} && @findings);
 sub subdirs($) {
  opendir my $dir, $_[0] or return ();
  grep -d, map { "$_[0]/$_" }
-          grep !/^(?:\.(?:\.|svn|git|cache|local|nox|tox)?|target|venv|Downloads)$/, sort readdir $dir;
-  # Should symbolic links be weeded out?
+          grep !/^(?:\.(?:\.|cache|git|local|nox|svn|tox)?|Downloads|__pycache__|_build|build|target|venv)$/, sort readdir $dir;
 }
 
 sub find($) {

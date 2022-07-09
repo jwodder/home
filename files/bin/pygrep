@@ -1,6 +1,7 @@
 #!/bin/bash
 grep --colour -R --include '*.py' \
     --exclude-dir '.*' \
+    --exclude-dir _build \
     --exclude-dir branches \
     --exclude-dir build \
     --exclude-dir debian \
