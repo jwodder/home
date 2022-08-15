@@ -1,0 +1,3 @@
+[alias]
+clap = ["add", "clap", "--no-default-features", "--features", "derive,std,suggestions,wrap_help"]
+lint = ["clippy", "--all-features", "--all-targets", "--", "-Dwarnings"]

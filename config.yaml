@@ -37,6 +37,9 @@ dotfiles:
     src: .bashrc
     dst: ~/.bashrc
     template: true
+  f_cargo_config_toml:
+    src: .cargo/config.toml
+    dst: ~/.cargo/config.toml
   f_config_pip_pip.conf:
     src: .config/pip/pip.conf
     dst: ~/.config/pip/pip.conf
@@ -186,6 +189,7 @@ profiles:
       - f_bin_git-update
       - f_bin_pim
       - f_bin_pygrep
+      - f_cargo_config_toml
       - f_config_pip_pip.conf
       - f_gitconfig
       - f_gnupg_gpg.conf
