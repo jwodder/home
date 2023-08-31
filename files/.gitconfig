@@ -25,7 +25,6 @@ requireForce = false
 
 [core]
 ignorecase = false
-logallrefupdates = false
 
 [diff]
 renames = true
