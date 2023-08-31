@@ -30,7 +30,7 @@ exec {'vim'} 'vim', @findings if $ok || ($opts{f} && @findings);
 sub subdirs($) {
  opendir my $dir, $_[0] or return ();
  grep -d, map { "$_[0]/$_" }
-          grep !/^(?:\.(?:\.|cache|git|local|nox|svn|tox)?|Downloads|__pycache__|_build|build|target|venv)$/, sort readdir $dir;
+          grep !/^(?:\.(?:\.|cache|git|local|mypy_cache|nox|svn|tox)?|Downloads|__pycache__|_build|build|clones|forks|target|venv)$/, sort readdir $dir;
 }
 
 sub find($) {
