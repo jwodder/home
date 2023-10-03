@@ -85,7 +85,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'cespare/vim-toml', { 'branch': 'main' }
 Plug 'junegunn/vim-plug'
 Plug 'knatsakis/deb.vim'
 Plug 'mgedmin/coverage-highlight.vim'
