@@ -1,33 +1,31 @@
 #!/bin/bash
 set -ex -o pipefail
 
-if ! command -V pip3 > /dev/null 2>&1
-then wget -O- https://bootstrap.pypa.io/get-pip.py | python3 - --user
-fi
-
 if [ "$(uname)" = Darwin ]
 then opts=
 else opts=--user
 fi
 
+if ! command -V pip3 > /dev/null 2>&1
+then wget -O- https://bootstrap.pypa.io/get-pip.py | python3 - $opts
+fi
+
 python3 -m pip install $opts --upgrade pip setuptools wheel
 python3 -m pip install $opts --upgrade \
-    black \
     build \
     click \
     coverage \
-    flake8 \
-    flake8-bugbear \
-    flake8-builtins \
-    flake8-unused-arguments \
-    isort \
-    nox \
-    pip-run \
     pipx \
-    pre-commit \
     requests \
-    tox \
     virtualenv \
     virtualenvwrapper
 
 # Coverage is needed for the Vim coverage plugin.
+
+pipx install black
+pipx install flake8
+pipx inject flake8 flake8-bugbear flake8-builtins flake8-unused-arguments
+pipx install nox
+pipx install pip-run
+pipx install pre-commit
+pipx install tox
