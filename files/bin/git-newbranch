@@ -1,4 +1,11 @@
 #!/bin/bash
 set -e
-defbranch="$(git default-branch)"
-git checkout -b "$1" "$defbranch"
+
+newbranch="${1:?}"
+
+if [ -n "$2" ]
+then startpoint="$2"
+else startpoint="$(git default-branch)"
+fi
+
+git checkout -b "$newbranch" "$startpoint"
