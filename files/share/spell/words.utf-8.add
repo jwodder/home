@@ -91,6 +91,7 @@ Hasse
 Hecatoncheires
 Helle
 Helvetica
+Hijra
 Hygeia
 Hypnos
 Hölder
@@ -112,6 +113,7 @@ Latona
 Lejeune
 Leto
 Lovecraftian
+MD5
 MacBook
 MacGuffin
 Marcionism
@@ -184,6 +186,7 @@ Somnus
 Sorgenfrey
 Srinivasa
 Stheno
+TOML
 Tarski
 Tartarus
 Terezienstadt
@@ -198,6 +201,7 @@ URIs
 URLs
 UTC
 Uther
+VCS
 Whorf
 Wronski
 XHTML
@@ -207,6 +211,7 @@ Zermelo
 aa
 abandonware
 abelian
+accessor
 acircular
 aeaeae
 aedile
@@ -252,6 +257,7 @@ autocannibalism
 autochthon
 autochthonous
 automagically
+awaitable
 backdoor
 backdoors
 backstory
@@ -263,6 +269,7 @@ begat
 benefitting
 berserkers
 besprinkling
+biconditional
 bigendian
 bioluminescence
 biome
@@ -285,6 +292,7 @@ cantrips
 capturable
 capybara
 capybaras
+caqui
 caron
 cedarn
 celadon
@@ -300,6 +308,7 @@ chthonic
 circumcenter
 circumcircle
 coatl
+codepage
 codepoints
 codomain
 cofinite
@@ -311,6 +320,7 @@ conchoid
 conflux
 conjugatable
 construct's
+contextualizable
 contrarian
 contrarians
 copiable
@@ -325,6 +335,7 @@ counterfactual
 counterspell
 counterspells
 countertop
+crabapple
 cryogenically
 cryptozoology
 cupbearer
@@ -343,8 +354,11 @@ demiplane
 demiplanes
 demiurge
 demiurge's
+dependant/!
 desecrator
 deserialization
+deserialize
+deserializes
 deserializing
 destructors
 diagonalization
@@ -356,11 +370,13 @@ discursives
 divine's
 djinn
 dojo
+dotfiles
 doxastic
 dreamscape
 droid
 droids
 dubnium
+durian
 dwarven
 dwarvish
 dwelled
@@ -375,6 +391,7 @@ eigenspaces
 eir
 eirs
 eirself
+either's
 elder's
 eldritch
 electronegativities
@@ -415,7 +432,10 @@ favicon
 fearmongering
 fermata
 filehandle
+filehandles
+filepaths
 fileserver
+filesystem
 finitude
 flagbearer
 fnord
@@ -446,12 +466,15 @@ griffons
 grimoire
 grue
 gynogenesis
+gynoid
 gyre
 haecceity
 halfling
 halflings
 halmos
 handaxe
+hardcode
+hardcoded
 hardcopies
 hardcopy
 harnessers
@@ -474,6 +497,7 @@ homaranismo
 homeschool
 homeschooled
 homeworld
+homeworlds
 homoiousy
 homoousy
 homunculi
@@ -521,6 +545,8 @@ kata
 katakana
 kent
 keychain
+keystream
+keystreams
 ki
 kirin
 kneeled
@@ -548,6 +574,7 @@ logfile
 logfiles
 lycanthrope
 lycanthropes
+macOS
 maenad
 mage
 mage's
@@ -562,6 +589,7 @@ manpages
 manticore
 manticores
 martyrizing
+megafauna
 meitnerium
 meme
 memoization
@@ -569,6 +597,7 @@ memoized
 menhir
 menhirs
 merfolk
+metaclass
 metadata
 metallically
 metatheorem
@@ -615,6 +644,8 @@ nomothetic
 noncanonical
 nonconducive
 noncorporeal
+nondeterministic
+nonnegative
 nonpositive
 nonresidue
 nontemporal
@@ -622,6 +653,7 @@ nontrivially
 nudibranch
 occultist
 octonion
+octopodes
 ogonek
 omnibenevolent
 omnicide
@@ -689,6 +721,7 @@ pseudoprime
 psychopomp
 psychopomps
 quadricentennial
+quadricentennials
 quaestor
 quale
 qualia
@@ -698,7 +731,6 @@ queendom
 radicand
 raptor
 raytrace
-raytracing
 reStructuredText
 reave
 rederives
@@ -709,6 +741,7 @@ regexes
 reimplementations
 relearner
 rematerialize
+rememberings
 repurpose
 repurposed
 reroll
@@ -726,11 +759,15 @@ rowan
 rulership
 runed
 s'more
+sapients
 sardonyx
 schematization
 schoolkids
 screenshots
 scry
+sdist
+sdist's
+sdists
 seaborgium
 seafloor
 sedenion
@@ -743,7 +780,10 @@ semidirect
 semigroup
 semimetal
 sensei
+serializers
 sertraline
+serviceberry
+setuptools
 shapeshift
 shapeshifter
 shapeshifter's
@@ -781,6 +821,8 @@ stylesheet
 stylesheets
 subfactorial
 submodule
+subpackage
+subpackages
 subschool
 subtable
 subtractor
@@ -801,6 +843,7 @@ syncretic
 syncretize
 syncretizing
 synecdoche
+synergized
 synesthetic
 tarball
 tarballed
@@ -849,6 +892,7 @@ undefining
 underbar
 underdot
 underinformed
+underqualified
 undertrained
 unduplicatable
 unevolved
@@ -911,6 +955,8 @@ yogh
 yond
 yonic
 zenzizenzizenzic
+zipfile
+zipfiles
 zoomorphic
 zorkmid
 zorkmids
