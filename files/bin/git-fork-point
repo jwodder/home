@@ -1,7 +1,47 @@
-#!/bin/bash
-# `git fork-point $A $B` outputs the commit after which $A and $B forked apart,
-# even if they've merged back together since then.
-# Taken from <https://stackoverflow.com/a/4991675/744178>
-diff --old-line-format='' --new-line-format='' \
-    <(git rev-list --first-parent "$1") \
-    <(git rev-list --first-parent "${2:-HEAD}") | head -1
+#!/usr/bin/env python3
+# Based on <https://stackoverflow.com/a/4991675/744178>
+import argparse
+import subprocess
+import sys
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Output the Git commit after which the history of the given"
+            " committishes forked apart, even if they've merged back together"
+            " since then"
+        )
+    )
+    parser.add_argument("--abbrev", "--abbrev-commit", action="store_true")
+    parser.add_argument("commit1")
+    parser.add_argument("commit2", nargs="?", default="HEAD", help="Defaults to HEAD")
+    args = parser.parse_args()
+    if args.abbrev:
+        opts = ["--abbrev-commit"]
+    else:
+        opts = []
+    history1 = subprocess.run(
+        ["git", "rev-list", "--first-parent", *opts, args.commit1],
+        check=True,
+        stdout=subprocess.PIPE,
+        text=True,
+    ).stdout.splitlines()
+    history2 = set(
+        subprocess.run(
+            ["git", "rev-list", "--first-parent", *opts, args.commit2],
+            check=True,
+            stdout=subprocess.PIPE,
+            text=True,
+        ).stdout.splitlines()
+    )
+    for rev in history1:
+        if rev in history2:
+            print(rev)
+            return
+    else:
+        sys.exit("Fork point not found")
+
+
+if __name__ == "__main__":
+    main()
