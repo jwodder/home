@@ -30,3 +30,7 @@ _git-annex()
     COMPREPLY=( $(git-annex "${CMDLINE[@]}") )
 }
 complete -o filenames -F _git-annex git-annex
+
+if command -V rustc &>/dev/null
+then . "$(rustc --print sysroot)/etc/bash_completion.d/cargo"
+fi
