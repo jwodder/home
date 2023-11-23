@@ -34,17 +34,9 @@ map W <C-W>w
 map \- :exe "normal " . (81-col("$")) . "A-\e"<CR>
 map \= :exe "normal " . (81-col("$")) . "A=\e"<CR>
 cmap <C-A> <C-B>
-map gB :%!black -q -<CR>
-map gI :%!isort -q -<CR>
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
 
 let loaded_matchparen=1
 syntax on
-
-" Printing options:
-set penc=utf-8 pheader=%<%t%=[Page\ %N]
-set popt=syntax:n,formfeed:y,wrap:y,duplex:off,bottom:10pc
 
 if &bg == "light"
     hi Boolean ctermfg=DarkGreen
