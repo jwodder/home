@@ -91,6 +91,9 @@ dotfiles:
   f_vim_filetype.vim:
     src: .vim/filetype.vim
     dst: ~/.vim/filetype.vim
+  f_vim_after_syntax_syncolor.vim:
+    src: .vim/after/syntax/syncolor.vim
+    dst: ~/.vim/after/syntax/syncolor.vim
   f_vimrc:
     src: .vimrc
     dst: ~/.vimrc
@@ -201,6 +204,7 @@ profiles:
       - d_share_spell
       - f_share_util.gbc
       - f_vim_filetype.vim
+      - f_vim_after_syntax_syncolor.vim
       - f_vimrc
 
   macOS:
