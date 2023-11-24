@@ -8,7 +8,7 @@ config:
   force_chmod: true
   func_file:
     - lib/functions.py
-  ignore_missing_in_dotdrop: true
+  #ignore_missing_in_dotdrop: true
   ignoreempty: true
   keepdot: true
   link_dotfile_default: nolink
@@ -88,16 +88,14 @@ dotfiles:
   f_screenrc:
     src: .screenrc
     dst: ~/.screenrc
-  f_vim_filetype.vim:
-    src: .vim/filetype.vim
-    dst: ~/.vim/filetype.vim
-  f_vim_after_syntax_syncolor.vim:
-    src: .vim/after/syntax/syncolor.vim
-    dst: ~/.vim/after/syntax/syncolor.vim
-  f_vimrc:
-    src: .vimrc
-    dst: ~/.vimrc
+  d_vim:
+    src: .vim
+    dst: ~/.vim
     template: true
+    cmpignore:
+      - .netrwhist
+      - autoload
+      - plugged
   f_bin_apt-check:
     src: bin/apt-check
     dst: ~/bin/apt-check
@@ -203,9 +201,7 @@ profiles:
       - f_share_ps1.py
       - d_share_spell
       - f_share_util.gbc
-      - f_vim_filetype.vim
-      - f_vim_after_syntax_syncolor.vim
-      - f_vimrc
+      - d_vim
 
   macOS:
     include:

@@ -3,17 +3,12 @@ set spl=en sps=best,13 spc= spf=~/share/spell/words.utf-8.add
 set spf+=~/share/spell/{{@@ spf @@}}
 {%@@ endfor @@%}
 
-set com^=s1:#\|,mb:\|,ex:\|#,b:--,b:#:,n:#,b:///,b://!
-set com+=b:!,b:\",b:;,bf:..,b:\\
 set flp=\\v^\\s*[[(]?(\\d+\|\\a\|[IiVvXxLlCcDdMm]+)[]:.)]\\s+
 set ai bs=2 cm=blowfish2 cpo+=M enc=utf-8 et fcl=all fo+=jn ic
 set lcs+=nbsp:~,tab:‣‧,trail:‧ ml mls=1 mps+=<:> nf-=octal rdt=750 ru ruf=%l:%c
-set sc scs scl=no sts=4 sw=1 ttm=100 ttimeout ww=h,l,[,]
+set sc scs scl=no sts=4 sw=1 ttm=100 ttimeout ut=2000 ww=h,l,[,]
 
-au BufNewFile,BufRead *.{bh,tsv,txt} setl noet sts=0
-au BufNewFile,BufRead *.{yml,yaml}   setl sts=2
-au BufNewFile,BufRead Makefile       setl noet sts=0
-au BufReadCmd         *.whl          call zip#Browse(expand("<amatch>"))
+au BufReadCmd *.whl call zip#Browse(expand("<amatch>"))
 au BufWinEnter * if getfsize(expand("%")) > 1024*1024 | syntax clear | endif
 
 dig uh 601 y- 563 Y- 562 zh 658 sh 643 dh 240 DH 208 !? 8253 :: 776
@@ -34,26 +29,30 @@ map \= :exe "normal " . (81-col("$")) . "A=\e"<CR>
 cmap <C-A> <C-B>
 
 let loaded_matchparen=1
+filetype plugin on
 syntax on
+
+" Prevent ftplugins from overriding some values:
+autocmd Filetype * setl sw=1 ts=8
 
 command -nargs=1 Sp :sp `=system("pim -l " . shellescape(<q-args>))`
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
+Plug 'dense-analysis/ale'
+" Install vim-plug as a plugin in order to get the documentation:
 Plug 'junegunn/vim-plug'
 Plug 'knatsakis/deb.vim'
 Plug 'mgedmin/coverage-highlight.vim'
 Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
-filetype plugin indent off
+filetype indent off
 
-map gc :ToggleCoverage<CR>
-map gp :PrevUncovered<CR>
-map gn :NextUncovered<CR>
+runtime! plugconf/*.vim
 
 " Show syntax highlighting groups for word under cursor
 " <https://stackoverflow.com/a/7893500/744178>
