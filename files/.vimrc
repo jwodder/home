@@ -9,9 +9,6 @@ set flp=\\v^\\s*[[(]?(\\d+\|\\a\|[IiVvXxLlCcDdMm]+)[]:.)]\\s+
 set ai bs=2 cm=blowfish2 cpo+=M enc=utf-8 et fcl=all fo+=jn ic
 set lcs+=nbsp:~,tab:‣‧,trail:‧ ml mls=1 mps+=<:> nf-=octal rdt=750 ru ruf=%l:%c
 set sc scs scl=no sts=4 sw=1 ttm=100 ttimeout ww=h,l,[,]
-{%@@ if profile != "macOS" @@%}
-set bg=dark
-{%@@ endif @@%}
 
 au BufNewFile,BufRead *.{bh,tsv,txt} setl noet sts=0
 au BufNewFile,BufRead *.{yml,yaml}   setl sts=2
@@ -67,3 +64,7 @@ function! <SID>SynStack()
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+if stridx(environ()['TERM'], 'screen') == 0
+    let &t_RB="\<ESC>P\<ESC>]11;?\<C-G>\<ESC>\\"
+endif
