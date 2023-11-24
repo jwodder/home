@@ -65,5 +65,16 @@ function! <SID>SynStack()
 endfunc
 
 if stridx(environ()['TERM'], 'screen') == 0
+    " These assume the outer terminal is xterm-compatible.
+    " Sequence for querying background color for setting 'bg':
     let &t_RB="\<ESC>P\<ESC>]11;?\<C-G>\<ESC>\\"
+    " Bracketed paste:
+    " Screen may eventually support this natively:
+    "   <https://savannah.gnu.org/bugs/?62102>
+    " Debian's screen is patched to support this as of 4.9.0-4 (Debian:
+    "   bookworm onwards; Ubuntu: lunar onwards)
+    let &t_BE="\<ESC>P\<ESC>[?2004h\<ESC>\\"
+    let &t_BD="\<ESC>P\<ESC>[?2004l\<ESC>\\"
+    let &t_PS="\<ESC>[200~"
+    let &t_PE="\<ESC>[201~"
 endif
