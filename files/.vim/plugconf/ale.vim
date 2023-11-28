@@ -2,6 +2,7 @@
 
 let g:ale_fixers = {
 \   'python': ['black', 'isort'],
+\   'rust': ['rustfmt'],
 \}
 
 let g:ale_linters = {
@@ -14,6 +15,7 @@ let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_fix_on_save = 1
 let g:ale_hover_to_preview = 1
 let g:ale_linters_explicit = 1
+let g:ale_rust_rustfmt_options = '--edition 2021'
 let g:ale_virtualtext_cursor = 0
 
 let g:ale_set_signs = 0
@@ -21,8 +23,6 @@ hi link ALEErrorLine SpellBad
 hi link ALEWarningLine SpellCap
 hi link ALEInfoLine ALEWarningLine
 
-imap <C-Y> <Plug>(ale_complete)
-nmap !X <Plug>(ale_fix)
 nmap !h :1messages<CR>
 nmap !i <Plug>(ale_hover)
 nmap !? <Plug>(ale_detail)
