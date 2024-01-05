@@ -54,7 +54,7 @@ dotfiles:
     chmod: '600'
     actions:
       - private-dir
-  f_inputc:
+  f_inputrc:
     src: .inputrc
     dst: ~/.inputrc
   f_jq:
@@ -196,7 +196,7 @@ profiles:
       - f_config_pip_pip.conf
       - f_gitconfig
       - f_gnupg_gpg.conf
-      - f_inputc
+      - f_inputrc
       - f_jq
       - f_profile
       - f_screenrc
