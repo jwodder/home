@@ -38,6 +38,9 @@ reflogexpireunreachable = 7
 [grep]
 patternType = perl
 
+[init]
+defaultBranch = main
+
 [log]
 abbrevCommit = true
 date = format-local:%Y %b %d %H:%M:%S %z
