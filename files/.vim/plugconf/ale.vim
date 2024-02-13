@@ -54,3 +54,17 @@ let g:ale_rust_analyzer_config = {
 \       'prefix': 'self',
 \   },
 \}
+
+" Display a '@' after the ruler if rust-analyzer hasn't finished an initial
+" sweep.  Unfortunately, the only way to update the ruler seems to be by
+" moving the cursor.  Putting this in the statusline instead doesn't help.
+function JTW_rust_analyzer_sigil()
+    if &ft == "rust"
+        \ && get(b:, 'ale_enabled', g:ale_enabled)
+        \ && getbufvar(bufnr(''), 'ale_linted', 0) == 0
+        return ' @'
+    else
+        return ''
+    endif
+endfunc
+set ruf+=%{JTW_rust_analyzer_sigil()}
