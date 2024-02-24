@@ -14,15 +14,13 @@ python3 -m pip install $opts --upgrade pip setuptools wheel
 python3 -m pip install $opts --upgrade \
     build \
     click \
-    coverage \
     pipx \
     requests \
     virtualenv \
     virtualenvwrapper
 
-# Coverage is needed for the Vim coverage plugin.
-
 pipx install black
+pipx install coverage   # Needed for the Vim coverage plugin
 pipx install flake8
 pipx inject flake8 flake8-bugbear flake8-builtins flake8-unused-arguments
 pipx install nox
