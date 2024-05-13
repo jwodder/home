@@ -23,6 +23,7 @@ pipx install black
 pipx install coverage   # Needed for the Vim coverage plugin
 pipx install flake8
 pipx inject flake8 flake8-bugbear flake8-builtins flake8-unused-arguments
+pipx install jwodder-ps1
 pipx install nox
 pipx install pip-run
 pipx install pre-commit

@@ -155,10 +155,6 @@ dotfiles:
     src: bin/pygrep
     dst: ~/bin/pygrep
     chmod: '0755'
-  f_share_ps1.py:
-    src: share/ps1.py
-    dst: ~/share/ps1.py
-    template: true
   f_share_pylinting.cfg:
     src: share/pylinting.cfg
     dst: ~/share/pylinting.cfg
@@ -200,7 +196,6 @@ profiles:
       - f_jq
       - f_profile
       - f_screenrc
-      - f_share_ps1.py
       - f_share_pylinting.cfg
       - d_share_spell
       - f_share_util.gbc

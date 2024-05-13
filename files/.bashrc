@@ -51,7 +51,7 @@ function show_exit_status {
 PROMPT_COMMAND=show_exit_status
 
 function show_my_ps1 {
-    PS1="$(python3 ~/share/ps1.py "$PS1_GIT")"
+    PS1="$(jwodder-ps1 --no-hostname --theme light "$PS1_GIT")"
 }
 
 function ps1_on {
@@ -64,7 +64,7 @@ function ps1_off {
 }
 {%@@ else @@%}
 PS1_GIT=on
-PROMPT_COMMAND=show_exit_status'; PS1="$(python3 ~/share/ps1.py "$PS1_GIT")"'
+PROMPT_COMMAND=show_exit_status'; PS1="$(jwodder-ps1 "$PS1_GIT")"'
 {%@@ endif @@%}
 
 {%@@ if profile != "macOS" @@%}
