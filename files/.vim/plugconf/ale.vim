@@ -32,6 +32,7 @@ nmap !D <Plug>(ale_go_to_definition_in_split)
 nmap !R <Plug>(ale_find_references)
 nmap !. <CursorHold>
 
+" <https://rust-analyzer.github.io/manual.html#configuration>
 let g:ale_rust_analyzer_config = {
 \   'assist': {
 \       'expressionFillDefault': 'todo!()',
@@ -41,7 +42,7 @@ let g:ale_rust_analyzer_config = {
 \   },
 \   'hover': {
 \       'memoryLayout': {
-\           'alignment': v:null,
+\           'enable': v:false,
 \       },
 \   },
 \   'imports': {
