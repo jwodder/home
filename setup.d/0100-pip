@@ -1,23 +1,44 @@
 #!/bin/bash
-set -ex -o pipefail
+set -eux -o pipefail
 
-if [ "$(uname)" = Darwin ]
-then opts=
-else opts=--user
+function have_command {
+    command -V "$1" >/dev/null 2>&1
+}
+
+extmanaged="$(python3 "$(dirname "$0")"/../util/externally-managed.py)"
+
+if [ "$extmanaged" = yes ]
+then
+    while read -r cmd pkg
+    do
+        if ! have_command "$cmd"
+        then
+            if have_command brew
+            then brew install "$pkg"
+            elif have_command apt-get && sudo -n true 2>/dev/null
+            then sudo apt-get install "$pkg"
+            else
+                echo Python environment is externally managed, and "$cmd" is not installed. >&2
+                exit 1
+            fi
+        fi
+    done <<EOT
+pipx pipx
+virtualenvwrapper.sh virtualenvwrapper
+EOT
+else
+    if [ "$(uname)" = Darwin ]
+    then opts=
+    else opts=--user
+    fi
+
+    if ! have_command pip3
+    then wget -O- https://bootstrap.pypa.io/get-pip.py | python3 - $opts
+    fi
+
+    python3 -m pip install $opts --upgrade pip
+    python3 -m pip install $opts --upgrade build pipx virtualenvwrapper
 fi
-
-if ! command -V pip3 > /dev/null 2>&1
-then wget -O- https://bootstrap.pypa.io/get-pip.py | python3 - $opts
-fi
-
-python3 -m pip install $opts --upgrade pip setuptools wheel
-python3 -m pip install $opts --upgrade \
-    build \
-    click \
-    pipx \
-    requests \
-    virtualenv \
-    virtualenvwrapper
 
 pipx install black
 pipx install coverage   # Needed for the Vim coverage plugin
