@@ -14,7 +14,7 @@ complete -o default -F _pip_completion pip3
 # ~/.profile is sourced and thus before ~/.local/bin is added to PATH.  When
 # this happens, pipx and its dependency register-python-argcomplete are not yet
 # available.
-if command -V pipx &>/dev/null
+if ( command -V pipx && command -V register-python-argcomplete ) &>/dev/null
 then eval "$(register-python-argcomplete pipx)"
 fi
 
