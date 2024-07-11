@@ -18,7 +18,7 @@ export EDITOR={{@@ vimpath|shlex_quote @@}}
 export VISUAL="$EDITOR"
 export BC_ENV_ARGS="-lq $HOME/share/util.gbc"
 {%@@ if profile == "macOS" @@%}
-export HOMEBREW_CLEANUP_MAX_AGE_DAYS=1
+export HOMEBREW_CLEANUP_MAX_AGE_DAYS=0
 export WS=/Library/WebServer/Documents
 {%@@ else @@%}
 export SYSTEMD_LESS=-iRS
