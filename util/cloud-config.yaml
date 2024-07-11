@@ -1,0 +1,33 @@
+#cloud-config
+users:
+  - name: jwodder
+    groups: sudo
+    shell: /bin/bash
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    lock-passwd: true
+    ssh_import_id:
+      - gh:jwodder
+
+locale: C.UTF-8
+timezone: America/New_York
+
+package_update: true
+packages:
+  - build-essential
+  - fail2ban
+  - jq
+  - python3-dev
+  - python3-venv
+  - ufw
+  - wget
+
+swap:
+  ### TODO: Try to get the size to be twice the RAM
+  filename: /swapfile
+  size: auto
+  maxsize: 2147483648  # 2 GiB
+
+runcmd:
+  - ["perl", "-pli", "-e", "s/^#?PermitRootLogin\\s+.*/PermitRootLogin no/", "/etc/ssh/sshd_config"]
+  - ["systemctl", "restart", "ssh"]
+  - ["sudo", "-u", "jwodder", "bash", "-c", "git clone https://github.com/jwodder/home ~/home && ~/home/setup.sh"]
