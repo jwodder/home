@@ -58,7 +58,7 @@ TERM xterm-debian
 # Add 60 to a color for brightness
 
 RESET                 0         # reset to "normal" color
-DIR                      34     # directory
+DIR                      94     # directory
 EXEC                     31     # executable
 LINK                     35     # symbolic link
 MULTIHARDLINK         01        # regular file with more than one link
