@@ -60,9 +60,6 @@ dotfiles:
   f_jq:
     src: .jq
     dst: ~/.jq
-  f_lessfilter:
-    src: .lessfilter
-    dst: ~/.lessfilter
   f_mutt_colors:
     src: .mutt/colors
     dst: ~/.mutt/colors
@@ -228,7 +225,6 @@ profiles:
       - f_bin_apt-purge
       - f_bin_apt-upgrade
       - f_dircolors
-      - f_lessfilter
 
   debian-mail:
     include:
