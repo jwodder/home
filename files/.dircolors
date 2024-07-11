@@ -55,6 +55,7 @@ TERM xterm-debian
 # 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
 # 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+# Add 60 to a color for brightness
 
 RESET                 0         # reset to "normal" color
 DIR                      34     # directory
@@ -77,29 +78,29 @@ STICKY                   37;44  # dir that is sticky (+t) and not other-writable
 
 # Ignored/ignorable/cruft files:
 # (Cruft directories apparently can't be re-highlighted)
-.class                01;35;40
-.hi                   01;35;40
-*history              01;35;40
-.lesshst              01;35;40
-.o                    01;35;40
-.pyc                  01;35;40
-.retry                01;35;40
-.swp                  01;35;40
-.wget-hsts            01;35;40
+.class                   90;40
+.hi                      90;40
+*history                 90;40
+.lesshst                 90;40
+.o                       90;40
+.pyc                     90;40
+.retry                   90;40
+.swp                     90;40
+.wget-hsts               90;40
 
 # LaTeX cruft:
-.aux                  01;35;40
-.bbl                  01;35;40
-.blg                  01;35;40
-.idn                  01;35;40
-.idx                  01;35;40
-.ilg                  01;35;40
-.ind                  01;35;40
-.log                  01;35;40
-.nav                  01;35;40
-.out                  01;35;40
-.snm                  01;35;40
-.toc                  01;35;40
+.aux                     90;40
+.bbl                     90;40
+.blg                     90;40
+.idn                     90;40
+.idx                     90;40
+.ilg                     90;40
+.ind                     90;40
+.log                     90;40
+.nav                     90;40
+.out                     90;40
+.snm                     90;40
+.toc                     90;40
 
 # Archives and compressed files:
 .tar                  04;33
