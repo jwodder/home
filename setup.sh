@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 export MAIL_HOSTNAME=
 while getopts :m: opt
 do
