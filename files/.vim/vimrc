@@ -44,6 +44,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+Plug 'chikamichi/mediawiki.vim'
 Plug 'dense-analysis/ale'
 " Install vim-plug as a plugin in order to get the documentation:
 Plug 'junegunn/vim-plug'
