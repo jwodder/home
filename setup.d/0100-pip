@@ -37,10 +37,11 @@ else
     fi
 
     python3 -m pip install $opts --upgrade pip
-    python3 -m pip install $opts --upgrade build pipx virtualenvwrapper
+    python3 -m pip install $opts --upgrade pipx virtualenvwrapper
 fi
 
 pipx install black
+pipx install build
 pipx install coverage   # Needed for the Vim coverage plugin
 pipx install flake8
 pipx inject flake8 flake8-bugbear flake8-builtins flake8-unused-arguments
