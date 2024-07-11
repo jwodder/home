@@ -1,0 +1,51 @@
+#!/bin/bash
+# Prerequisites:
+#     rustup component add llvm-tools
+#     cargo install grcov
+
+set -e -o pipefail
+
+run=1
+open=0
+
+shift
+for arg
+do case "$arg" in
+    -o|--open)
+        run=1
+        open=1
+        shift;;
+    -O|--open-only)
+        run=0
+        open=1
+        shift;;
+    *)
+        echo "Usage: cargo coverage [--open|--open-only]"
+        exit 2
+esac
+done
+
+cargo_toml_path="$(cargo locate-project | jq -r .root)"
+cd "$(dirname "$cargo_toml_path")"
+
+if [ "$run" = 1 ]
+then
+    export RUSTFLAGS="${RUSTFLAGS:+$RUSTFLAGS }-Cinstrument-coverage"
+    "$CARGO" build
+    export LLVM_PROFILE_FILE="target/coverage/prof/%p-%m.profraw"
+    "$CARGO" test --all-features
+
+    grcov \
+        --source-dir src \
+        --binary-path target/debug \
+        --branch \
+        --excl-start 'mod tests \{' \
+        --ignore 'tests/*' \
+        -t html \
+        -o target/coverage/html \
+        target/coverage/prof
+fi
+
+if [ "$open" = 1 ]
+then open target/coverage/html/index.html
+fi

@@ -107,6 +107,18 @@ dotfiles:
     src: bin/apt-upgrade
     dst: ~/bin/apt-upgrade
     chmod: '0755'
+  f_bin_cargo-coverage:
+    src: bin/cargo-coverage
+    dst: ~/bin/cargo-coverage
+    chmod: '0755'
+  f_bin_cargo-docsrs:
+    src: bin/cargo-docsrs
+    dst: ~/bin/cargo-docsrs
+    chmod: '0755'
+  f_bin_cargo-updeps:
+    src: bin/cargo-updeps
+    dst: ~/bin/cargo-updeps
+    chmod: '0755'
   f_bin_email:
     src: bin/email
     dst: ~/bin/email
@@ -177,6 +189,9 @@ profiles:
       - f_ackrc
       - f_bash_completion
       - f_bashrc
+      - f_bin_cargo-coverage
+      - f_bin_cargo-docsrs
+      - f_bin_cargo-updeps
       - f_bin_git-branch-log
       - f_bin_git-branch-range
       - f_bin_git-default-branch

@@ -1,0 +1,6 @@
+#!/bin/bash
+shift
+# <https://github.com/killercup/cargo-edit/issues/869#issuecomment-1696223822>
+export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git
+cargo fetch
+cargo upgrade --compatible ignore --incompatible allow --ignore-rust-version "$@"

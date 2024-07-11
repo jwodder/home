@@ -1,0 +1,4 @@
+#!/bin/bash
+# See <https://users.rust-lang.org/t/64577/3>
+shift
+RUSTDOCFLAGS="--cfg docsrs" cargo +nightly doc --all-features "$@"
