@@ -29,8 +29,6 @@ function _have_command {
 
 if _have_command lesspipe
 then eval "$(lesspipe)"
-elif _have_command lesspipe.sh  # Homebrew
-then eval "$(lesspipe.sh)"
 fi
 
 {%@@ if profile != "macOS" @@%}
