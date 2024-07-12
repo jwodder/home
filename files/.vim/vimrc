@@ -32,6 +32,7 @@ cmap <C-A> <C-B>
 let loaded_matchparen=1
 filetype plugin on
 syntax on
+colorscheme jwodder
 
 " Prevent ftplugins from overriding some values:
 autocmd Filetype * setl sw=1 ts=8
