@@ -31,3 +31,11 @@ hi link jsonNull Identifier
 hi link pythonBuiltin Identifier
 hi htmlItalic cterm=underline
 hi rstEmphasis cterm=underline
+hi csvCol1 ctermfg=DarkRed
+hi csvCol2 ctermfg=DarkGreen
+hi csvCol3 ctermfg=DarkYellow
+hi csvCol4 ctermfg=DarkBlue
+hi csvCol5 ctermfg=DarkMagenta
+hi csvCol6 ctermfg=DarkCyan
+hi csvCol7 ctermfg=Red
+hi csvCol8 ctermfg=Blue
