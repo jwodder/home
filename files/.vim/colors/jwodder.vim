@@ -4,8 +4,6 @@
 "  :help highlight-groups
 "  $VIMRUNTIME/colors/README.txt
 
-highlight clear Normal
-set bg&
 highlight clear
 
 if exists("syntax_on")
@@ -23,7 +21,7 @@ let g:colors_name="jwodder"
 "hi Error
 "hi Todo
 
-if &bg == "light"
+if &bg ==# "light"
 
     " Black-on-white
     hi Boolean ctermfg=DarkGreen
