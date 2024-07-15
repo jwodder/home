@@ -16,7 +16,7 @@ then
             if have_command brew
             then brew install "$pkg"
             elif have_command apt-get && sudo -n true 2>/dev/null
-            then sudo apt-get install "$pkg"
+            then sudo apt-get -y install "$pkg"
             else
                 echo Python environment is externally managed, and "$cmd" is not installed. >&2
                 exit 1
