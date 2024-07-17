@@ -75,3 +75,11 @@ hi csvCol5 ctermfg=DarkMagenta
 hi csvCol6 ctermfg=DarkCyan
 hi csvCol7 ctermfg=Red
 hi csvCol8 ctermfg=Blue
+
+hi link ALEErrorLine SpellBad
+hi link ALEWarningLine SpellCap
+hi link ALEInfoLine ALEWarningLine
+
+" Keep the coverage-highlight highlight from conflicting with Ale's error
+" highlight:
+hi NoCoverage ctermbg=Yellow

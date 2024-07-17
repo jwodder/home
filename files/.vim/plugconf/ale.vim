@@ -16,12 +16,8 @@ let g:ale_fix_on_save = 1
 let g:ale_hover_to_preview = 1
 let g:ale_linters_explicit = 1
 let g:ale_rust_rustfmt_options = '--edition 2021'
-let g:ale_virtualtext_cursor = 0
-
 let g:ale_set_signs = 0
-hi link ALEErrorLine SpellBad
-hi link ALEWarningLine SpellCap
-hi link ALEInfoLine ALEWarningLine
+let g:ale_virtualtext_cursor = 0
 
 nmap !h :1messages<CR>
 nmap !i <Plug>(ale_hover)
