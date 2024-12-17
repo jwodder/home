@@ -27,17 +27,12 @@ pipx pipx
 virtualenvwrapper.sh virtualenvwrapper
 EOT
 else
-    if [ "$(uname)" = Darwin ]
-    then opts=
-    else opts=--user
-    fi
-
     if ! have_command pip3
-    then wget -O- https://bootstrap.pypa.io/get-pip.py | python3 - $opts
+    then wget -O- https://bootstrap.pypa.io/get-pip.py | python3 - --user
     fi
 
-    python3 -m pip install $opts --upgrade pip
-    python3 -m pip install $opts --upgrade pipx virtualenvwrapper
+    python3 -m pip install --user --upgrade pip
+    python3 -m pip install --user --upgrade pipx virtualenvwrapper
 fi
 
 pipx install black
