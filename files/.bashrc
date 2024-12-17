@@ -9,12 +9,6 @@ alias toc='ls -ACF --color'
 {%@@ endif @@%}
 alias tree="tree -aF -I '*.egg-info|.cache|.git|.mypy_cache|.nox|.tox|__pycache__|_build|build|target|venv' --matchdirs --noreport"
 
-{%@@ if profile == "macOS" @@%}
-PS1='\d \w\$ '
-{%@@ else @@%}
-PS1='\u@\h:\w\$ '
-{%@@ endif @@%}
-
 shopt -s checkwinsize direxpand globstar histappend no_empty_cmd_completion
 shopt -s progcomp
 set -o ignoreeof -o pipefail
@@ -45,25 +39,16 @@ function show_exit_status {
     [ "$CHILD_ERROR" = 0 ] || printf '\033[1;31m[%d]\033[0m\n' "$CHILD_ERROR"
 }
 
-{%@@ if profile == "macOS" @@%}
-PROMPT_COMMAND=show_exit_status
-
 function show_my_ps1 {
+{%@@ if profile == "macOS" @@%}
     PS1="$(jwodder-ps1 --no-hostname --theme light "$PS1_GIT")"
-}
-
-function ps1_on {
-    PROMPT_COMMAND="$PROMPT_COMMAND; show_my_ps1"
-}
-
-function ps1_off {
-    PROMPT_COMMAND="${PROMPT_COMMAND/; show_my_ps1/}"
-    PS1='\d \w\$ '
-}
 {%@@ else @@%}
-PS1_GIT=on
-PROMPT_COMMAND=show_exit_status'; PS1="$(jwodder-ps1 "$PS1_GIT")"'
+    PS1="$(jwodder-ps1 "$PS1_GIT")"
 {%@@ endif @@%}
+}
+
+PS1_GIT=on
+PROMPT_COMMAND="show_exit_status; show_my_ps1"
 
 {%@@ if profile != "macOS" @@%}
 # TODO: Is it even necessary to set this?
