@@ -140,6 +140,10 @@ dotfiles:
     src: bin/git-newbranch
     dst: ~/bin/git-newbranch
     chmod: '0755'
+  f_bin_git-post-merge:
+    src: bin/git-post-merge
+    dst: ~/bin/git-post-merge
+    chmod: '0755'
   f_bin_git-restore-head:
     src: bin/git-restore-head
     dst: ~/bin/git-restore-head
@@ -194,6 +198,7 @@ profiles:
       - f_bin_git-default-branch
       - f_bin_git-fork-point
       - f_bin_git-newbranch
+      - f_bin_git-post-merge
       - f_bin_git-restore-head
       - f_bin_git-restore-index
       - f_bin_git-rmbranch

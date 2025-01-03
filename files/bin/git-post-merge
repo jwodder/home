@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.9"
+# dependencies = []
+# ///
+from __future__ import annotations
+import argparse
+from collections import defaultdict
+from collections.abc import Iterator
+import shlex
+import subprocess
+import sys
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Check out the default branch, run `git pull --prune`, and delete"
+            " any local branches that were merged & deleted remotely"
+        )
+    )
+    parser.add_argument(
+        "remote",
+        nargs="?",
+        default="origin",
+        help="Remote to pull from [default: origin]",
+    )
+    args = parser.parse_args()
+    try:
+        defbranch = default_branch()
+        runcmd("git", "checkout", defbranch)
+        all_remotes = set(remote_branches())
+        remotes2locals = defaultdict(list)
+        for local, remote in branches_and_remotes():
+            # It's possible for a local branch to be listed as tracking a
+            # remote branch that no longer exists.  Ignore any such local
+            # branches.
+            if remote in all_remotes:
+                remotes2locals[remote].append(local)
+        runcmd("git", "pull", "--prune", "--", args.remote)
+        for remote in remote_branches():
+            remotes2locals.pop(remote, None)
+        for _remote, localbrs in remotes2locals.items():
+            for br in localbrs:
+                if branch_merged(br, defbranch):
+                    brshort = br.removeprefix("refs/heads/")
+                    print(
+                        f"Branch {brshort!r} merged into {defbranch!r} and"
+                        " deleted remotely; deleting locally"
+                    )
+                    runcmd("git", "branch", "-D", brshort)
+    except subprocess.CalledProcessError as e:
+        sys.exit(e.returncode)
+    except DefaultBranchError as e:
+        print(e, file=sys.stderr)
+        sys.exit(1)
+
+
+def default_branch() -> str:
+    for guess in ["main", "master", "trunk", "draft"]:
+        r = subprocess.run(
+            ["git", "show-ref", "--verify", "--quiet", f"refs/heads/{guess}"]
+        )
+        if r.returncode == 0:
+            return guess
+    raise DefaultBranchError()
+
+
+class DefaultBranchError(Exception):
+    def __str__(self) -> str:
+        return "Could not determine default branch"
+
+
+def branches_and_remotes() -> Iterator[tuple[str, str]]:
+    r = subprocess.run(
+        ["git", "branch", "--format=%(refname) %(upstream)"],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    )
+    for line in r.stdout.splitlines():
+        refname, upstream = line.split()
+        if upstream:
+            yield (refname, upstream)
+
+
+def remote_branches() -> list[str]:
+    r = subprocess.run(
+        ["git", "branch", "-r", "--format=%(refname)"],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    )
+    return r.stdout.splitlines()
+
+
+def branch_merged(branch: str, defbranch: str) -> bool:
+    r = subprocess.run(
+        ["git", "cherry", "--", defbranch, branch],
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+    )
+    return not any(line.startswith("+") for line in r.stdout.splitlines())
+
+
+def runcmd(*args: str) -> None:
+    s = "+" + shlex.join(args)
+    if sys.stderr.isatty():
+        s = f"\x1B[36m{s}\x1B[m"
+    print(s, file=sys.stderr)
+    subprocess.run(args, check=True)
+
+
+if __name__ == "__main__":
+    main()
