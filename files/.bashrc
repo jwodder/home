@@ -63,7 +63,12 @@ do if [ -r "$compfile" ]
    fi
 done
 
-if venvwrappath="$(type -p virtualenvwrapper.sh)"
+venvwrappath="$(type -p virtualenvwrapper.sh)"
+_apt_venvwrappath=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
+if [ -z "$venvwrappath" ] && [ -f "$_apt_venvwrappath" ]
+then venvwrappath="$_apt_venvwrappath"
+fi
+if [ -n "$venvwrappath" ]
 then WORKON_HOME="$HOME/.local/virtualenvwrapper/venvs"
      VIRTUALENVWRAPPER_HOOK_DIR="$HOME/.local/virtualenvwrapper/scripts"
      VIRTUALENVWRAPPER_PYTHON="$(type -p python3)"
