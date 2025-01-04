@@ -82,4 +82,4 @@ hi link ALEInfoLine ALEWarningLine
 
 " Keep the coverage-highlight highlight from conflicting with Ale's error
 " highlight:
-hi NoCoverage ctermbg=Yellow
+hi NoCoverage ctermbg=214
