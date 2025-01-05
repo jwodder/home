@@ -79,7 +79,7 @@ def branches_and_remotes() -> Iterator[tuple[str, str]]:
         stdout=subprocess.PIPE,
     )
     for line in r.stdout.splitlines():
-        refname, upstream = line.split()
+        refname, upstream = line.split(" ")
         if upstream:
             yield (refname, upstream)
 
