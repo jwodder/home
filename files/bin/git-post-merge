@@ -73,13 +73,13 @@ class DefaultBranchError(Exception):
 
 def branches_and_remotes() -> Iterator[tuple[str, str]]:
     r = subprocess.run(
-        ["git", "branch", "--format=%(refname) %(upstream)"],
+        ["git", "branch", "--format=%(refname):%(upstream)"],
         check=True,
         text=True,
         stdout=subprocess.PIPE,
     )
     for line in r.stdout.splitlines():
-        refname, upstream = line.split(" ")
+        refname, upstream = line.split(":")
         if upstream:
             yield (refname, upstream)
 
