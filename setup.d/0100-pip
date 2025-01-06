@@ -9,22 +9,25 @@ extmanaged="$(python3 "$(dirname "$0")"/../util/externally-managed.py)"
 
 if [ "$extmanaged" = yes ]
 then
-    while read -r cmd pkg
+    while read -r cmd pkg require
     do
         if ! have_command "$cmd"
         then
             if have_command brew
             then brew install "$pkg"
             elif have_command apt-get && sudo -n true 2>/dev/null
-            then sudo apt-get -y install "$pkg"
-            else
-                echo Python environment is externally managed, and "$cmd" is not installed. >&2
+            then sudo apt-get install -y "$pkg"
+            elif [ "$require" = yes ]
+            then
+                printf '\x1B[31m[ERROR] Python environment is externally managed, and %s is not installed.\x1B[m\n' "$cmd" >&2
                 exit 1
+            else
+                printf '\x1B[33m[WARNING] Python environment is externally managed, and %s is not installed.\x1B[m\n' "$cmd" >&2
             fi
         fi
     done <<EOT
-pipx pipx
-virtualenvwrapper.sh virtualenvwrapper
+pipx pipx yes
+virtualenvwrapper.sh virtualenvwrapper no
 EOT
 else
     if ! have_command pip3
