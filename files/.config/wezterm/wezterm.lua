@@ -2,7 +2,39 @@ local wezterm = require 'wezterm'
 local act = wezterm.action
 local config = wezterm.config_builder()
 
-config.color_scheme = 'jwodder'
+config.colors = {
+    foreground = "#f2f2f2",
+    background = "#000000",
+    cursor_bg = "#9a9a9a",
+    cursor_border = "#4d4d4d",
+    cursor_fg = "#ffffff",
+    selection_bg = "#414141",
+    selection_fg = "#000000",
+    scrollbar_thumb = "#cccccc",
+    ansi = {
+        "#000000",  -- Black
+        -- "#990000",  -- Red
+        "#b30000",  -- Red
+        "#00a600",  -- Green
+        "#999900",  -- Yellow
+        "#5455cb",  -- Blue
+        "#b200b2",  -- Magenta
+        "#00a6b2",  -- Cyan
+        "#bfbfbf",  -- White
+    },
+    brights = {
+        "#666666",  -- Bright black
+        -- "#e50000",  -- Bright red
+        "#ff0000",  -- Bright red
+        "#00d900",  -- Bright green
+        "#e5e500",  -- Bright yellow
+        "#5555ff",  -- Bright blue
+        "#e500e5",  -- Bright magenta
+        "#00e5e5",  -- Bright cyan
+        "#e5e5e5",  -- Bright white
+    },
+}
+
 config.enable_scroll_bar = true
 config.font = wezterm.font('Menlo')
 config.font_size = 12
@@ -30,6 +62,21 @@ config.keys = {
     },
 
     { key = 'c', mods = 'LEADER|CTRL', action = act.ActivateCopyMode, },
+
+    {
+        key = 'f',
+        mods = 'LEADER|SHIFT',
+        action = act.SpawnCommandInNewTab {
+            args = {
+                os.getenv("HOME") .. "/bin/with-tab-title",
+                "firefly",
+                'ssh',
+                'firefly',
+            },
+        },
+    },
+
+
     { key = 'g', mods = 'LEADER', action = act.ShowTabNavigator, },
     { key = 'g', mods = 'LEADER|SHIFT', action = act.ShowTabNavigator, },
     { key = 'n', mods = 'LEADER', action = act.ActivateTabRelative(1), },
@@ -132,13 +179,13 @@ config.key_tables = {
 
 config.launch_menu = {
     {
-        label = 'work',
+        label = 'Shell',
         args = { '/usr/local/bin/bash', '-l' },
         cwd = os.getenv("HOME") .. "/work",
     },
     {
-        label = 'Screen',
-        args = { 'bash', '-l', '-c', 'screen' },
+        label = 'tmux',
+        args = { 'bash', '-l', '-c', 'tmux' },
         cwd = os.getenv("HOME") .. "/work",
     },
     {
@@ -160,22 +207,23 @@ config.window_padding = {
     bottom = '0cell',
 }
 
-wezterm.on('bell', function(window, pane)
-    if window:is_focused() and window:active_pane():pane_id() == pane:pane_id() then
-        return
-    end
-
-    title = ""
-    t = pane:tab()
-    if t then
-        title = t:get_title()
-    end
-    if title == "" then
-        title = pane:get_title()
-    end
-
-    window:toast_notification('wezterm', 'Bell in ' .. title)
-end)
+-- wezterm.on('bell', function(window, pane)
+-- TODO: Why isn't this filter working?
+--     if window:is_focused() and window:active_pane():pane_id() == pane:pane_id() then
+--         return
+--     end
+--
+--     title = ""
+--     t = pane:tab()
+--     if t then
+--         title = t:get_title()
+--     end
+--     if title == "" then
+--         title = pane:get_title()
+--     end
+--
+--     window:toast_notification('wezterm', 'Bell in ' .. title)
+-- end)
 
 wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
     return string.format('WezTerm — %d×%d', pane.width, pane.height)
