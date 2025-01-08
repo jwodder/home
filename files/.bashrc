@@ -2,6 +2,7 @@
 
 export GPG_TTY="$(tty)"
 
+alias tmuxup='tmux new-session -A -s main'
 {%@@ if profile == "macOS" @@%}
 alias toc='ls -ACFG'
 {%@@ else @@%}
