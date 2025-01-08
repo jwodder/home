@@ -8,6 +8,10 @@ set ai bs=2 cm=blowfish2 cot=menu cpo+=M enc=utf-8 et fcl=all fo+=jn ic
 set lcs+=nbsp:~,tab:‣‧,trail:‧ ml mls=1 mps+=<:> nf-=octal rdt=750 ru ruf=%l:%c
 set sc scs scl=no sts=4 sw=1 ttm=100 ttimeout ut=2000 ww=h,l,[,]
 
+if $COLORTERM == 'truecolor' || $COLORTERM == '24bit'
+    set termguicolors
+endif
+
 au BufReadCmd *.crate call tar#Browse(expand("<amatch>"))
 au BufReadCmd *.whl call zip#Browse(expand("<amatch>"))
 au BufWinEnter * if getfsize(expand("%")) > 1024*1024 | syntax clear | endif
@@ -79,4 +83,9 @@ if stridx(environ()['TERM'], 'screen') == 0
     let &t_BD="\<ESC>P\<ESC>[?2004l\<ESC>\\"
     let &t_PS="\<ESC>[200~"
     let &t_PE="\<ESC>[201~"
+endif
+
+if stridx(environ()['TERM'], 'tmux') == 0
+    " Sequence for querying background color for setting 'bg':
+    let &t_RB="\<ESC>]11;?\<ESC>\\"
 endif
