@@ -48,19 +48,34 @@ config.use_fancy_tab_bar = false
 config.leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 500 }
 
 config.keys = {
-    { key = '?', mods = 'LEADER', action = act.ActivateCommandPalette, },
+    { key = 'PageUp', action = act.ScrollByPage(-1) },
+    { key = 'PageDown', action = act.ScrollByPage(1) },
+    { key = 'Home', action = act.ScrollToTop },
+    { key = 'End', action = act.ScrollToBottom },
+
+    { key = 'UpArrow', mods = 'CMD', action = act.ActivatePaneDirection("Up"), },
+    { key = 'DownArrow', mods = 'CMD', action = act.ActivatePaneDirection("Down"), },
+    { key = 'LeftArrow', mods = 'CMD', action = act.ActivatePaneDirection("Left"), },
+    { key = 'RightArrow', mods = 'CMD', action = act.ActivatePaneDirection("Right"), },
     { key = '`', mods = "CMD", action = act.ActivateWindowRelative(1), },
-    { key = 'b', mods = 'LEADER|SHIFT', action = act.ActivateLastTab, },
+    { key = '[', mods = 'CMD', action = act.ActivateTabRelative(-1), },
+    { key = ']', mods = 'CMD', action = act.ActivateTabRelative(1), },
+    { key = '[', mods = 'CMD|SHIFT', action = act.MoveTabRelative(-1), },
+    { key = ']', mods = 'CMD|SHIFT', action = act.MoveTabRelative(1), },
+    { key = 'e', mods = 'CMD', action = act.CharSelect, },
+    { key = 'p', mods = 'CMD|SHIFT', action = act.ActivateCommandPalette, },
 
     {
-        key = 'c',
-        mods = 'LEADER',
+        key = 't',
+        mods = 'CMD',
         action = act.SpawnCommandInNewTab {
             args = { '/usr/local/bin/bash', '-l' },
             cwd = os.getenv("HOME"),
         },
     },
 
+    { key = '?', mods = 'LEADER', action = act.ActivateCommandPalette, },
+    { key = 'b', mods = 'LEADER|SHIFT', action = act.ActivateLastTab, },
     { key = 'c', mods = 'LEADER|CTRL', action = act.ActivateCopyMode, },
 
     {
@@ -79,8 +94,6 @@ config.keys = {
 
     { key = 'g', mods = 'LEADER', action = act.ShowTabNavigator, },
     { key = 'g', mods = 'LEADER|SHIFT', action = act.ShowTabNavigator, },
-    { key = 'n', mods = 'LEADER', action = act.ActivateTabRelative(1), },
-    { key = 'p', mods = 'LEADER', action = act.ActivateTabRelative(-1), },
 
     {
         key = 'q',
@@ -122,20 +135,9 @@ config.keys = {
             end),
         }
     },
-
-    { key = 'LeftArrow', mods = 'CMD', action = act.ActivateTabRelative(-1), },
-    { key = 'RightArrow', mods = 'CMD', action = act.ActivateTabRelative(1), },
-    { key = 'PageUp', action = act.ScrollByPage(-1) },
-    { key = 'PageDown', action = act.ScrollByPage(1) },
-    { key = 'Home', action = act.ScrollToTop },
-    { key = 'End', action = act.ScrollToBottom },
 }
 
 copy_mode = wezterm.gui.default_key_tables().copy_mode
-table.insert(
-    copy_mode,
-    { key = 'Space', action = act.CopyMode { SetSelectionMode = 'Block' }, }
-)
 table.insert(
     copy_mode,
     { key = 's', action = act.CopyMode 'PageDown' }
