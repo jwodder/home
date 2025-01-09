@@ -76,7 +76,7 @@ hi csvCol6 ctermfg=DarkCyan
 hi csvCol7 ctermfg=Red
 hi csvCol8 ctermfg=Blue
 
-hi link ALEErrorLine SpellBad
+hi ALEErrorLine ctermbg=Red guibg=#ff6666
 hi link ALEWarningLine SpellCap
 hi link ALEInfoLine ALEWarningLine
 
