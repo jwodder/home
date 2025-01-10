@@ -2,6 +2,7 @@
 
 export GPG_TTY="$(tty)"
 
+alias tmuxup='tmux new-session -A -s main'
 {%@@ if profile == "macOS" @@%}
 alias toc='ls -ACFG'
 {%@@ else @@%}
@@ -41,7 +42,7 @@ function show_exit_status {
 
 function show_my_ps1 {
 {%@@ if profile == "macOS" @@%}
-    PS1="$(jwodder-ps1 --no-hostname --theme light "$PS1_GIT")"
+    PS1="$(jwodder-ps1 --no-hostname "$PS1_GIT")"
 {%@@ else @@%}
     PS1="$(jwodder-ps1 "$PS1_GIT")"
 {%@@ endif @@%}

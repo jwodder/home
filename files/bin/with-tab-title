@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+title="$1"
+shift
+/usr/local/bin/wezterm cli set-tab-title "$title"
+exec "$@"
