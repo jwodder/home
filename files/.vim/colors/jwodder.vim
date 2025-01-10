@@ -63,6 +63,7 @@ hi link jsonNull Identifier
 
 hi link pythonBuiltin Identifier
 
+hi htmlBold cterm=bold
 hi htmlItalic cterm=underline
 
 hi rstEmphasis cterm=underline
@@ -76,9 +77,10 @@ hi csvCol6 ctermfg=DarkCyan
 hi csvCol7 ctermfg=Red
 hi csvCol8 ctermfg=Blue
 
-hi ALEErrorLine ctermbg=Red guibg=#ff6666
-hi link ALEWarningLine SpellCap
-hi link ALEInfoLine ALEWarningLine
+hi ALEError ctermbg=Red guibg=#ff6666
+hi link ALEErrorLine ALEError
+hi link ALEWarningLine ALEWarning
+hi link ALEInfoLine ALEInfo
 
 " Keep the coverage-highlight highlight from conflicting with Ale's error
 " highlight:
