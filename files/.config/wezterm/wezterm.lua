@@ -41,6 +41,7 @@ config.font_size = 12
 config.hide_tab_bar_if_only_one_tab = false
 config.initial_cols = 80
 config.initial_rows = 24
+config.native_macos_fullscreen_mode = true
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true
 config.ssh_domains = {}
