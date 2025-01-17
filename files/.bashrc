@@ -29,8 +29,8 @@ fi
 {%@@ if profile != "macOS" @@%}
 if _have_command dircolors
 then if [ -r ~/.dircolors ]
-     then eval "$(dircolors -b ~/.dircolors)"
-     else eval "$(dircolors -b)"
+     then eval "$(TERM=xterm-256color dircolors -b ~/.dircolors)"
+     else eval "$(TERM=xterm-256color dircolors -b)"
      fi
 fi
 
