@@ -122,6 +122,10 @@ dotfiles:
     src: bin/cargo-updeps
     dst: ~/bin/cargo-updeps
     chmod: '0755'
+  f_bin_clear:
+    src: bin/clear
+    dst: ~/bin/clear
+    chmod: '0755'
   f_bin_email:
     src: bin/email
     dst: ~/bin/email
@@ -233,8 +237,9 @@ profiles:
     include:
       - base
     dotfiles:
-      - f_bin_with-tab-title
       - f_config_wezterm_wezterm.lua
+      - f_bin_clear
+      - f_bin_with-tab-title
 
   debian:
     include:

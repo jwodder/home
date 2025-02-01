@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Workaround for <https://github.com/wez/wezterm/issues/2405>; q.v."""
+from __future__ import annotations
+from collections.abc import Iterator
+from contextlib import contextmanager
+from copy import deepcopy
+import os
+import re
+import sys
+import termios
+
+
+def main() -> None:
+    if (
+        sys.stdin.isatty()
+        and sys.stdout.isatty()
+        and os.environ.get("TERM") == "xterm-256color"
+        and os.environ.get("TERM_PROGRAM") == "WezTerm"
+    ):
+        print("\x1b[6n", end="", flush=True)
+        resp = b""
+        with cbreak_noecho():
+            while not resp.endswith(b"R"):
+                resp += sys.stdin.buffer.read(1)
+        if m := re.fullmatch(r"\x1B\[(?P<row>[0-9]+);[0-9]+R", resp.decode("us-ascii")):
+            print(f"\x1b[{m['row']}S", end="", flush=True)
+    print("\x1b[H\x1b[2J", end="", flush=True)
+
+
+@contextmanager
+def cbreak_noecho() -> Iterator[None]:
+    STDIN = sys.stdin.fileno()
+    orig = termios.tcgetattr(STDIN)
+    term = deepcopy(orig)
+    term[3] &= ~(termios.ICANON | termios.ECHO)
+    term[6][termios.VMIN] = 1
+    term[6][termios.VTIME] = 0
+    termios.tcsetattr(STDIN, termios.TCSANOW, term)
+    try:
+        yield
+    finally:
+        termios.tcsetattr(STDIN, termios.TCSANOW, orig)
+
+
+if __name__ == "__main__":
+    main()
