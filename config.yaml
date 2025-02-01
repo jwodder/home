@@ -45,9 +45,6 @@ dotfiles:
   f_config_wezterm_wezterm.lua:
     src: .config/wezterm/wezterm.lua
     dst: ~/.config/wezterm/wezterm.lua
-  f_config_wezterm_colors_jwodder.toml:
-    src: .config/wezterm/colors/jwodder.toml
-    dst: ~/.config/wezterm/colors/jwodder.toml
   f_dircolors:
     src: .dircolors
     dst: ~/.dircolors
@@ -238,7 +235,6 @@ profiles:
     dotfiles:
       - f_bin_with-tab-title
       - f_config_wezterm_wezterm.lua
-      - f_config_wezterm_colors_jwodder.toml
 
   debian:
     include:
