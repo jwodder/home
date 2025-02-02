@@ -12,9 +12,6 @@ hardcopy_append on
 idle off
 markkeys ^B=S:^F=s:\040=v
 msgwait 1
-nethack on
-password ESGw7iOdpZs82
-#shell /bin/bash
 shelltitle Shell
 startup_message off
 term screen-256color
