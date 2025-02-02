@@ -18,18 +18,11 @@ if ( command -V pipx && command -V register-python-argcomplete ) &>/dev/null
 then eval "$(register-python-argcomplete pipx)"
 fi
 
-# Output of `git-annex --bash-completion-script git-annex`:
-_git-annex()
-{
-    local CMDLINE
-    local IFS=$'\n'
-    CMDLINE=(--bash-completion-index $COMP_CWORD)
-    for arg in ${COMP_WORDS[@]}; do
-        CMDLINE=(${CMDLINE[@]} --bash-completion-word $arg)
-    done
-    COMPREPLY=( $(git-annex "${CMDLINE[@]}") )
-}
-complete -o filenames -F _git-annex git-annex
+docker_complete=/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
+if [ -f "$docker_complete" ]
+then
+. /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
+fi
 
 if command -V rustc &>/dev/null
 then . "$(rustc --print sysroot)/etc/bash_completion.d/cargo"
