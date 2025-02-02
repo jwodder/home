@@ -1,0 +1,12 @@
+--colors=path:fg:blue
+--colors=line:fg:yellow
+--colors=match:fg:red
+--colors=match:style:bold
+--encoding=utf-8
+--engine=auto
+--follow
+--no-heading
+--hidden
+--ignore-file={{@@ env["HOME"] @@}}/.config/rgignore
+--search-zip
+--smart-case

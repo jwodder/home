@@ -26,9 +26,6 @@ dynvariables:
   vimpath: command -v vim
 
 dotfiles:
-  f_ackrc:
-    src: .ackrc
-    dst: ~/.ackrc
   f_bash_completion:
     src: .bash_completion
     dst: ~/.bash_completion
@@ -42,6 +39,13 @@ dotfiles:
   f_config_pip_pip.conf:
     src: .config/pip/pip.conf
     dst: ~/.config/pip/pip.conf
+  f_config_rgignore:
+    src: .config/rgignore
+    dst: ~/.config/rgignore
+  f_config_ripgrep.rc:
+    src: .config/ripgrep.rc
+    dst: ~/.config/ripgrep.rc
+    template: true
   f_config_wezterm_wezterm.lua:
     src: .config/wezterm/wezterm.lua
     dst: ~/.config/wezterm/wezterm.lua
@@ -201,7 +205,6 @@ dotfiles:
 profiles:
   base:
     dotfiles:
-      - f_ackrc
       - f_bash_completion
       - f_bashrc
       - f_bin_cargo-coverage
@@ -221,6 +224,8 @@ profiles:
       - f_bin_pygrep
       - f_cargo_config_toml
       - f_config_pip_pip.conf
+      - f_config_rgignore
+      - f_config_ripgrep.rc
       - f_gitconfig
       - f_gnupg_gpg.conf
       - f_inputrc

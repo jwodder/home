@@ -23,5 +23,6 @@ export WS=/Library/WebServer/Documents
 {%@@ else @@%}
 export SYSTEMD_LESS=-iRS
 {%@@ endif @@%}
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep.rc
 
 [ -z "$BASH" ] || . ~/.bashrc
