@@ -2,8 +2,5 @@
 .git/
 .hg/
 .local/
-.mypy_cache/
 __pycache__/
-clones/
 dist/
-forks/
