@@ -172,8 +172,14 @@ config.key_tables = {
         { key = 'k', action = act.ActivatePaneDirection 'Up', },
         { key = '^', action = act.ActivatePaneByIndex(0), },
         { key = '0', action = act.ActivatePaneByIndex(0), },
-        -- TODO: Doesn't work as of 20240203-110809-5046fc22:
-        -- { key = '$', action = act.ActivatePaneByIndex(-1), },
+        {
+            key = '$',
+            -- <https://github.com/wezterm/wezterm/issues/6562>
+            action = wezterm.action_callback(function(window, pane)
+                local last_pane_index = #window:active_tab():panes() - 1
+                window:perform_action(wezterm.action.ActivatePaneByIndex(last_pane_index), pane)
+            end)
+        },
         { key = 'Tab', action = act.ActivatePaneDirection 'Next', },
         { key = 'n', action = act.ActivatePaneDirection 'Next', },
         { key = 'p', action = act.ActivatePaneDirection 'Prev', },
