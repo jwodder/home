@@ -4,7 +4,7 @@ set spf+=~/share/spell/{{@@ spf @@}}
 {%@@ endfor @@%}
 
 set flp=\\v^\\s*[[(]?(\\d+\|\\a\|[IiVvXxLlCcDdMm]+)[]:.)]\\s+
-set ai bs=2 cm=blowfish2 cot=menu cpo+=M enc=utf-8 et fcl=all fo+=jn ic
+set ai bs=2 cm=blowfish2 cot=menu cpo+=M enc=utf-8 et fcl=all fo+=jn hls ic
 set lcs+=nbsp:~,tab:‣‧,trail:‧ ml mls=1 mps+=<:> nf-=octal rdt=750 ru ruf=%l:%c
 set sc scs scl=no sts=4 sw=1 ttm=100 ttimeout ut=2000 ww=h,l,[,]
 
