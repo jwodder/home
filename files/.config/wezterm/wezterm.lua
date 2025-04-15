@@ -17,7 +17,8 @@ config.colors = {
         "#b30000",  -- Red
         "#00a600",  -- Green
         "#999900",  -- Yellow
-        "#5455cb",  -- Blue
+        -- "#5455cb",  -- Blue
+        "#6868d1",  -- Blue
         "#b200b2",  -- Magenta
         "#00a6b2",  -- Cyan
         "#bfbfbf",  -- White
@@ -28,7 +29,8 @@ config.colors = {
         "#ff0000",  -- Bright red
         "#00d900",  -- Bright green
         "#e5e500",  -- Bright yellow
-        "#5555ff",  -- Bright blue
+        -- "#5555ff",  -- Bright blue
+        "#6f6fff",  -- Bright blue
         "#e500e5",  -- Bright magenta
         "#00e5e5",  -- Bright cyan
         "#e5e5e5",  -- Bright white
@@ -48,7 +50,7 @@ config.ssh_domains = {}
 config.switch_to_last_active_tab_when_closing_tab = true
 config.use_fancy_tab_bar = false
 
-config.leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 500 }
+config.leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 config.keys = {
     { key = 'PageUp', action = act.ScrollByPage(-1) },
