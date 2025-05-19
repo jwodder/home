@@ -66,6 +66,8 @@ hi link pythonBuiltin Identifier
 hi htmlBold cterm=bold
 hi htmlItalic cterm=underline
 
+hi link markdownCodeBlock markdownCode
+
 hi rstStrongEmphasis cterm=bold
 hi rstEmphasis cterm=underline
 
