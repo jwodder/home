@@ -4,6 +4,6 @@ if did_filetype()
     finish
 endif
 
-if getline(1) =~ '^#!/usr/bin/env pipx run'
+if getline(1) =~ '\v^#!/usr/bin/env (-S )?pipx run'
     setf python
 endif
