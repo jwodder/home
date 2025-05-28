@@ -19,7 +19,6 @@ config:
 actions:
   post:
     private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
-    make: '! command -V make || make -C {{@@ _dotfile_abs_dst @@}}'
 
 dynvariables:
   lesspath: command -v less
@@ -196,11 +195,8 @@ dotfiles:
     src: share/spell
     dst: ~/share/spell
     cmpignore:
-      - '!Makefile'
       - '!words.utf-8.add'
       - '[a-zA-Z0-9]*'
-    actions:
-      - make
 
 profiles:
   base:

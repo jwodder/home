@@ -10,5 +10,3 @@ LC_ALL=C.UTF-8 sort -o "$TMP_WORDS" -u "$REPO_WORDS" "$HOME_WORDS"
 cp -f "$TMP_WORDS" "$REPO_WORDS"
 cp -f "$TMP_WORDS" "$HOME_WORDS"
 rm "$TMP_WORDS"
-
-make -C ~/share/spell
