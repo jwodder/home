@@ -101,6 +101,8 @@ dotfiles:
       - .netrwhist
       - autoload
       - plugged
+      - '!spell/words.utf-8.add'
+      - 'spell/[a-zA-Z0-9]*'
   f_bin_apt-check:
     src: bin/apt-check
     dst: ~/bin/apt-check
@@ -191,12 +193,6 @@ dotfiles:
   f_share_util.gbc:
     src: share/util.gbc
     dst: ~/share/util.gbc
-  d_share_spell:
-    src: share/spell
-    dst: ~/share/spell
-    cmpignore:
-      - '!words.utf-8.add'
-      - '[a-zA-Z0-9]*'
 
 profiles:
   base:
@@ -231,7 +227,6 @@ profiles:
       - f_tmux_conf
       - d_vim
       - f_share_pylinting.cfg
-      - d_share_spell
       - f_share_util.gbc
 
   macOS:

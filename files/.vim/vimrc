@@ -1,9 +1,9 @@
-set spl=en sps=best,13 spc= spf=~/share/spell/words.utf-8.add
+set spl=en sps=best,13 spc= spf=~/.vim/spell/words.utf-8.add
 {%@@ for spf in extra_spellfiles() @@%}
-set spf+=~/share/spell/{{@@ spf @@}}
+set spf+=~/.vim/spell/{{@@ spf @@}}
 {%@@ endfor @@%}
 
-for d in glob('~/share/spell/*.add', 1, 1)
+for d in glob('~/.vim/spell/*.add', 1, 1)
     if filereadable(d) && (!filereadable(d . '.spl') || getftime(d) > getftime(d . '.spl'))
         silent execute 'mkspell! ' . fnameescape(d)
     endif
