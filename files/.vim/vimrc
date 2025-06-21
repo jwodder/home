@@ -59,7 +59,9 @@ Plug 'dense-analysis/ale'
 " Install vim-plug as a plugin in order to get the documentation:
 Plug 'junegunn/vim-plug'
 Plug 'knatsakis/deb.vim'
-Plug 'mgedmin/coverage-highlight.vim'
+if has('python3')
+    Plug 'mgedmin/coverage-highlight.vim'
+endif
 Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 filetype indent off
