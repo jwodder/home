@@ -59,7 +59,7 @@ hi link diffAdded Type
 hi link diffNewFile diffAdded
 hi link diffOldFile diffRemoved
 
-hi link jsonNull Identifier
+hi jsonNull ctermfg=249
 
 hi link pythonBuiltin Identifier
 
