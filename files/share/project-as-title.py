@@ -5,7 +5,7 @@
 # ///
 from __future__ import annotations
 import os
-from pathlib import Path
+import os.path
 import subprocess
 
 
@@ -29,8 +29,8 @@ def get_project_name() -> str | None:
         )
     except (IOError, subprocess.CalledProcessError):
         return None
-    path = Path(r.stdout.removesuffix("\n").removesuffix("\r"))
-    return path.name
+    path = r.stdout.removesuffix("\n").removesuffix("\r")
+    return os.path.basename(path)
 
 
 if __name__ == "__main__":
