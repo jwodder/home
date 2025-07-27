@@ -71,6 +71,8 @@ hi link markdownCodeBlock markdownCode
 hi rstStrongEmphasis cterm=bold
 hi rstEmphasis cterm=underline
 
+hi texBoldStyle cterm=bold
+
 hi csvCol1 ctermfg=Red
 hi csvCol2 ctermfg=DarkGreen
 hi csvCol3 ctermfg=DarkYellow
