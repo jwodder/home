@@ -187,6 +187,10 @@ dotfiles:
     src: bin/with-tab-title
     dst: ~/bin/with-tab-title
     chmod: '0755'
+  f_share_project-as-title.py:
+    src: share/project-as-title.py
+    dst: ~/share/project-as-title.py
+    chmod: '0755'
   f_share_pylinting.cfg:
     src: share/pylinting.cfg
     dst: ~/share/pylinting.cfg
@@ -226,6 +230,7 @@ profiles:
       - f_screenrc
       - f_tmux_conf
       - d_vim
+      - f_share_project-as-title.py
       - f_share_pylinting.cfg
       - f_share_util.gbc
 

@@ -49,7 +49,7 @@ function show_my_ps1 {
 }
 
 PS1_GIT=on
-PROMPT_COMMAND="show_exit_status; show_my_ps1"
+PROMPT_COMMAND="show_exit_status; $HOME/share/project-as-title.py; show_my_ps1"
 
 {%@@ if profile != "macOS" @@%}
 # TODO: Is it even necessary to set this?
