@@ -164,11 +164,11 @@ config.key_tables = {
         { key = 'DownArrow', action = act.AdjustPaneSize { 'Down', 1 } },
         {
             key = '|',
-            action = act.SplitVertical { domain = 'CurrentPaneDomain' },
+            action = act.SplitVertical { cwd = os.getenv("HOME") },
         },
         {
             key = 's',
-            action = act.SplitVertical { domain = 'CurrentPaneDomain' },
+            action = act.SplitVertical { cwd = os.getenv("HOME") },
         },
         { key = 'j', action = act.ActivatePaneDirection 'Down', },
         { key = 'k', action = act.ActivatePaneDirection 'Up', },
@@ -239,7 +239,12 @@ config.window_padding = {
 -- end)
 
 wezterm.on('format-window-title', function(tab, pane, tabs, panes, config)
-    return string.format('WezTerm — %d×%d', pane.width, pane.height)
+    local win_title = tab.window_title
+    if win_title and #win_title > 0 then
+        return string.format('WezTerm — %d×%d — %s', pane.width, pane.height, win_title)
+    else
+        return string.format('WezTerm — %d×%d', pane.width, pane.height)
+    end
 end)
 
 return config
