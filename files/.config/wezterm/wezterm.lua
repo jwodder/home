@@ -52,6 +52,22 @@ config.use_fancy_tab_bar = false
 
 config.leader = { key = 'q', mods = 'CTRL', timeout_milliseconds = 1000 }
 
+-- <https://github.com/wezterm/wezterm/issues/3803#issuecomment-1608954312>
+config.hyperlink_rules = {
+    -- URL in parentheses: (URL)
+    { regex = '\\((\\w+://\\S+)\\)', format = '$1', highlight = 1, },
+    -- URL in brackets: [URL]
+    { regex = '\\[(\\w+://\\S+)\\]', format = '$1', highlight = 1, },
+    -- URL in curly braces: {URL}
+    { regex = '\\{(\\w+://\\S+)\\}', format = '$1', highlight = 1, },
+    -- URL in angle brackets: <URL>
+    { regex = '<(\\w+://\\S+)>', format = '$1', highlight = 1, },
+    -- URL not wrapped in brackets
+    { regex = '[^(]\\b(\\w+://\\S+[)/a-zA-Z0-9-]+)', format = '$1', highlight = 1, },
+    -- implicit mailto link
+    { regex = '\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b', format = 'mailto:$0', },
+}
+
 config.keys = {
     { key = 'PageUp', action = act.ScrollByPage(-1) },
     { key = 'PageDown', action = act.ScrollByPage(1) },
