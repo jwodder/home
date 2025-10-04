@@ -6,8 +6,6 @@ config:
   filter_file:
     - lib/filters.py
   force_chmod: true
-  func_file:
-    - lib/functions.py
   ignoreempty: true
   keepdot: true
   link_dotfile_default: nolink
@@ -96,7 +94,6 @@ dotfiles:
   d_vim:
     src: .vim
     dst: ~/.vim
-    template: true
     cmpignore:
       - .netrwhist
       - autoload
