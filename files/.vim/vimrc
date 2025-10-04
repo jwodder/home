@@ -19,8 +19,11 @@ if $COLORTERM == 'truecolor' || $COLORTERM == '24bit'
 endif
 
 au BufReadCmd *.crate call tar#Browse(expand("<amatch>"))
-au BufReadCmd *.whl call zip#Browse(expand("<amatch>"))
 au BufWinEnter * if getfsize(expand("%")) > 1024*1024 | syntax clear | endif
+
+if v:versionlong < 9011271
+    au BufReadCmd *.whl call zip#Browse(expand("<amatch>"))
+endif
 
 dig uh 601 y- 563 Y- 562 zh 658 sh 643 dh 240 DH 208 !? 8253 :: 776
 dig ^1 185 ^2 178 ^3 179 ^4 8308 ^5 8309 ^6 8310 ^7 8311 ^8 8312 ^9 8313 ^0 8304
