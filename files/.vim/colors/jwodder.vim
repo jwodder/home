@@ -63,13 +63,24 @@ hi jsonNull ctermfg=249
 
 hi link pythonBuiltin Identifier
 
-hi htmlBold cterm=bold
-hi htmlItalic cterm=underline
-
 hi link markdownCodeBlock markdownCode
 
+" See <https://github.com/vim/vim/issues/18505> and
+" <https://github.com/vim/vim/issues/18540>
+hi htmlBold cterm=bold
+hi htmlBoldItalic cterm=bold,italic
+hi htmlBoldUnderline cterm=bold,underline
+hi htmlBoldUnderlineItalic cterm=bold,italic,underline
+hi htmlItalic cterm=italic
+hi htmlStrike cterm=strikethrough
+hi htmlUnderline cterm=underline
+hi htmlUnderlineItalic cterm=italic,underline
 hi rstStrongEmphasis cterm=bold
 hi rstEmphasis cterm=underline
+hi texBoldStyle cterm=bold
+hi texItalStyle cterm=italic
+hi texBoldItalStyle cterm=bold,italic
+hi texItalBoldStyle cterm=bold,italic
 
 hi csvCol1 ctermfg=Red
 hi csvCol2 ctermfg=DarkGreen
