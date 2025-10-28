@@ -17,9 +17,9 @@ def main() -> None:
         and os.environ.get("TERM") == "xterm-256color"
         and os.environ.get("TERM_PROGRAM") == "WezTerm"
     ):
-        print("\x1b[6n", end="", flush=True)
-        resp = b""
         with cbreak_noecho():
+            print("\x1b[6n", end="", flush=True)
+            resp = b""
             while not resp.endswith(b"R"):
                 resp += sys.stdin.buffer.read(1)
         if m := re.fullmatch(r"\x1B\[(?P<row>[0-9]+);[0-9]+R", resp.decode("us-ascii")):
