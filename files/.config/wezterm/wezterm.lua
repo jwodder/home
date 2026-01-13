@@ -74,6 +74,17 @@ config.keys = {
     { key = 'Home', action = act.ScrollToTop },
     { key = 'End', action = act.ScrollToBottom },
 
+    { key = 'PageUp', mods = 'CTRL', action = act.SendKey { key = 'PageUp' } },
+    { key = 'PageDown', mods = 'CTRL', action = act.SendKey { key = 'PageDown' } },
+    { key = 'Home', mods = 'CTRL', action = act.SendKey { key = 'Home' } },
+    { key = 'End', mods = 'CTRL', action = act.SendKey { key = 'End' } },
+
+    -- Unbind some annoying default bindings:
+    { key = '-', mods = 'CTRL', action = act.SendKey { key = '-', mods = 'CTRL' } },
+    { key = '_', mods = 'CTRL|SHIFT', action = act.SendKey { key = '_', mods = 'CTRL|SHIFT' } },
+    { key = '=', mods = 'CTRL', action = act.SendKey { key = '=', mods = 'CTRL' } },
+    { key = '+', mods = 'CTRL|SHIFT', action = act.SendKey { key = '+', mods = 'CTRL|SHIFT' } },
+
     { key = 'UpArrow', mods = 'CMD', action = act.ActivatePaneDirection("Up"), },
     { key = 'DownArrow', mods = 'CMD', action = act.ActivatePaneDirection("Down"), },
     { key = 'LeftArrow', mods = 'CMD', action = act.ActivatePaneDirection("Left"), },
