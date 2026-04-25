@@ -45,7 +45,7 @@ config.initial_cols = 80
 config.initial_rows = 24
 config.native_macos_fullscreen_mode = true
 config.send_composed_key_when_left_alt_is_pressed = true
-config.send_composed_key_when_right_alt_is_pressed = true
+config.send_composed_key_when_right_alt_is_pressed = false
 config.ssh_domains = {}
 config.switch_to_last_active_tab_when_closing_tab = true
 config.use_fancy_tab_bar = false
@@ -222,21 +222,6 @@ config.launch_menu = {
         label = 'Shell',
         args = { '/usr/local/bin/bash', '-l' },
         cwd = os.getenv("HOME") .. "/work",
-    },
-    {
-        label = 'tmux',
-        args = { 'bash', '-l', '-c', 'tmux' },
-        cwd = os.getenv("HOME") .. "/work",
-    },
-    {
-        label = 'scripta',
-        args = {
-            os.getenv("HOME") .. "/bin/with-tab-title",
-            "scripta",
-            "/usr/local/bin/bash",
-            "-l",
-        },
-        cwd = os.getenv("HOME") .. "/work/scripta/scraps/items",
     },
 }
 
