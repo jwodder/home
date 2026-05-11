@@ -25,4 +25,8 @@ export SYSTEMD_LESS=-iRS
 {%@@ endif @@%}
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep.rc
 
+{%@@ if profile != "macOS" @@%}
+eval "$(ssh-agent -s)"
+
+{%@@ endif @@%}
 [ -z "$BASH" ] || . ~/.bashrc
