@@ -1,0 +1,17 @@
+#!/bin/sh
+# For use when signing & verifying commits & tags with Git: A wrapper around
+# `ssh-keygen` that automatically adds the signing key to the SSH agent if
+# necessary
+#
+# See <https://www.reddit.com/r/git/comments/1coropv/> for more information.
+
+key_lifetime=30m
+
+while getopts Y:n:f: opt
+    do case $opt in
+        Y) if [ "$OPTARG" != sign ]; then break; fi ;;
+        f) ssh-add -t "$key_lifetime" -T "${OPTARG%.pub}".pub || ssh-add -t "$key_lifetime" "${OPTARG%.pub}" ;;
+    esac
+done
+
+exec ssh-keygen "$@"

@@ -180,6 +180,10 @@ dotfiles:
     src: bin/pygrep
     dst: ~/bin/pygrep
     chmod: '0755'
+  f_bin_ssh-add-keygen:
+    src: bin/ssh-add-keygen
+    dst: ~/bin/ssh-add-keygen
+    chmod: '0755'
   f_bin_with-tab-title:
     src: bin/with-tab-title
     dst: ~/bin/with-tab-title
@@ -215,6 +219,7 @@ profiles:
       - f_bin_git-update
       - f_bin_pim
       - f_bin_pygrep
+      - f_bin_ssh-add-keygen
       - f_cargo_config_toml
       - f_config_pip_pip.conf
       - f_config_rgignore

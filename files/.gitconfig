@@ -35,6 +35,12 @@ pruneExpire = 7.days.ago
 reflogexpire = 7
 reflogexpireunreachable = 7
 
+[gpg]
+format = ssh
+
+[gpg "ssh"]
+program = ~/bin/ssh-add-keygen
+
 [grep]
 patternType = perl
 
@@ -80,4 +86,4 @@ insteadOf = sdf:
 [user]
 name = John T. Wodder II
 email = git@varonathe.org
-signingkey = 793721A3
+signingkey = ~/.ssh/id_ed25519_gitsign
