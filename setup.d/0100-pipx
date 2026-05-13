@@ -13,7 +13,7 @@ then
     then sudo apt-get install -y pipx
     elif have_command pacman && sudo -n true 2>/dev/null
     then sudo pacman -S --noconfirm pipx
-    else printf '\x1B[31m[ERROR] %s is not installed.\x1B[m\n' "$cmd" >&2
+    else printf '\x1B[31m[ERROR] pipx is not installed.\x1B[m\n' >&2
          exit 1
     fi
 fi

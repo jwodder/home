@@ -5,9 +5,9 @@ case "$(uname)" in
     Darwin) export DOTDROP_PROFILE=macOS
             ;;
      Linux) source /etc/os-release
-            if [ "x$ID" = xdebian ] || [ "x$ID_LIKE" = xdebian ]
+            if [ "$ID" = debian ] || [ "$ID_LIKE" = debian ]
             then distro=debian
-            elif [ "x$ID" = xarch ]
+            elif [ "$ID" = arch ]
             then distro=arch
             else echo "[WARNING] Unsupported distribution" >&2
                  export distro=base
