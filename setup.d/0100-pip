@@ -23,7 +23,6 @@ do
     fi
 done <<EOT
 pipx pipx yes
-virtualenvwrapper.sh virtualenvwrapper no
 EOT
 
 pipx install black
@@ -36,3 +35,4 @@ pipx install jwodder-ps1
 pipx install mypy
 pipx install pre-commit
 pipx install tox
+pipx install virtualenvwrapper

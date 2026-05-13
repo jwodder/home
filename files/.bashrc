@@ -64,16 +64,13 @@ do if [ -r "$compfile" ]
    fi
 done
 
-venvwrappath="$(type -p virtualenvwrapper.sh)"
-_apt_venvwrappath=/usr/share/virtualenvwrapper/virtualenvwrapper.sh
-if [ -z "$venvwrappath" ] && [ -f "$_apt_venvwrappath" ]
-then venvwrappath="$_apt_venvwrappath"
-fi
-if [ -n "$venvwrappath" ]
-then WORKON_HOME="$HOME/.local/virtualenvwrapper/venvs"
+if _have_command pipx && [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]
+then pipx_local_venvs="$(pipx environment -V PIPX_LOCAL_VENVS)"
+     WORKON_HOME="$HOME/.local/virtualenvwrapper/venvs"
      VIRTUALENVWRAPPER_HOOK_DIR="$HOME/.local/virtualenvwrapper/scripts"
-     VIRTUALENVWRAPPER_PYTHON="$(type -p python3)"
+     VIRTUALENVWRAPPER_PYTHON="$pipx_local_venvs/virtualenvwrapper/bin/python"
+     VIRTUALENVWRAPPER_VIRTUALENV="$pipx_local_venvs/virtualenvwrapper/bin/virtualenv"
      VIRTUALENVWRAPPER_WORKON_CD=0
-     . "$venvwrappath"
+     . "$HOME/.local/bin/virtualenvwrapper.sh"
      alias mktmpenv='mktmpenv --prompt TMP'
 fi
