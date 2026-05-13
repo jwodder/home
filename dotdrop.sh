@@ -6,15 +6,18 @@ case "$(uname)" in
             ;;
      Linux) source /etc/os-release
             if [ "x$ID" = xdebian ] || [ "x$ID_LIKE" = xdebian ]
-            then if [ -z "$MAIL_HOSTNAME" ] && command -V postconf &> /dev/null
-                 then export MAIL_HOSTNAME="$(postconf -h mydomain)"
-                 fi
-                 if [ -n "$MAIL_HOSTNAME" ]
-                 then export DOTDROP_PROFILE=debian-mail
-                 else export DOTDROP_PROFILE=debian
-                 fi
+            then distro=debian
+            elif [ "x$ID" = xarch ]
+            then distro=arch
             else echo "[WARNING] Unsupported distribution" >&2
-                 export DOTDROP_PROFILE=base
+                 export distro=base
+            fi
+            if [ "$distro" != base ] && [ -z "$MAIL_HOSTNAME" ] && command -V postconf &> /dev/null
+            then export MAIL_HOSTNAME="$(postconf -h mydomain)"
+            fi
+            if [ -n "$MAIL_HOSTNAME" ]
+            then export DOTDROP_PROFILE="$distro"-mail
+            else export DOTDROP_PROFILE="$distro"
             fi
             ;;
          *) echo "Unknown OS: $(uname)" >&2

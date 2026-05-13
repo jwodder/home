@@ -263,3 +263,20 @@ profiles:
       - f_mutt_keys
       - f_mutt_local
       - f_mutt_muttrc
+
+  arch:
+    include:
+      - base
+    dotfiles:
+      - f_dircolors
+
+  arch-mail:
+    include:
+      - arch
+    dotfiles:
+      - f_bin_email
+      - f_mutt_colors
+      - f_mutt_gpg
+      - f_mutt_keys
+      - f_mutt_local
+      - f_mutt_muttrc
