@@ -26,7 +26,12 @@ export SYSTEMD_LESS=-iRS
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep.rc
 
 {%@@ if profile != "macOS" @@%}
-eval "$(ssh-agent -s)"
+if ! pgrep -u "$USER" ssh-agent > /dev/null
+then ssh-agent -s > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [ ! -f "$SSH_AUTH_SOCK" ]
+then . "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
 
 {%@@ endif @@%}
 [ -z "$BASH" ] || . ~/.bashrc

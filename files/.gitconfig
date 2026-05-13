@@ -39,7 +39,7 @@ reflogexpireunreachable = 7
 format = ssh
 
 [gpg "ssh"]
-program = ~/bin/ssh-add-keygen
+program = ssh-add-keygen
 
 [grep]
 patternType = perl
