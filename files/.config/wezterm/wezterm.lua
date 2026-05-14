@@ -37,13 +37,23 @@ config.colors = {
     },
 }
 
+{%@@ if profile != "macOS" @@%}
+-- TODO: Why doesn't this work?
+config.default_cwd = os.getenv("HOME") .. "/work"
+
+config.default_prog = { '/bin/bash' }
+{%@@ endif @@%}
 config.enable_scroll_bar = true
+{%@@ if profile == "macOS" @@%}
 config.font = wezterm.font('Menlo')
+{%@@ endif @@%}
 config.font_size = 12
 config.hide_tab_bar_if_only_one_tab = false
 config.initial_cols = 80
 config.initial_rows = 24
+{%@@ if profile == "macOS" @@%}
 config.native_macos_fullscreen_mode = true
+{%@@ endif @@%}
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = false
 config.ssh_domains = {}
@@ -101,7 +111,11 @@ config.keys = {
         key = 't',
         mods = 'CMD',
         action = act.SpawnCommandInNewTab {
+{%@@ if profile == "macOS" @@%}
             args = { '/usr/local/bin/bash', '-l' },
+{%@@ else @@%}
+            args = { '/bin/bash' },
+{%@@ endif @@%}
             cwd = os.getenv("HOME"),
         },
     },
@@ -220,7 +234,11 @@ config.key_tables = {
 config.launch_menu = {
     {
         label = 'Shell',
+{%@@ if profile == "macOS" @@%}
         args = { '/usr/local/bin/bash', '-l' },
+{%@@ else @@%}
+        args = { '/bin/bash' },
+{%@@ endif @@%}
         cwd = os.getenv("HOME") .. "/work",
     },
 }
