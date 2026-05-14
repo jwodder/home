@@ -1,7 +1,6 @@
 {%@@ if profile == "macOS" @@%}
 [ "$PWD" != "$HOME" ] || cd ~/work
 {%@@ endif @@%}
-[ -t 0 ] && mesg n
 umask 0022
 
 {%@@ if profile == "macOS" @@%}
