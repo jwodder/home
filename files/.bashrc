@@ -74,3 +74,9 @@ then pipx_local_venvs="$(pipx environment -V PIPX_LOCAL_VENVS)"
      . "$HOME/.local/bin/virtualenvwrapper.sh"
      alias mktmpenv='mktmpenv --prompt TMP'
 fi
+{%@@ if profile == "arch" || profile == "arch-mail" @@%}
+
+if [ -f /usr/share/doc/pkgfile/command-not-found.bash ]
+then . /usr/share/doc/pkgfile/command-not-found.bash
+fi
+{%@@ endif @@%}
