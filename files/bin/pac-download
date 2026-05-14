@@ -22,8 +22,10 @@ def main() -> None:
     parser.add_argument("-U", "--unpack", action="store_true")
     parser.add_argument("package", nargs="*")
     args = parser.parse_args()
+    if not args.package:
+        return
     r = subprocess.run(
-        ["pacman", "-Si", "--print-format=%n %r %f %s %h", "--", *args.package],
+        ["pacman", "-S", "--print-format=%n %r %f %s %h", "--", *args.package],
         stdout=subprocess.PIPE,
         text=True,
         encoding="utf-8",
@@ -38,6 +40,9 @@ def main() -> None:
     with requests.Session() as s:
         for line in r.stdout.splitlines():
             pkgname, repo, fname, size_str, sha_hash = line.split()
+            if pkgname not in args.package:
+                # `pacman -S` also outputs info on dependencies
+                continue
             size = int(size_str)
             outfile = outdir / fname
             print(f"Downloading {repo}/{pkgname} to {outfile} ...", file=sys.stderr)
