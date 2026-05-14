@@ -172,6 +172,10 @@ dotfiles:
     src: bin/git-update
     dst: ~/bin/git-update
     chmod: '0755'
+  f_bin_pac-download:
+    src: bin/pac-download
+    dst: ~/bin/pac-download
+    chmod: '0755'
   f_bin_pim:
     src: bin/pim
     dst: ~/bin/pim
@@ -270,6 +274,7 @@ profiles:
     dotfiles:
       - f_config_wezterm_wezterm.lua
       - f_bin_clear
+      - f_bin_pac-download
       - f_bin_with-tab-title
       - f_dircolors
 
