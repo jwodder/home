@@ -46,6 +46,7 @@ dotfiles:
   f_config_wezterm_wezterm.lua:
     src: .config/wezterm/wezterm.lua
     dst: ~/.config/wezterm/wezterm.lua
+    template: true
   f_dircolors:
     src: .dircolors
     dst: ~/.dircolors
