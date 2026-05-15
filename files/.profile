@@ -1,3 +1,6 @@
+[ -z "$_PROFILE_SOURCED" ] || return
+export _PROFILE_SOURCED=1
+
 {%@@ if profile == "macOS" @@%}
 [ "$PWD" != "$HOME" ] || cd ~/work
 {%@@ endif @@%}
@@ -24,13 +27,4 @@ export SYSTEMD_LESS=-iRS
 {%@@ endif @@%}
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep.rc
 
-{%@@ if profile != "macOS" @@%}
-if ! pgrep -u "$USER" ssh-agent > /dev/null
-then ssh-agent -t 30m -s > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [ ! -f "$SSH_AUTH_SOCK" ]
-then . "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
-
-{%@@ endif @@%}
 [ -z "$BASH" ] || . ~/.bashrc

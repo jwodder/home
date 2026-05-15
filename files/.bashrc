@@ -80,3 +80,12 @@ if [ -f /usr/share/doc/pkgfile/command-not-found.bash ]
 then . /usr/share/doc/pkgfile/command-not-found.bash
 fi
 {%@@ endif @@%}
+{%@@ if profile != "macOS" @@%}
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null
+then ssh-agent -t 30m -s > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [ ! -f "$SSH_AUTH_SOCK" ]
+then . "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+{%@@ endif @@%}
