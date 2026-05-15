@@ -1,4 +1,7 @@
-[ -z "$_PROFILE_SOURCED" ] || return
+if [ -n "$_PROFILE_SOURCED" ]
+then [ -z "$BASH" ] || . ~/.bashrc
+     return
+fi
 export _PROFILE_SOURCED=1
 
 {%@@ if profile == "macOS" @@%}
