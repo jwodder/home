@@ -86,7 +86,8 @@ ssh_agent_env="${XDG_STATE_HOME:-$HOME/.local/state}"/ssh-agent.env
 if [ -f "$ssh_agent_env" ]
 then . "$ssh_agent_env" > /dev/null
 fi
-if [ -z "${SSH_AGENT_PID-}" ] || ! kill -0 "$SSH_AGENT_PID" &> /dev/null
+ssh-add -l &>/dev/null
+if [ "$?" = 2 ]
 then mkdir -p "$(dirname "$ssh_agent_env")"
      ssh-agent -t 30m -s > "$ssh_agent_env"
      . "$ssh_agent_env" > /dev/null
