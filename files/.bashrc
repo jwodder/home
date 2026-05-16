@@ -82,10 +82,13 @@ fi
 {%@@ endif @@%}
 {%@@ if profile != "macOS" @@%}
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null
-then ssh-agent -t 30m -s > "$XDG_RUNTIME_DIR/ssh-agent.env"
+ssh_agent_env="${XDG_STATE_HOME:-$HOME/.local/state}"/ssh-agent.env
+if [ -f "$ssh_agent_env" ]
+then . "$ssh_agent_env" > /dev/null
 fi
-if [ ! -f "$SSH_AUTH_SOCK" ]
-then . "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+if [ -z "${SSH_AGENT_PID-}" ] || ! kill -0 "$SSH_AGENT_PID" &> /dev/null
+then mkdir -p "$(dirname "$ssh_agent_env")"
+     ssh-agent -t 30m -s > "$ssh_agent_env"
+     . "$ssh_agent_env" > /dev/null
 fi
 {%@@ endif @@%}
