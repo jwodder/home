@@ -1,8 +1,9 @@
-if [ -n "$_PROFILE_SOURCED" ]
-then [ -z "$BASH" ] || . ~/.bashrc
+if [ -z "$_PROFILE_SOURCED" ]
+then export _PROFILE_SOURCED=1
+else export _PROFILE_SOURCED="$((_PROFILE_SOURCED + 1))"
+     [ -z "$BASH" ] || . ~/.bashrc
      return
 fi
-export _PROFILE_SOURCED=1
 
 {%@@ if profile == "macOS" @@%}
 [ "$PWD" != "$HOME" ] || cd ~/work
