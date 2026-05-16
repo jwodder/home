@@ -116,7 +116,7 @@ config.keys = {
 {%@@ else @@%}
             args = { '/bin/bash' },
 {%@@ endif @@%}
-            cwd = os.getenv("HOME"),
+            cwd = os.getenv("HOME") .. "/work",
         },
     },
 
@@ -205,11 +205,11 @@ config.key_tables = {
         { key = 'DownArrow', action = act.AdjustPaneSize { 'Down', 1 } },
         {
             key = '|',
-            action = act.SplitVertical { cwd = os.getenv("HOME") },
+            action = act.SplitVertical { cwd = os.getenv("HOME") .. "/work" },
         },
         {
             key = 's',
-            action = act.SplitVertical { cwd = os.getenv("HOME") },
+            action = act.SplitVertical { cwd = os.getenv("HOME") .. "/work" },
         },
         { key = 'j', action = act.ActivatePaneDirection 'Down', },
         { key = 'k', action = act.ActivatePaneDirection 'Up', },
