@@ -38,9 +38,7 @@ config.colors = {
 }
 
 {%@@ if profile != "macOS" @@%}
--- TODO: Why doesn't this work?
 config.default_cwd = os.getenv("HOME") .. "/work"
-
 {%@@ endif @@%}
 config.enable_scroll_bar = true
 {%@@ if profile == "macOS" @@%}
