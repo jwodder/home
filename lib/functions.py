@@ -3,7 +3,7 @@ import re
 import subprocess
 
 DEFAULT_TMUX_VERSION = (3, 6, 0)
-DFEAULT_SCREEN_VERSION = (5, 0, 0)
+DEFAULT_SCREEN_VERSION = (5, 0, 0)
 
 
 def tmux_version() -> tuple[int, int, int]:
@@ -36,7 +36,7 @@ def screen_version() -> tuple[int, int, int]:
         )
     except FileNotFoundError:
         # screen isn't installed
-        return DEFAULT_TMUX_VERSION
+        return DEFAULT_SCREEN_VERSION
     vstr = r.stdout.strip()
     if (
         m := re.fullmatch(
