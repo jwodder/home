@@ -58,6 +58,7 @@ config.send_composed_key_when_right_alt_is_pressed = false
 config.ssh_domains = {}
 config.switch_to_last_active_tab_when_closing_tab = true
 config.use_fancy_tab_bar = false
+config.warn_about_missing_glyphs = false
 
 -- <https://github.com/wezterm/wezterm/issues/3803#issuecomment-1608954312>
 config.hyperlink_rules = {
