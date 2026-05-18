@@ -45,6 +45,11 @@ config.default_cwd = os.getenv("HOME") .. "/work"
 config.enable_scroll_bar = true
 {%@@ if profile == "macOS" @@%}
 config.font = wezterm.font('Menlo')
+{%@@ else @@%}
+{%@@ set font = get_wezterm_font() @@%}
+{%@@ if font != None @@%}
+config.font = wezterm.font('{{@@ font @@}}')
+{%@@ endif @@%}
 {%@@ endif @@%}
 config.font_size = 12
 config.hide_tab_bar_if_only_one_tab = false
