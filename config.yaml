@@ -6,6 +6,8 @@ config:
   filter_file:
     - lib/filters.py
   force_chmod: true
+  func_file:
+    - lib/functions.py
   ignoreempty: true
   keepdot: true
   link_dotfile_default: nolink
@@ -92,6 +94,7 @@ dotfiles:
   f_tmux_conf:
     src: .tmux.conf
     dst: ~/.tmux.conf
+    template: true
   d_vim:
     src: .vim
     dst: ~/.vim
