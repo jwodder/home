@@ -41,7 +41,6 @@ config.colors = {
 -- TODO: Why doesn't this work?
 config.default_cwd = os.getenv("HOME") .. "/work"
 
-config.default_prog = { '/bin/bash' }
 {%@@ endif @@%}
 config.enable_scroll_bar = true
 {%@@ if profile == "macOS" @@%}
@@ -114,7 +113,7 @@ config.keys = {
 {%@@ if profile == "macOS" @@%}
             args = { '/usr/local/bin/bash', '-l' },
 {%@@ else @@%}
-            args = { '/bin/bash' },
+            args = { '/bin/bash', '-l' },
 {%@@ endif @@%}
             cwd = os.getenv("HOME") .. "/work",
         },
@@ -237,7 +236,7 @@ config.launch_menu = {
 {%@@ if profile == "macOS" @@%}
         args = { '/usr/local/bin/bash', '-l' },
 {%@@ else @@%}
-        args = { '/bin/bash' },
+        args = { '/bin/bash', '-l' },
 {%@@ endif @@%}
         cwd = os.getenv("HOME") .. "/work",
     },
