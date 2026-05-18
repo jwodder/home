@@ -1,0 +1,6 @@
+#!/bin/bash
+# Create a GitHub repository for the current Git repository and push it
+set -e
+name="${1:?Usage: $0 repo-name}"
+gh repo create --public --source=. --push "$name"
+gh repo edit --delete-branch-on-merge

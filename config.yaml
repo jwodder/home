@@ -126,6 +126,10 @@ dotfiles:
     src: bin/cargo-docsrs
     dst: ~/bin/cargo-docsrs
     chmod: '0755'
+  f_bin_cargo-morelint:
+    src: bin/cargo-morelint
+    dst: ~/bin/cargo-morelint
+    chmod: '0755'
   f_bin_cargo-updeps:
     src: bin/cargo-updeps
     dst: ~/bin/cargo-updeps
@@ -154,6 +158,10 @@ dotfiles:
     src: bin/git-fork-point
     dst: ~/bin/git-fork-point
     chmod: '0755'
+  f_bin_git-gc-all:
+    src: bin/git-gc-all
+    dst: ~/bin/git-gc-all
+    chmod: '0755'
   f_bin_git-newbranch:
     src: bin/git-newbranch
     dst: ~/bin/git-newbranch
@@ -178,6 +186,10 @@ dotfiles:
     src: bin/git-update
     dst: ~/bin/git-update
     chmod: '0755'
+  f_bin_mkgithub:
+    src: bin/mkgithub
+    dst: ~/bin/mkgithub
+    chmod: '0755'
   f_bin_pac-download:
     src: bin/pac-download
     dst: ~/bin/pac-download
@@ -190,9 +202,17 @@ dotfiles:
     src: bin/pygrep
     dst: ~/bin/pygrep
     chmod: '0755'
+  f_bin_rsgrep:
+    src: bin/rsgrep
+    dst: ~/bin/rsgrep
+    chmod: '0755'
   f_bin_ssh-add-keygen:
     src: bin/ssh-add-keygen
     dst: ~/bin/ssh-add-keygen
+    chmod: '0755'
+  f_bin_tag2release:
+    src: bin/tag2release
+    dst: ~/bin/tag2release
     chmod: '0755'
   f_bin_with-tab-title:
     src: bin/with-tab-title
@@ -216,20 +236,25 @@ profiles:
       - f_bashrc
       - f_bin_cargo-coverage
       - f_bin_cargo-docsrs
+      - f_bin_cargo-morelint
       - f_bin_cargo-updeps
       - f_bin_git-branch-log
       - f_bin_git-branch-range
       - f_bin_git-default-branch
       - f_bin_git-fork-point
+      - f_bin_git-gc-all
       - f_bin_git-newbranch
       - f_bin_git-post-merge
       - f_bin_git-restore-head
       - f_bin_git-restore-index
       - f_bin_git-rmbranch
       - f_bin_git-update
+      - f_bin_mkgithub
       - f_bin_pim
       - f_bin_pygrep
+      - f_bin_rsgrep
       - f_bin_ssh-add-keygen
+      - f_bin_tag2release
       - f_cargo_config_toml
       - f_config_pip_pip.conf
       - f_config_rgignore

@@ -1,0 +1,13 @@
+#!/bin/bash
+# The tag must already be pushed to GitHub.
+set -ex -o pipefail
+
+if test -z "$1"
+then echo "Usage: $0 <tag>"
+     exit 2
+fi
+
+tag="$1"
+tag_subject="$(git show -s --format=%s "$tag^{commit}")"
+git show -s --format=%b "$tag^{commit}" \
+    | gh release create --title "$tag_subject" --notes-file - "$tag"

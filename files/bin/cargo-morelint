@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+shift
+cargo hack --workspace --feature-powerset clippy "$@"
+cargo hack --workspace --feature-powerset clippy --tests --examples "$@"

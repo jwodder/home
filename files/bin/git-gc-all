@@ -1,0 +1,5 @@
+#!/bin/bash
+find ~/work -type d \
+    '(' -name '?*.git' -o -exec test -e {}/.git ';' ')' \
+    -print \
+    -exec git -C {} gc ';'
