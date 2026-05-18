@@ -22,6 +22,10 @@ function _have_command {
     command -V "$1" >/dev/null 2>&1
 }
 
+if _have_command fzf
+then eval "$(fzf --bash)"
+fi
+
 if _have_command lesspipe
 then eval "$(lesspipe)"
 fi

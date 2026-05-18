@@ -29,6 +29,7 @@ export WS=/Library/WebServer/Documents
 {%@@ else @@%}
 export SYSTEMD_LESS=-iRS
 {%@@ endif @@%}
+export FZF_DEFAULT_OPTS='--walker-skip .cache,.git,.hg,.local,.mypy_cache,.nox,.tox,__pycache__,_build,build,target,venv'
 export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep.rc
 
 [ -z "$BASH" ] || . ~/.bashrc
