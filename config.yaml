@@ -104,6 +104,7 @@ dotfiles:
       - plugged
       - '!spell/words.utf-8.add'
       - 'spell/[a-zA-Z0-9]*'
+    template: true
   f_bin_apt-check:
     src: bin/apt-check
     dst: ~/bin/apt-check
