@@ -91,6 +91,7 @@ dotfiles:
   f_screenrc:
     src: .screenrc
     dst: ~/.screenrc
+    template: true
   f_tmux_conf:
     src: .tmux.conf
     dst: ~/.tmux.conf

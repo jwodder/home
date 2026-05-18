@@ -15,6 +15,9 @@ msgwait 1
 shelltitle Shell
 startup_message off
 term screen-256color
+{%@@ if screen_version() >= (5, 0, 0) @@%}
+truecolor on
+{%@@ endif @@%}
 vbell off
 
 bind ^[
