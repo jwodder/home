@@ -5,6 +5,9 @@ import subprocess
 DEFAULT_TMUX_VERSION = (3, 6, 0)
 DEFAULT_SCREEN_VERSION = (5, 0, 0)
 
+# In descending order of preference
+WEZTERM_FONT_PREFERENCES = ["DejaVu Sans Mono", "Inconsolata", "Adwaita Mono"]
+
 
 def tmux_version() -> tuple[int, int, int]:
     try:
@@ -50,3 +53,16 @@ def screen_version() -> tuple[int, int, int]:
         return (major, minor, patch)
     else:
         raise ValueError(f"Could not parse `screen --version` output: {vstr!r}")
+
+
+def get_wezterm_font() -> str | None:
+    for font in WEZTERM_FONT_PREFERENCES:
+        r = subprocess.run(["fc-list", "-q", "--", font])
+        if r.returncode == 0:
+            return font
+        elif r.returncode != 1:
+            raise RuntimeError(
+                f"`fc-list -q -- {font}` returned unexpected exit status {r.returncode}"
+            )
+    # Fall back to WezTerm's builtin default of JetBrains Mono
+    return None
