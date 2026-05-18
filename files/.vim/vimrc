@@ -156,5 +156,9 @@ endif
 
 if stridx(environ()['TERM'], 'tmux') == 0
     " Sequence for querying background color for setting 'bg':
+{%@@ if tmux_version() >= (3, 5, 0) @@%}
     let &t_RB="\<ESC>]11;?\<ESC>\\"
+{%@@ else @@%}
+    let &t_RB="\<ESC>Ptmux;\<ESC>\<ESC>]11;?\<C-G>\<ESC>\\"
+{%@@ endif @@%}
 endif

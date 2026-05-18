@@ -6,6 +6,8 @@ config:
   filter_file:
     - lib/filters.py
   force_chmod: true
+  func_file:
+    - lib/functions.py
   ignoreempty: true
   keepdot: true
   link_dotfile_default: nolink
@@ -89,9 +91,11 @@ dotfiles:
   f_screenrc:
     src: .screenrc
     dst: ~/.screenrc
+    template: true
   f_tmux_conf:
     src: .tmux.conf
     dst: ~/.tmux.conf
+    template: true
   d_vim:
     src: .vim
     dst: ~/.vim
@@ -101,6 +105,7 @@ dotfiles:
       - plugged
       - '!spell/words.utf-8.add'
       - 'spell/[a-zA-Z0-9]*'
+    template: true
   f_bin_apt-check:
     src: bin/apt-check
     dst: ~/bin/apt-check
