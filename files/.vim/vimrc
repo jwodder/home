@@ -114,6 +114,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+if has('patch-9.1.0592') == 0
+    Plug 'chikamichi/mediawiki.vim'
+endif
 Plug 'dense-analysis/ale'
 Plug 'https://codeberg.org/Dokana/vim-systemd-syntax.git'
 " Install vim-plug as a plugin in order to get the documentation:
