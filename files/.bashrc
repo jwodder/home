@@ -53,7 +53,28 @@ function show_my_ps1 {
 }
 
 PS1_GIT=on
-PROMPT_COMMAND="show_exit_status; $HOME/share/project-as-title.py; show_my_ps1"
+
+if (( BASH_VERSINFO[0] > 5 || BASH_VERSINFO[0] == 5 && BASH_VERSINFO[1] >= 1 ))
+then
+{%@@ if profile == "arch" or profile == "arch-mail" @@%}
+    # Remove the `printf` command (added by Arch's /etc/bash.bashrc) that sets
+    # the window title to "$USER@$HOSTNAME:$PWD"
+    new_prompt=()
+    for cmd in "${PROMPT_COMMAND[@]}"
+    do
+        if ! [[ "$cmd" =~ printf* ]]
+        then new_prompt+=("$cmd")
+        fi
+    done
+    PROMPT_COMMAND=("${new_prompt[@]}")
+    unset new_prompt
+{%@@ endif @@%}
+    PROMPT_COMMAND+=('show_exit_status')
+    PROMPT_COMMAND+=("$HOME/share/project-as-title.py")
+    PROMPT_COMMAND+=('show_my_ps1')
+else
+    PROMPT_COMMAND="show_exit_status; $HOME/share/project-as-title.py; show_my_ps1"
+fi
 
 {%@@ if profile != "macOS" @@%}
 # TODO: Is it even necessary to set this?
