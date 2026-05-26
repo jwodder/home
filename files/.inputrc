@@ -1,3 +1,2 @@
-Control-r: revert-line
 set colored-stats
 set revert-all-at-newline
