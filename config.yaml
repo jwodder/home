@@ -118,10 +118,6 @@ dotfiles:
     src: bin/apt-upgrade
     dst: ~/bin/apt-upgrade
     chmod: '0755'
-  f_bin_cargo-coverage:
-    src: bin/cargo-coverage
-    dst: ~/bin/cargo-coverage
-    chmod: '0755'
   f_bin_cargo-docsrs:
     src: bin/cargo-docsrs
     dst: ~/bin/cargo-docsrs
@@ -234,7 +230,6 @@ profiles:
     dotfiles:
       - f_bash_completion
       - f_bashrc
-      - f_bin_cargo-coverage
       - f_bin_cargo-docsrs
       - f_bin_cargo-morelint
       - f_bin_cargo-updeps
