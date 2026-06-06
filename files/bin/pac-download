@@ -7,7 +7,6 @@
 from __future__ import annotations
 import argparse
 import hashlib
-import os
 from pathlib import Path
 import subprocess
 import sys
@@ -17,9 +16,24 @@ from tqdm import tqdm
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--directory", type=Path)
-    parser.add_argument("--keep-on-error", action="store_true")
-    parser.add_argument("-U", "--unpack", action="store_true")
+    parser.add_argument(
+        "-d",
+        "--directory",
+        type=Path,
+        help="Download and unpack packages in the given directory [default: current directory]",
+        metavar="PATH",
+    )
+    parser.add_argument(
+        "--keep-on-error",
+        action="store_true",
+        help="Do not delete packages that fail to download correctly",
+    )
+    parser.add_argument(
+        "-U",
+        "--unpack",
+        action="store_true",
+        help="Unpack each package after downloading it",
+    )
     parser.add_argument("package", nargs="*")
     args = parser.parse_args()
     if not args.package:
@@ -68,11 +82,11 @@ def main() -> None:
                 if not args.keep_on_error:
                     outfile.unlink(missing_ok=True)
                 sys.exit(
-                    f"{sys.argv[0]}: Digest mismatch: expected {sha_hash}, got {got_digest}"
+                    f"{sys.argv[0]}: {repo}/{pkgname}: digest mismatch: expected {sha_hash}, got {got_digest}"
                 )
             if args.unpack:
                 unpack_dir = outdir / pkgname
-                print(f"Unpacking {outfile} into {unpack_dir}/ ...")
+                print(f"Unpacking {outfile} into {unpack_dir}/ ...", file=sys.stderr)
                 unpack_dir.mkdir(parents=True, exist_ok=True)
                 r2 = subprocess.run(["tar", "--zstd", "-xf", outfile, "-C", unpack_dir])
                 if r2.returncode != 0:
