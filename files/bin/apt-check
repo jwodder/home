@@ -13,8 +13,7 @@ Options:
 
 - ``--csv`` - output table as CSV
 - ``--plain`` - output a plain table (default)
-- ``--pretty`` - output a pretty table (requires the ``python3-prettytable``
-  package)
+- ``--pretty`` - output an ASCII table
 
 Output columns:
 
@@ -26,45 +25,60 @@ Output columns:
   <https://wiki.ubuntu.com/PhasedUpdates>`_, otherwise '-' (or empty in CSV)
 """
 
-__author__       = 'John Thorvald Wodder II'
-__author_email__ = 'apt-check@varonathe.org'
-
+from __future__ import annotations
 import argparse
-from   collections import namedtuple
+from collections.abc import Iterator
 import csv
+from dataclasses import dataclass, field
+from itertools import zip_longest
+from operator import attrgetter
 import re
 import sys
 import apt
 import apt_pkg
 
-class Upgrade(namedtuple('Upgrade', 'package installed candidate security phased')):
+__author__ = "John Thorvald Wodder II"
+__author_email__ = "apt-check@varonathe.org"
+
+
+@dataclass
+class Upgrade:
+    package: str
+    installed: str | None
+    candidate: str
+    security: bool
+    phased: bool
+
     @property
-    def flags(self):
-        return ('S' if self.security else '-') + ('P' if self.phased else '-')
+    def flags(self) -> str:
+        return ("S" if self.security else "-") + ("P" if self.phased else "-")
 
 
 class AptChecker:
-    def __init__(self):
+    def __init__(self) -> None:
         self.distro = None
-        with open('/etc/os-release') as fp:
+        with open("/etc/os-release") as fp:
             for line in fp:
-                m = re.fullmatch(r'UBUNTU_CODENAME=(\w+)', line.strip())
-                if m:
-                    self.distro = m.group(1)
+                if m := re.fullmatch(r"VERSION_CODENAME=(\w+)", line.strip()):
+                    self.distro = m[1]
         if self.distro is None:
-            raise RuntimeError('Could not determine Ubuntu version codename')
+            raise RuntimeError("Could not determine version codename")
         self.security_pockets = [
-            ("Ubuntu",    self.distro + "-security"),
+            ("Debian", self.distro + "-security"),  # TODO: Is this accurate?
+            ("Ubuntu", self.distro + "-security"),
+            ("UbuntuESM", self.distro + "-infra-security"),
+            ("UbuntuESMApps", self.distro + "-apps-security"),
             ("gNewSense", self.distro + "-security"),
-            ("Debian",    self.distro + "-updates"),
+            ("Debian", self.distro + "-updates"),
         ]
 
-    def isSecurityUpgrade(self, ver):
-        """ Check if the given version is a security update (or masks one) """
-        return any((f.origin, f.archive) in self.security_pockets
-                   for f,_ in ver.file_list)
+    def isSecurityUpgrade(self, ver) -> bool:
+        """Check if the given version is a security update (or masks one)"""
+        return any(
+            (f.origin, f.archive) in self.security_pockets for f, _ in ver.file_list
+        )
 
-    def apt_check(self):
+    def apt_check(self) -> Iterator[Upgrade]:
         apt_pkg.init()
         cache = apt_pkg.Cache(apt.progress.base.OpProgress())
         depcache = apt_pkg.DepCache(cache)
@@ -72,6 +86,7 @@ class AptChecker:
             raise SystemExit("Error: BrokenCount > 0")
         try:
             from UpdateManager.Core.UpdateList import UpdateList
+
             ul = UpdateList(None)
         except ImportError:
             ul = None
@@ -83,8 +98,9 @@ class AptChecker:
         depcache.upgrade()
         with apt.Cache() as aptcache:
             for pkg in cache.packages:
-                if not depcache.marked_install(pkg) and \
-                        not depcache.marked_upgrade(pkg):
+                if not depcache.marked_install(pkg) and not depcache.marked_upgrade(
+                    pkg
+                ):
                     continue
                 inst_ver = pkg.current_ver
                 cand_ver = depcache.get_candidate_ver(pkg)
@@ -103,8 +119,7 @@ class AptChecker:
                         ) > 0 and self.isSecurityUpgrade(ver):
                             security = True
                             break
-                if ul is not None and \
-                        ul._is_ignored_phased_update(aptcache[pkg.name]):
+                if ul is not None and ul._is_ignored_phased_update(aptcache[pkg.name]):
                     phased = True
                 yield Upgrade(
                     package=pkg.name,
@@ -114,64 +129,98 @@ class AptChecker:
                     phased=phased,
                 )
 
-def main():
-    parser = argparse.ArgumentParser(
-        description='List available APT package updates'
+
+@dataclass
+class Table:
+    headers: list[str]
+    rows: list[list[str]] = field(init=False, default_factory=list)
+    colwidths: list[int] = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.colwidths = [len(s) for s in self.headers]
+
+    def add_row(self, row: list[str]) -> None:
+        for i, cell in enumerate(row):
+            if i < len(self.colwidths):
+                self.colwidths[i] = max(self.colwidths[i], len(cell))
+            else:
+                self.colwidths.append(len(cell))
+        self.rows.append(row)
+
+    def render(self) -> str:
+        hrule = "+-" + "-+-".join("-" * w for w in self.colwidths) + "-+\n"
+        s = hrule
+        s += (
+            "| "
+            + " | ".join(
+                h.ljust(w)
+                for (h, w) in zip_longest(self.headers, self.colwidths, fillvalue="")
+            )
+            + " |\n"
+        )
+        s += hrule
+        for row in self.rows:
+            s += (
+                "| "
+                + " | ".join(
+                    h.ljust(w)
+                    for (h, w) in zip_longest(row, self.colwidths, fillvalue="")
+                )
+                + " |\n"
+            )
+        s += hrule
+        return s
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="List available APT package updates")
+    parser.add_argument(
+        "--csv",
+        action="store_const",
+        dest="format",
+        const="csv",
+        help="Output table as comma-separated values",
     )
     parser.add_argument(
-        '--csv',
-        action = 'store_const',
-        dest   = 'format',
-        const  = 'csv',
-        help   = 'Output table as comma-separated values',
+        "--plain",
+        action="store_const",
+        dest="format",
+        const="plain",
+        help="Output a plain table (default)",
     )
     parser.add_argument(
-        '--plain',
-        action = 'store_const',
-        dest   = 'format',
-        const  = 'plain',
-        help   = 'Output a plain table (default)',
-    )
-    parser.add_argument(
-        '--pretty',
-        action = 'store_const',
-        dest   = 'format',
-        const  = 'pretty',
-        help   = 'Output a pretty table',
+        "--pretty",
+        action="store_const",
+        dest="format",
+        const="pretty",
+        help="Output a pretty table",
     )
     args = parser.parse_args()
     updates = AptChecker().apt_check()
-
-    if args.format is None or args.format == 'plain':
+    if args.format is None or args.format == "plain":
         for upd in updates:
-            print('{0.package:20} {0.installed!s:20} {0.candidate:20} {0.flags}'
-                  .format(upd))
-
-    elif args.format == 'pretty':
-        try:
-            from prettytable import PrettyTable
-        except ImportError:
-            print('--pretty format requires prettytable', file=sys.stderr)
-            print('Install with `sudo apt-get install python3-prettytable',
-                  file=sys.stderr)
-            sys.exit(1)
-        tbl = PrettyTable(['Package', 'Installed', 'Candidate', 'SP'])
-        tbl.align = 'l'
-        for upd in updates:
-            tbl.add_row([upd.package, upd.installed, upd.candidate, upd.flags])
-        print(tbl.get_string(sortby='Package'))
-
-    elif args.format == 'csv':
+            print(
+                f"{upd.package:20} {upd.installed!s:20} {upd.candidate:20} {upd.flags}"
+            )
+    elif args.format == "pretty":
+        tbl = Table(["Package", "Installed", "Candidate", "SP"])
+        for upd in sorted(updates, key=attrgetter("package")):
+            tbl.add_row([upd.package, upd.installed or "", upd.candidate, upd.flags])
+        print(tbl.render())
+    elif args.format == "csv":
         out = csv.writer(sys.stdout)
-        out.writerow(['package','installed','candidate','security','phased'])
+        out.writerow(["package", "installed", "candidate", "security", "phased"])
         for upd in updates:
-            out.writerow([
-                upd.package,
-                upd.installed,
-                upd.candidate,
-                'S' if upd.security else '',
-                'P' if upd.phased else '',
-            ])
+            out.writerow(
+                [
+                    upd.package,
+                    upd.installed,
+                    upd.candidate,
+                    "S" if upd.security else "",
+                    "P" if upd.phased else "",
+                ]
+            )
+
 
 if __name__ == "__main__":
     main()
