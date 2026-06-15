@@ -1,6 +1,5 @@
 # Global settings:
 set abort_nosubject
-set allow_ansi
 set beep_new
 set certificate_file="~/.mutt/certs"
 set charset="utf-8"
@@ -10,7 +9,6 @@ set delete=yes
 set edit_headers
 set editor="{{@@ vimpath @@}}"
 set fast_reply
-#unset followup_to
 set forward_format="Fwd: %s"
 set forward_quote
 unset help
@@ -22,14 +20,12 @@ set mime_forward=ask-no
 set pager_context=2
 set postpone
 set read_inc=50
-#unset recall
 set reply_to
 unset resolve
 unset save_empty
 unset score
 set send_charset="us-ascii:utf-8"
 set sendmail_wait=30
-#set sort=reverse-date
 set sort_aux=last-date
 set status_format="%v -%r- %f -- %m msgs%?u?, %u unread?%?d?, %d del?%?t?, %t tagged? %?V?-- %V : %M -- ?%> %P"
 set strict_threads

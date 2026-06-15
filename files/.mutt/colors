@@ -17,3 +17,5 @@ color index green         default ~l
 color quoted  blue  default
 color quoted1 green default
 color quoted2 red   default
+
+# vim:set ft=muttrc:

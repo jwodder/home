@@ -13,3 +13,5 @@ set confirmcreate=no
 #unalternates *
 #unlists *
 #unhook send-hook
+
+# vim:set ft=muttrc:

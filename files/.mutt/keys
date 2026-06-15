@@ -86,3 +86,5 @@ bind compose <esc>P print-entry
 bind pgp v view-name
 
 bind editor <space> noop
+
+# vim:set ft=muttrc:
