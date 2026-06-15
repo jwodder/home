@@ -13,13 +13,7 @@ done
 
 set -ex
 
-pybinpath="$(python3 -msite --user-base)"/bin
-if [[ ":$PATH:" != *":$pybinpath:"* ]]
-then PATH="$PATH:$pybinpath"
-fi
-
 cd "$(dirname "$0")"
-
 for f in setup.d/*
 do ./"$f"
 done
