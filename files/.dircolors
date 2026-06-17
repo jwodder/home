@@ -87,6 +87,7 @@ STICKY                   37;44  # dir that is sticky (+t) and not other-writable
 .retry                   90;40
 .swp                     90;40
 .wget-hsts               90;40
+*~                       90;40
 
 # LaTeX cruft:
 .aux                     90;40
