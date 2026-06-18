@@ -79,9 +79,9 @@ showStat = false
 [tag]
 sort = creatordate
 
-[url "ssh://jwodder@meta.freeshell.org/arpa/gm/j/jwodder/"]
+[url "ssh://git@thoth.local:2244/srv/git/"]
 # Yes, the trailing slash is very necessary.
-insteadOf = sdf:
+insteadOf = thoth:
 
 [user]
 name = John T. Wodder II
