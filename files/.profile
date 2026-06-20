@@ -27,6 +27,9 @@ export BC_ENV_ARGS="-lq $HOME/share/util.gbc"
 export HOMEBREW_CLEANUP_MAX_AGE_DAYS=0
 export WS=/Library/WebServer/Documents
 {%@@ else @@%}
+{%@@ if profile == "debian" or profile == "debian-mail" @@%}
+export DPKG_PAGER=cat
+{%@@ endif @@%}
 export SYSTEMD_LESS=-iRS
 {%@@ endif @@%}
 export FZF_DEFAULT_OPTS='--walker-skip .cache,.git,.hg,.local,.mypy_cache,.nox,.tox,__pycache__,_build,build,target,venv'
