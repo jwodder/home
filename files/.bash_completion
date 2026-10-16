@@ -18,6 +18,27 @@ if ( command -V pipx && command -V register-python-argcomplete ) &>/dev/null
 then eval "$(register-python-argcomplete pipx)"
 fi
 
+# Output of `_PYREPO_COMPLETE=bash_source pyrepo`:
+_pyrepo_completion() {
+    local IFS=$'\n'
+    local response
+    response=$(env COMP_WORDS="${COMP_WORDS[*]}" COMP_CWORD=$COMP_CWORD _PYREPO_COMPLETE=bash_complete $1)
+    for completion in $response; do
+        IFS=',' read type value <<< "$completion"
+        if [[ $type == 'dir' ]]; then
+            COMREPLY=()
+            compopt -o dirnames
+        elif [[ $type == 'file' ]]; then
+            COMREPLY=()
+            compopt -o default
+        elif [[ $type == 'plain' ]]; then
+            COMPREPLY+=($value)
+        fi
+    done
+    return 0
+}
+complete -o nosort -F _pyrepo_completion pyrepo
+
 docker_complete=/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
 if [ -f "$docker_complete" ]
 then
