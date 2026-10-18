@@ -20,7 +20,10 @@ def main() -> None:
         "-d",
         "--directory",
         type=Path,
-        help="Download and unpack packages in the given directory [default: current directory]",
+        help=(
+            "Download and unpack packages in the given directory"
+            " [default: current directory]"
+        ),
         metavar="PATH",
     )
     parser.add_argument(
@@ -82,7 +85,8 @@ def main() -> None:
                 if not args.keep_on_error:
                     outfile.unlink(missing_ok=True)
                 sys.exit(
-                    f"{sys.argv[0]}: {repo}/{pkgname}: digest mismatch: expected {sha_hash}, got {got_digest}"
+                    f"{sys.argv[0]}: {repo}/{pkgname}: digest mismatch: expected"
+                    f" {sha_hash}, got {got_digest}"
                 )
             if args.unpack:
                 unpack_dir = outdir / pkgname
