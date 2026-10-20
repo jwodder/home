@@ -186,7 +186,9 @@ def check_disk() -> str | None:
     for mntpoint in ["/"]:
         fssize, fsused, _ = disk_usage(mntpoint)
         if (pctused := 100 * fsused / fssize) >= DISK_THRESHOLD:
-            msgs.append(f"WARNING: Disk usage on {mntpoint} at {pctused:.2f}%")
+            msgs.append(
+                f"\x1b[33mWARNING: Disk usage on {mntpoint} at {pctused:.2f}%\x1b[m"
+            )
     if msgs:
         return "\n\n".join(msgs)
     else:
