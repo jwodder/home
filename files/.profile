@@ -10,6 +10,12 @@ fi
 {%@@ endif @@%}
 umask 0022
 
+{%@@ if profile == "arch" or profile == "arch-mail" @@%}
+if test -e ~/.local/etc/motd
+then cat ~/.local/etc/motd
+fi
+
+{%@@ endif @@%}
 {%@@ if profile == "macOS" @@%}
 export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 {%@@ else @@%}
