@@ -10,6 +10,12 @@ fi
 {%@@ endif @@%}
 umask 0022
 
+{%@@ if profile == "arch" or profile == "arch-mail" @@%}
+if test -e ~/.local/etc/motd
+then cat ~/.local/etc/motd
+fi
+
+{%@@ endif @@%}
 export LANG=C.UTF-8 LC_ALL=C.UTF-8
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:{%@@ if profile == "macOS" @@%}/usr/local/sbin:{%@@ endif @@%}$PATH"
 
