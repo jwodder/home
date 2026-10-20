@@ -28,6 +28,7 @@ dotfiles:
   f_bash_completion:
     src: .bash_completion
     dst: ~/.bash_completion
+    template: true
   f_bashrc:
     src: .bashrc
     dst: ~/.bashrc

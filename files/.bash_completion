@@ -39,12 +39,14 @@ _pyrepo_completion() {
 }
 complete -o nosort -F _pyrepo_completion pyrepo
 
+{%@@ if profile == "macOS" @@%}
 docker_complete=/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
 if [ -f "$docker_complete" ]
 then
 . /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
 fi
 
+{%@@ endif @@%}
 if command -V rustc &>/dev/null
 then . "$(rustc --print sysroot)/etc/bash_completion.d/cargo"
 fi
