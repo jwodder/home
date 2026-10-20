@@ -10,7 +10,6 @@
 # - available firmware updates with `fwupd`
 #     - Cf.
 #       <https://wiki.archlinux.org/title/Talk:Fwupd#RFC:_new_section_about_auto-update_checking>
-# - alerts about high disk usage
 # - IP addresses?
 # - notices about pacnew files?
 
@@ -21,11 +20,14 @@ from io import Writer
 import logging
 import os
 from pathlib import Path
+from shutil import disk_usage
 import subprocess
 import sys
 import tempfile
 import textwrap
 from types import TracebackType
+
+DISK_THRESHOLD = 75  # measured in percentage points
 
 MAX_CHECKUPDATES_LINES = 5
 
@@ -82,10 +84,21 @@ def main() -> None:
     else:
         outfp = sys.stdout
     with outfp:
-        for check in [check_updates, check_reboot_for_kernel, check_mailboxes]:
+        nonempty = False
+        for check in [
+            check_updates,
+            check_reboot_for_kernel,
+            check_mailboxes,
+            check_disk,
+        ]:
             if (s := check()) is not None:
+                nonempty = True
                 print(s.rstrip("\n") + "\n\n", end="", file=outfp)
-        print("This MOTD was generated at:", datetime.now().astimezone(), file=outfp)
+        nowstamp = datetime.now().astimezone().isoformat(timespec="seconds")
+        if nonempty:
+            print(f"[MOTD generated at: {nowstamp}]", file=outfp)
+        else:
+            print(f"No news as of {nowstamp}", file=outfp)
 
 
 def check_updates() -> str | None:
@@ -163,6 +176,19 @@ def check_mailboxes() -> str | None:
     if nonempty:
         nonempty.sort()
         return "Mail for: " + " ".join(nonempty)
+    else:
+        return None
+
+
+def check_disk() -> str | None:
+    msgs = []
+    # TODO: Discover all mount points automatically:
+    for mntpoint in ["/"]:
+        fssize, fsused, _ = disk_usage(mntpoint)
+        if (pctused := 100 * fsused / fssize) >= DISK_THRESHOLD:
+            msgs.append(f"WARNING: Disk usage on {mntpoint} at {pctused:.2f}%")
+    if msgs:
+        return "\n\n".join(msgs)
     else:
         return None
 
