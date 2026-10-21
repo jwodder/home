@@ -15,8 +15,10 @@
 
 from __future__ import annotations
 import argparse
+from collections.abc import Iterator
 from datetime import datetime
 from io import Writer
+import json
 import logging
 import os
 from pathlib import Path
@@ -26,6 +28,7 @@ import sys
 import tempfile
 import textwrap
 from types import TracebackType
+from typing import Any
 
 DISK_THRESHOLD = 75  # measured in percentage points
 
@@ -181,18 +184,38 @@ def check_mailboxes() -> str | None:
 
 
 def check_disk() -> str | None:
+    log.info("Fetching data on mounted filesystems ...")
+    r = subprocess.run(
+        ["findmnt", "--json", "--real", "-o", "TARGET,USE%"],
+        check=True,
+        stdout=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+    )
+    mntdata = json.loads(r.stdout)
     msgs = []
-    # TODO: Discover all mount points automatically:
-    for mntpoint in ["/"]:
-        fssize, fsused, _ = disk_usage(mntpoint)
-        if (pctused := 100 * fsused / fssize) >= DISK_THRESHOLD:
+    for mntpoint, pctused in iter_findmnt(mntdata["filesystems"]):
+        if pctused >= DISK_THRESHOLD:
             msgs.append(
-                f"\x1b[33mWARNING: Disk usage on {mntpoint} at {pctused:.2f}%\x1b[m"
+                f"\x1b[33mWARNING: Disk usage on {mntpoint} at {pctused}%\x1b[m"
             )
     if msgs:
         return "\n\n".join(msgs)
     else:
         return None
+
+
+def iter_findmnt(data: list[dict[str, Any]]) -> Iterator[tuple[str, int]]:
+    for fs in data:
+        mntpoint = fs["target"]
+        if fs["use%"] == "-":
+            # I don't think this can happen for "real" filesystems, but just in
+            # case...
+            continue
+        pctused = int(fs["use%"].removesuffix("%"))
+        yield (mntpoint, pctused)
+        if subdata := fs.get("children", []):
+            yield from iter_findmnt(subdata)
 
 
 if __name__ == "__main__":
