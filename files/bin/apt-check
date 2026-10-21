@@ -206,7 +206,7 @@ def main() -> None:
         tbl = Table(["Package", "Installed", "Candidate", "SP"])
         for upd in sorted(updates, key=attrgetter("package")):
             tbl.add_row([upd.package, upd.installed or "", upd.candidate, upd.flags])
-        print(tbl.render())
+        print(tbl.render(), end="")
     elif args.format == "csv":
         out = csv.writer(sys.stdout)
         out.writerow(["package", "installed", "candidate", "security", "phased"])
