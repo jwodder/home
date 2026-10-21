@@ -94,11 +94,12 @@ def main() -> None:
             if (s := check()) is not None:
                 nonempty = True
                 print(s.rstrip("\n") + "\n\n", end="", file=outfp)
-        nowstamp = datetime.now().astimezone().isoformat(timespec="seconds")
+        nowstamp = datetime.now().astimezone().isoformat(sep=" ", timespec="seconds")
+        # TODO: Colorize the final line:
         if nonempty:
-            print(f"[MOTD generated at: {nowstamp}]", file=outfp)
+            print(f"[MOTD generated at {nowstamp}]", file=outfp)
         else:
-            print(f"No news as of {nowstamp}", file=outfp)
+            print(f"[No news as of {nowstamp}]", file=outfp)
 
 
 def check_updates() -> str | None:
@@ -140,8 +141,9 @@ def check_updates() -> str | None:
             log.info(" ⤷ No updates available")
             return None
         elif update_qty <= MAX_CHECKUPDATES_LINES:
-            return f"{update_qty} package updates available:" + textwrap.indent(
-                r.stdout, " " * 4
+            return (
+                f"{update_qty} package update{'s' if update_qty > 1 else ''} available:"
+                + textwrap.indent(r.stdout, " " * 4)
             )
         else:
             return f"{update_qty} package updates available"
@@ -162,7 +164,7 @@ def check_reboot_for_kernel() -> str | None:
     running_version = os.uname().release
     log.info(" ⤷ Got %s", running_version)
     if running_version != installed_version:
-        return "Reboot to upgrade kernel"
+        return "[!] Reboot to upgrade kernel"
     else:
         return None
 
