@@ -114,9 +114,7 @@ def check_updates() -> str | None:
         )
     except FileNotFoundError:
         log.warning("checkupdates not installed")
-        return (
-            "checkupdates program not found; please install the pacman-contrib package."
-        )
+        return "\x1b[33mcheckupdates program not found; please install the pacman-contrib package.\x1b[m"
     except subprocess.CalledProcessError as e:
         if e.returncode == 2 and not e.stdout and not e.stderr:
             log.info(" ⤷ No updates available")
