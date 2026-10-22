@@ -34,7 +34,6 @@ DISK_THRESHOLD = 75  # measured in percentage points
 
 MAX_CHECKUPDATES_LINES = 5
 
-# TODO: Confirm:
 MAIL_DIR = Path("/var/spool/mail")
 
 log = logging.getLogger("mkmotd")
@@ -155,17 +154,17 @@ def check_updates() -> str | None:
 def check_reboot_for_kernel() -> str | None:
     log.info("Fetching currently-installed kernel version ...")
     r = subprocess.run(
-        ["pacman", "-Q", "--print-format=%v", "linux"],
+        ["pacman", "--color=never", "-Q", "linux"],
         check=True,
         stdout=subprocess.PIPE,
         text=True,
         encoding="utf-8",
     )
-    installed_version = r.stdout.strip()
-    log.info(" ⤷ Got %s", installed_version)
+    installed_version = r.stdout.split()[1]
+    log.info(" ⤷ Got %r", installed_version)
     log.info("Fetching currently-running kernel version ...")
     running_version = os.uname().release
-    log.info(" ⤷ Got %s", running_version)
+    log.info(" ⤷ Got %r", running_version)
     if running_version != installed_version:
         return "[!] Reboot to upgrade kernel"
     else:
@@ -199,6 +198,7 @@ def check_disk() -> str | None:
             msgs.append(
                 f"\x1b[33mWARNING: Disk usage on {mntpoint} at {pctused}%\x1b[m"
             )
+    log.info(" ⤷ %d filesystem(s) over warning threshold", len(msgs))
     if msgs:
         return "\n\n".join(msgs)
     else:
