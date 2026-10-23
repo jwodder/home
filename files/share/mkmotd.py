@@ -22,7 +22,6 @@ import json
 import logging
 import os
 from pathlib import Path
-from shutil import disk_usage
 import subprocess
 import sys
 import tempfile
@@ -117,10 +116,13 @@ def check_updates() -> str | None:
         )
     except FileNotFoundError:
         log.warning("checkupdates not installed")
-        return "\x1b[33mcheckupdates program not found; please install the pacman-contrib package.\x1b[m"
+        return (
+            "\x1b[33mcheckupdates program not found;"
+            " please install the pacman-contrib package.\x1b[m"
+        )
     except subprocess.CalledProcessError as e:
         if e.returncode == 2 and not e.stdout and not e.stderr:
-            log.info(" ⤷ No updates available")
+            log.info(" ↳ No updates available")
             return None
         else:
             if e.stdout:
@@ -140,15 +142,15 @@ def check_updates() -> str | None:
     else:
         update_qty = len(r.stdout.splitlines())
         if update_qty == 0:
-            log.info(" ⤷ No updates available")
+            log.info(" ↳ No updates available")
             return None
-        elif update_qty <= MAX_CHECKUPDATES_LINES:
-            return (
-                f"{update_qty} package update{'s' if update_qty > 1 else ''} available:"
-                + textwrap.indent(r.stdout, " " * 4)
-            )
         else:
-            return f"{update_qty} package updates available"
+            log.info(" ↳ %s available", quantify(update_qty, "update"))
+            # TODO: Colorize?
+            s = quantify(update_qty, "package update") + " available"
+            if update_qty <= MAX_CHECKUPDATES_LINES:
+                s += ":\n" + textwrap.indent(r.stdout, " " * 4)
+            return s
 
 
 def check_reboot_for_kernel() -> str | None:
@@ -161,11 +163,12 @@ def check_reboot_for_kernel() -> str | None:
         encoding="utf-8",
     )
     installed_version = r.stdout.split()[1]
-    log.info(" ⤷ Got %r", installed_version)
+    log.info(" ↳ Got %r", installed_version)
     log.info("Fetching currently-running kernel version ...")
     running_version = os.uname().release
-    log.info(" ⤷ Got %r", running_version)
+    log.info(" ↳ Got %r", running_version)
     if running_version != installed_version:
+        # TODO: Colorize:
         return "[!] Reboot to upgrade kernel"
     else:
         return None
@@ -174,9 +177,13 @@ def check_reboot_for_kernel() -> str | None:
 def check_mailboxes() -> str | None:
     log.info("Checking for nonempty mailboxes ...")
     nonempty = [p.name for p in MAIL_DIR.iterdir() if p.stat().st_size > 0]
-    log.info(" ⤷ Found %d nonempty mailbox(es)", len(nonempty))
+    log.info(
+        " ↳ Found %s",
+        quantify(len(nonempty), "nonempty mailbox", plural="nonempty mailboxes"),
+    )
     if nonempty:
         nonempty.sort()
+        # TODO: Colorize?
         return "Mail for: " + " ".join(nonempty)
     else:
         return None
@@ -198,7 +205,7 @@ def check_disk() -> str | None:
             msgs.append(
                 f"\x1b[33mWARNING: Disk usage on {mntpoint} at {pctused}%\x1b[m"
             )
-    log.info(" ⤷ %d filesystem(s) over warning threshold", len(msgs))
+    log.info(" ↳ %s over warning threshold", quantify(len(msgs), "filesystem"))
     if msgs:
         return "\n\n".join(msgs)
     else:
@@ -216,6 +223,16 @@ def iter_findmnt(data: list[dict[str, Any]]) -> Iterator[tuple[str, int]]:
         yield (mntpoint, pctused)
         if subdata := fs.get("children", []):
             yield from iter_findmnt(subdata)
+
+
+def quantify(qty: int, singular: str, plural: str | None = None) -> str:
+    # cf. the humanfriendly package's pluralize() function
+    if qty == 1:
+        return f"{qty} {singular}"
+    elif plural is None:
+        return f"{qty} {singular}s"
+    else:
+        return f"{qty} {plural}"
 
 
 if __name__ == "__main__":
