@@ -163,11 +163,12 @@ def check_reboot_for_kernel() -> str | None:
         encoding="utf-8",
     )
     installed_version = r.stdout.split()[1]
-    log.info(" ↳ Got %r", installed_version)
+    iv2 = installed_version.replace(".arch", "-arch")
+    log.info(" ↳ Got %r → %r", installed_version, iv2)
     log.info("Fetching currently-running kernel version ...")
     running_version = os.uname().release
     log.info(" ↳ Got %r", running_version)
-    if running_version != installed_version:
+    if running_version != iv2:
         # TODO: Colorize:
         return "[!] Reboot to upgrade kernel"
     else:
