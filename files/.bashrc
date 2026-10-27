@@ -4,7 +4,7 @@ export GPG_TTY="$(tty)"
 
 alias tmuxup='tmux new-session -A -s main'
 {%@@ if profile == "macOS" @@%}
-alias toc='ls -ACFG'
+alias toc='LC_ALL=C.UTF-8 ls -ACFG'
 {%@@ else @@%}
 alias toc='ls -ACF --color'
 {%@@ endif @@%}
