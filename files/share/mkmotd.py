@@ -4,10 +4,11 @@
 # dependencies = []
 # ///
 
-# - firmware updates available with `fwupd`
+# TODO:
+# - Show firmware updates available with `fwupd`
 #     - Cf.
 #       <https://wiki.archlinux.org/title/Talk:Fwupd#RFC:_new_section_about_auto-update_checking>
-# - notices about pacnew files?
+# - Show notices about pacnew files?
 
 from __future__ import annotations
 import argparse
@@ -83,10 +84,10 @@ def main() -> None:
     with outfp:
         nonempty = False
         for check in [
+            check_disk,
+            check_mailboxes,
             check_updates,
             check_reboot_for_kernel,
-            check_mailboxes,
-            check_disk,
         ]:
             if (s := check()) is not None:
                 nonempty = True
@@ -164,8 +165,7 @@ def check_reboot_for_kernel() -> str | None:
     running_version = os.uname().release
     log.info(" ↳ Got %r", running_version)
     if running_version != iv2:
-        # TODO: Colorize:
-        return "[!] Reboot to upgrade kernel"
+        return "\x1b[1;31m[!]\x1b[m \x1b[31mReboot to upgrade kernel\x1b[m"
     else:
         return None
 
@@ -198,7 +198,7 @@ def check_disk() -> str | None:
     for mntpoint, pctused in iter_findmnt(mntdata["filesystems"]):
         if pctused >= DISK_THRESHOLD:
             msgs.append(
-                f"\x1b[33mWARNING: Disk usage on {mntpoint} at {pctused}%\x1b[m"
+                f"\x1b[1;33m[!]\e[m \x1b[33mWARNING: Disk usage on {mntpoint} at {pctused}%\x1b[m"
             )
     log.info(" ↳ %s over warning threshold", quantify(len(msgs), "filesystem"))
     if msgs:
