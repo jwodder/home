@@ -230,23 +230,10 @@ def quantify(qty: int, singular: str, plural: str | None = None) -> str:
         return f"{qty} {plural}"
 
 
-colors = set(range(1, 15))
-colors.update(range(26, 52))
-colors.update(range(58, 232))
-colors.remove(7)
-colors.remove(58)
-colors.remove(59)
-colors.remove(60)
-colors.remove(61)
-colors.remove(62)
-colors.remove(88)
-colors.remove(89)
-colors.remove(90)
-colors.remove(91)
-colors.remove(92)
-colors.remove(93)
-colors.remove(124)
-COLORS = sorted(colors)
+COLORS = sorted(
+    {*range(1, 15), *range(26, 52), *range(58, 232)}
+    - {7, *range(58, 63), *range(88, 94), 124}
+)
 
 
 def highlight(s: str) -> str:
