@@ -19,7 +19,7 @@ config:
 actions:
   post:
     private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
-    enable-mkmotd: 'systemctl --user enable --now mkmotd.timer'
+    enable-mkmotd: 'systemctl --user daemon-reload && systemctl --user enable --now mkmotd.timer'
 
 dynvariables:
   lesspath: command -v less
