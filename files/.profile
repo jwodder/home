@@ -10,11 +10,7 @@ fi
 {%@@ endif @@%}
 umask 0022
 
-{%@@ if profile == "macOS" @@%}
-export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
-{%@@ else @@%}
 export LANG=C.UTF-8 LC_ALL=C.UTF-8
-{%@@ endif @@%}
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:{%@@ if profile == "macOS" @@%}/usr/local/sbin:{%@@ endif @@%}$PATH"
 
 export PAGER={{@@ lesspath|shlex_quote @@}}
