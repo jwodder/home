@@ -1,0 +1,11 @@
+[Unit]
+Description=Generate custom MOTD (timer)
+
+[Timer]
+Unit=mkmotd.service
+OnCalendar=hourly
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

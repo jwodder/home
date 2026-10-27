@@ -1,0 +1,8 @@
+[Unit]
+Description=Generate custom MOTD
+
+[Service]
+Type=oneshot
+ExecStart=%h/share/mkmotd.py -v -o %h/.local/etc/motd
+# Requires libnotify:
+#ExecStopPost=/bin/sh -c 'if [ "$$SERVICE_RESULT" != success ]; then notify-send mkmotd "mkmotd.service run failed"; fi'

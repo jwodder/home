@@ -19,6 +19,7 @@ config:
 actions:
   post:
     private-dir: 'chmod 0700 {{@@ dirname(_dotfile_abs_dst) @@}}'
+    enable-mkmotd: 'systemctl --user daemon-reload && systemctl --user enable --now mkmotd.timer'
 
 dynvariables:
   lesspath: command -v less
@@ -46,6 +47,14 @@ dotfiles:
     src: .config/ripgrep.rc
     dst: ~/.config/ripgrep.rc
     template: true
+  f_config_systemd_user_mkmotd.service:
+    src: .config/systemd/user/mkmotd.service
+    dst: ~/.config/systemd/user/mkmotd.service
+  f_config_systemd_user_mkmotd.timer:
+    src: .config/systemd/user/mkmotd.timer
+    dst: ~/.config/systemd/user/mkmotd.timer
+    actions:
+      - enable-mkmotd
   f_config_wezterm_wezterm.lua:
     src: .config/wezterm/wezterm.lua
     dst: ~/.config/wezterm/wezterm.lua
@@ -215,6 +224,10 @@ dotfiles:
     src: bin/with-tab-title
     dst: ~/bin/with-tab-title
     chmod: '0755'
+  f_share_mkmotd.py:
+    src: share/mkmotd.py
+    dst: ~/share/mkmotd.py
+    chmod: '0755'
   f_share_project-as-title.py:
     src: share/project-as-title.py
     dst: ~/share/project-as-title.py
@@ -299,11 +312,14 @@ profiles:
     include:
       - base
     dotfiles:
+      - f_config_systemd_user_mkmotd.service
+      - f_config_systemd_user_mkmotd.timer
       - f_config_wezterm_wezterm.lua
       - f_bin_clear
       - f_bin_pac-download
       - f_bin_with-tab-title
       - f_dircolors
+      - f_share_mkmotd.py
 
   arch-mail:
     include:
