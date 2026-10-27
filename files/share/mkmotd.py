@@ -4,13 +4,9 @@
 # dependencies = []
 # ///
 
-# - welcome message?
-#     - hostname
-#     - distro name (styled using `ANSI_COLOR` from `/etc/os-release`?)
-# - available firmware updates with `fwupd`
+# - firmware updates available with `fwupd`
 #     - Cf.
 #       <https://wiki.archlinux.org/title/Talk:Fwupd#RFC:_new_section_about_auto-update_checking>
-# - IP addresses?
 # - notices about pacnew files?
 
 from __future__ import annotations
@@ -146,7 +142,6 @@ def check_updates() -> str | None:
             return None
         else:
             log.info(" ↳ %s available", quantify(update_qty, "update"))
-            # TODO: Colorize?
             s = quantify(update_qty, "package update") + " available"
             if update_qty <= MAX_CHECKUPDATES_LINES:
                 s += ":\n" + textwrap.indent(r.stdout, " " * 4)
@@ -184,8 +179,7 @@ def check_mailboxes() -> str | None:
     )
     if nonempty:
         nonempty.sort()
-        # TODO: Colorize?
-        return "Mail for: " + " ".join(nonempty)
+        return "Mail for: " + " ".join(map(highlight, nonempty))
     else:
         return None
 
@@ -234,6 +228,36 @@ def quantify(qty: int, singular: str, plural: str | None = None) -> str:
         return f"{qty} {singular}s"
     else:
         return f"{qty} {plural}"
+
+
+colors = set(range(1, 15))
+colors.update(range(26, 52))
+colors.update(range(58, 232))
+colors.remove(7)
+colors.remove(58)
+colors.remove(59)
+colors.remove(60)
+colors.remove(61)
+colors.remove(62)
+colors.remove(88)
+colors.remove(89)
+colors.remove(90)
+colors.remove(91)
+colors.remove(92)
+colors.remove(93)
+colors.remove(124)
+COLORS = sorted(colors)
+
+
+def highlight(s: str) -> str:
+    # <https://github.com/osa1/tiny/blob/07b0ceb6b0fe92146f28f2bde03938daad422ad0/crates/libtiny_tui/src/messaging.rs#L360>
+    # Note that we can't use Python's hash() function, as that's randomized on
+    # each program invocation.
+    h = 5381
+    for ch in s:
+        h = h * 33 + ord(ch)
+    index = COLORS[h % len(COLORS)]
+    return f"\x1b[38:5:{index}m{s}\x1b[m"
 
 
 if __name__ == "__main__":
