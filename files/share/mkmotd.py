@@ -92,11 +92,11 @@ def main() -> None:
                 nonempty = True
                 print(s.rstrip("\n") + "\n\n", end="", file=outfp)
         nowstamp = datetime.now().astimezone().isoformat(sep=" ", timespec="seconds")
-        # TODO: Colorize the final line:
         if nonempty:
-            print(f"[MOTD generated at {nowstamp}]", file=outfp)
+            lastmsg = f"[MOTD generated at {nowstamp}]"
         else:
-            print(f"[No news as of {nowstamp}]", file=outfp)
+            lastmsg = f"[No news as of {nowstamp}]"
+        print(f"\x1b[38;2;255;255;96m{lastmsg}\x1b[m", file=outfp)
 
 
 def check_updates() -> str | None:
