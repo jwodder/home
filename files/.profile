@@ -1,5 +1,5 @@
 {%@@ if profile == "arch" or profile == "arch-mail" @@%}
-if test -e ~/.local/etc/motd
+if test -n "$PS1" && test -e ~/.local/etc/motd
 then cat ~/.local/etc/motd
 fi
 
