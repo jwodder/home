@@ -8,7 +8,6 @@
 # - Show firmware updates available with `fwupd`
 #     - Cf.
 #       <https://wiki.archlinux.org/title/Talk:Fwupd#RFC:_new_section_about_auto-update_checking>
-# - Show notices about pacnew files?
 
 from __future__ import annotations
 import argparse
@@ -30,6 +29,8 @@ DISK_THRESHOLD = 75  # measured in percentage points
 
 MAX_CHECKUPDATES_LINES = 5
 
+MAX_PACDIFF_LINES = 5
+
 MAIL_DIR = Path("/var/spool/mail")
 
 log = logging.getLogger("mkmotd")
@@ -37,27 +38,26 @@ log = logging.getLogger("mkmotd")
 
 class AtomicWriter:
     def __init__(self, target: Path) -> None:
-        self.target = target
         target.parent.mkdir(parents=True, exist_ok=True)
         fd, tmppath = tempfile.mkstemp(
             dir=target.parent,
             prefix=f".{target.name}-",
         )
-        os.close(fd)
+        self.target = target
+        self.fp = open(fd, encoding="utf-8")
         self.tmppath = Path(tmppath)
 
     def __enter__(self) -> AtomicWriter:
-        self.fp = self.tmppath.open("w", encoding="utf-8")
         return self
 
     def __exit__(
         self,
-        _exc_type: type[BaseException] | None,
-        exc_val: BaseException | None,
+        exc_type: type[BaseException] | None,
+        _exc_val: BaseException | None,
         _exc_tb: TracebackType | None,
     ) -> None:
         self.fp.close()
-        if exc_val is None:
+        if exc_type is None:
             self.tmppath.replace(self.target)
         else:
             self.tmppath.unlink()
@@ -87,6 +87,7 @@ def main() -> None:
             check_disk,
             check_mailboxes,
             check_updates,
+            check_pacdiff,
             check_reboot_for_kernel,
         ]:
             if (s := check()) is not None:
@@ -149,6 +150,33 @@ def check_updates() -> str | None:
             return s
 
 
+def check_pacdiff() -> str | None:
+    log.info("Checking for pacnew & pacsave files ...")
+    try:
+        r = subprocess.run(
+            ["pacdiff", "--output"],
+            check=True,
+            stdout=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+        )
+    except FileNotFoundError:
+        # pacman-contrib package not installed, in which case check_updates()
+        # will give a warning
+        return None
+    else:
+        pacdiff_qty = len(r.stdout.splitlines())
+        if pacdiff_qty == 0:
+            log.info(" ↳ No pacnew or pacsave files found")
+            return None
+        else:
+            log.info(" ↳ %s found", quantify(pacdiff_qty, "pacnew and/or pacsave file"))
+            s = quantify(pacdiff_qty, "pacnew/pacsave file") + " needing attention"
+            if pacdiff_qty <= MAX_PACDIFF_LINES:
+                s += ":\n" + textwrap.indent(r.stdout, " " * 4)
+            return s
+
+
 def check_reboot_for_kernel() -> str | None:
     log.info("Fetching currently-installed kernel version ...")
     r = subprocess.run(
@@ -198,7 +226,8 @@ def check_disk() -> str | None:
     for mntpoint, pctused in iter_findmnt(mntdata["filesystems"]):
         if pctused >= DISK_THRESHOLD:
             msgs.append(
-                f"\x1b[1;33m[!]\e[m \x1b[33mWARNING: Disk usage on {mntpoint} at {pctused}%\x1b[m"
+                "\x1b[1;33m[!]\x1b[m \x1b[33mWARNING:"
+                f" Disk usage on {mntpoint} at {pctused}%\x1b[m"
             )
     log.info(" ↳ %s over warning threshold", quantify(len(msgs), "filesystem"))
     if msgs:
