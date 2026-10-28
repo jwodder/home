@@ -8,6 +8,9 @@
 # - Show firmware updates available with `fwupd`
 #     - Cf.
 #       <https://wiki.archlinux.org/title/Talk:Fwupd#RFC:_new_section_about_auto-update_checking>
+# - Figure out why `checkupdates` isn't emitting color sequences even though it
+#   does when run from the terminal with redirected output
+#  - Is the program checking whether stderr is also redirected?
 
 from __future__ import annotations
 import argparse

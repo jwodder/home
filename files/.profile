@@ -1,3 +1,9 @@
+{%@@ if profile == "arch" or profile == "arch-mail" @@%}
+if test -e ~/.local/etc/motd
+then cat ~/.local/etc/motd
+fi
+
+{%@@ endif @@%}
 if [ -z "$_PROFILE_SOURCED" ]
 then export _PROFILE_SOURCED=1
 else export _PROFILE_SOURCED="$((_PROFILE_SOURCED + 1))"
@@ -10,12 +16,6 @@ fi
 {%@@ endif @@%}
 umask 0022
 
-{%@@ if profile == "arch" or profile == "arch-mail" @@%}
-if test -e ~/.local/etc/motd
-then cat ~/.local/etc/motd
-fi
-
-{%@@ endif @@%}
 export LANG=C.UTF-8 LC_ALL=C.UTF-8
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:{%@@ if profile == "macOS" @@%}/usr/local/sbin:{%@@ endif @@%}$PATH"
 
