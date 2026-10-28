@@ -8,9 +8,6 @@
 # - Show firmware updates available with `fwupd`
 #     - Cf.
 #       <https://wiki.archlinux.org/title/Talk:Fwupd#RFC:_new_section_about_auto-update_checking>
-# - Figure out why `checkupdates` isn't emitting color sequences even though it
-#   does when run from the terminal with redirected output
-#  - Is the program checking whether stderr is also redirected?
 
 from __future__ import annotations
 import argparse
@@ -111,7 +108,6 @@ def check_updates() -> str | None:
             ["checkupdates"],
             check=True,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
             text=True,
             encoding="utf-8",
         )
@@ -122,24 +118,11 @@ def check_updates() -> str | None:
             " please install the pacman-contrib package.\x1b[m"
         )
     except subprocess.CalledProcessError as e:
-        if e.returncode == 2 and not e.stdout and not e.stderr:
+        if e.returncode == 2:
             log.info(" ↳ No updates available")
             return None
         else:
-            if e.stdout:
-                output = "Stdout:\n\n" + textwrap.indent(e.stdout, " " * 4)
-            else:
-                output = "Stdout: <empty>"
-            if e.stderr:
-                output += "\n\nStderr:\n\n" + textwrap.indent(e.stderr, " " * 4)
-            else:
-                output += "\n\nStderr: <empty>"
-            log.error(
-                "`checkupdates` exited with return code %d:\n\n%s",
-                e.returncode,
-                output,
-            )
-            sys.exit(e.returncode)
+            raise e
     else:
         update_qty = len(r.stdout.splitlines())
         if update_qty == 0:
