@@ -44,7 +44,7 @@ class AtomicWriter:
             prefix=f".{target.name}-",
         )
         self.target = target
-        self.fp = open(fd, encoding="utf-8")
+        self.fp = open(fd, "w", encoding="utf-8")
         self.tmppath = Path(tmppath)
 
     def __enter__(self) -> AtomicWriter:
