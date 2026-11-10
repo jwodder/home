@@ -98,7 +98,7 @@ def main() -> None:
             lastmsg = f"[MOTD generated at {nowstamp}]"
         else:
             lastmsg = f"[No news as of {nowstamp}]"
-        print(f"\x1b[38;2;255;255;96m{lastmsg}\x1b[m", file=outfp)
+        print(f"\x1b[38:2:255:255:96m{lastmsg}\x1b[m", file=outfp)
 
 
 def check_updates() -> str | None:
